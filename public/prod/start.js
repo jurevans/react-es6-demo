@@ -44,10 +44,10 @@ if(k&&j[k]&&(e||j[k].data)||void 0!==d||"string"!=typeof b)return k||(k=i?a[h]=c
  var assetsDirectory = '';
 var DEEPLINK_DIR = DEEPLINK_DIR || '';
 var SiteConfig = {
-	version: '0.1.1',
+	version: '0.4.1',
     assetsDirectory: assetsDirectory,
     webRoot: DEEPLINK_DIR,
-		loginUsername: 'test.instructor@macmillan.com',
+	loginUsername: 'test.instructor@macmillan.com',
     loginPassword: '2O17_R0cks!'
 };
 
