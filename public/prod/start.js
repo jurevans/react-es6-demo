@@ -44,10 +44,10 @@ if(k&&j[k]&&(e||j[k].data)||void 0!==d||"string"!=typeof b)return k||(k=i?a[h]=c
  var assetsDirectory = '';
 var DEEPLINK_DIR = DEEPLINK_DIR || '';
 var SiteConfig = {
-	version: '0.1.1',
+	version: '0.4.1',
     assetsDirectory: assetsDirectory,
     webRoot: DEEPLINK_DIR,
-		loginUsername: 'test.instructor@macmillan.com',
+	loginUsername: 'test.instructor@macmillan.com',
     loginPassword: '2O17_R0cks!'
 };
 
@@ -201,14 +201,6 @@ var Nux = (function(){
 var rc = {};
 /*! dc_header_v1.js */
 var dc = {};
-/*! home/home.jsx */
-rc.homePageComponent = React.createClass({
-    displayName: "homePageComponent",
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        return React.createElement("div", { id: "homepage" });
-    }
-});
 /*! dashboard/dashboard.jsx */
 rc.dashboardPageComponent = React.createClass({
     displayName: 'dashboardPageComponent',
@@ -252,6 +244,14 @@ rc.dashboardPageComponent = React.createClass({
             mycourses.push(React.createElement(rc.dashboardCourseComponent, { ref: course.course_id, key: course.course_id, course: course }));
         });
         return React.createElement('div', { id: 'dashboard' });
+    }
+});
+/*! home/home.jsx */
+rc.homePageComponent = React.createClass({
+    displayName: "homePageComponent",
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement("div", { id: "homepage" });
     }
 });
 /*! login/login.jsx */
@@ -482,9 +482,13 @@ rc.header = React.createClass({
     displayName: "header",
     render: function render() {
         return React.createElement(
-            "h2",
-            null,
-            "Backbone Multipage Boilerplate"
+            "div",
+            { className: "container" },
+            React.createElement(
+                "a",
+                { href: "#" },
+                React.createElement("img", { src: SiteConfig.assetsDirectory + 'images/site/logo-macmillan-learning.jpg' })
+            )
         );
     }
 });
@@ -744,10 +748,6 @@ routerSetupConfig.initialize = function() {
     ReactDOM.render(
         React.createElement( rc.header ),
         document.getElementById('headercontainer')
-    );
-    ReactDOM.render(
-        React.createElement( rc.nav ),
-        document.getElementById('navcontainer')
     );
     ReactDOM.render(
         React.createElement( rc.mainmodal ),

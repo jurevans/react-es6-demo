@@ -6,15 +6,6 @@ var rc = {};
 /*! dc_header_v1.js */
 var dc = {};
 
-"use strict";
-/*! home/home.jsx */
-rc.homePageComponent = React.createClass({
-    displayName: "homePageComponent",
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        return React.createElement("div", { id: "homepage" });
-    }
-});
 'use strict';
 /*! dashboard/dashboard.jsx */
 rc.dashboardPageComponent = React.createClass({
@@ -59,6 +50,15 @@ rc.dashboardPageComponent = React.createClass({
             mycourses.push(React.createElement(rc.dashboardCourseComponent, { ref: course.course_id, key: course.course_id, course: course }));
         });
         return React.createElement('div', { id: 'dashboard' });
+    }
+});
+"use strict";
+/*! home/home.jsx */
+rc.homePageComponent = React.createClass({
+    displayName: "homePageComponent",
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement("div", { id: "homepage" });
     }
 });
 'use strict';
@@ -295,9 +295,13 @@ rc.header = React.createClass({
     displayName: "header",
     render: function render() {
         return React.createElement(
-            "h2",
-            null,
-            "Backbone Multipage Boilerplate"
+            "div",
+            { className: "container" },
+            React.createElement(
+                "a",
+                { href: "#" },
+                React.createElement("img", { src: SiteConfig.assetsDirectory + 'images/site/logo-macmillan-learning.jpg' })
+            )
         );
     }
 });

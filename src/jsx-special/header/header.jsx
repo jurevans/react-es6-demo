@@ -2,7 +2,9 @@ rc.header = React.createClass({
     render:function(){
         return (
 
-			<h2>Backbone Multipage Boilerplate</h2>
+			<div className="container">
+                <a href="#"><img src={SiteConfig.assetsDirectory + 'images/site/logo-macmillan-learning.jpg'} /></a>
+            </div>
 
         );
     }
