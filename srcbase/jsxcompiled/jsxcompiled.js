@@ -49,7 +49,16 @@ rc.dashboardPageComponent = React.createClass({
         _.each(app.stores.dashboard.mycourses.courses, function (course) {
             mycourses.push(React.createElement(rc.dashboardCourseComponent, { ref: course.course_id, key: course.course_id, course: course }));
         });
-        return React.createElement('div', { id: 'dashboard' });
+        return React.createElement(
+            'div',
+            { id: 'dashboard', className: 'container' },
+            React.createElement(
+                'header',
+                { className: 'dashHeader' },
+                'My courses'
+            ),
+            mycourses
+        );
     }
 });
 "use strict";
@@ -141,6 +150,63 @@ rc.loginPageComponent = React.createClass({
                         buttonText: 'Sign in',
                         enabled: this.state.valid
                     })
+                )
+            )
+        );
+    }
+});
+'use strict';
+/*! dashboard/childcomponents/dashboardCourse.jsx */
+rc.dashboardCourseComponent = React.createClass({
+    displayName: 'dashboardCourseComponent',
+    getDefaultProps: function getDefaultProps() {
+        return {
+            course: {
+                course_id: '',
+                title: '',
+                book: '',
+                product: '',
+                cover: SiteConfig.assetsDirectory + 'images/site/bookcover.png'
+            }
+        };
+    },
+    render: function render() {
+        return React.createElement(
+            'div',
+            { className: 'course' },
+            React.createElement(
+                'div',
+                { className: 'bookcover' },
+                React.createElement('img', { src: this.props.course.cover ? this.props.course.cover : SiteConfig.assetsDirectory + 'images/site/bookcover.png' })
+            ),
+            React.createElement(
+                'div',
+                { className: 'courseinfo' },
+                React.createElement(
+                    'span',
+                    { className: 'coursetitle' },
+                    this.props.course.title
+                ),
+                React.createElement('br', null),
+                React.createElement(
+                    'span',
+                    { className: 'coursebook' },
+                    this.props.course.book
+                ),
+                React.createElement('br', null),
+                React.createElement(
+                    'span',
+                    { className: 'courseproduct' },
+                    this.props.course.product
+                )
+            ),
+            React.createElement(
+                'div',
+                { className: 'coursebutton' },
+                React.createElement(
+                    'button',
+                    { className: 'enterproduct' },
+                    'Enter product'
                 )
             )
         );
@@ -289,21 +355,50 @@ rc.inputFieldComponent = React.createClass({
         );
     }
 });
-"use strict";
+'use strict';
 /*! header/header.jsx */
 rc.header = React.createClass({
-    displayName: "header",
-    render: function render() {
-        return React.createElement(
-            "div",
-            { className: "container" },
-            React.createElement(
-                "a",
-                { href: "#" },
-                React.createElement("img", { src: SiteConfig.assetsDirectory + 'images/site/logo-macmillan-learning.jpg' })
-            )
-        );
-    }
+  displayName: 'header',
+  getInitialState: function getInitialState() {
+    return {
+      loggedin: SiteConfig.loggedin
+    };
+  },
+  signOut: function signOut(e) {
+    window.location.href = '/#/login';
+  },
+  componentDidMount: function componentDidMount() {
+    var self = this;
+    grandCentral.off('routeChange').on('routeChange', function () {
+      self.setState({ loggedin: SiteConfig.loggedin });
+    });
+  },
+  render: function render() {
+    return React.createElement(
+      'div',
+      { className: 'container' },
+      React.createElement(
+        'a',
+        { className: 'logo', href: '#' },
+        React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/site/logo-macmillan-learning.jpg' })
+      ),
+      React.createElement(
+        'div',
+        { id: 'accountSection', className: this.state.loggedin },
+        React.createElement(
+          'span',
+          { className: 'username' },
+          'Demo User'
+        ),
+        React.createElement('span', { className: 'itemDivider' }),
+        React.createElement(
+          'span',
+          { className: 'logout', onClick: this.signOut },
+          'Sign out'
+        )
+      )
+    );
+  }
 });
 'use strict';
 /*! loader/loader.jsx */

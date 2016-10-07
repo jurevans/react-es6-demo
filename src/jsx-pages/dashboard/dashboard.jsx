@@ -48,8 +48,9 @@ rc.dashboardPageComponent = React.createClass({
         });
 
         return (
-            <div id="dashboard">
-            	
+            <div id="dashboard" className="container">
+                <header className="dashHeader">My courses</header>
+            	{mycourses}
             </div>
         );
     }
