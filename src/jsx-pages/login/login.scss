@@ -1,0 +1,124 @@
+/* login.scss */
+
+#loginpage {
+
+    /**************/
+    /* Structural */
+    /**************/
+
+    @media (max-width: 767px) {
+        form {
+            width: 320px;
+        }
+    }
+
+    @media (min-width: 768px) and (max-width: 991px) {
+        form {
+            width: 320px;
+        }
+    }
+
+    @media (min-width: 992px) and (max-width: 1199px) {
+        form {
+            width: 320px;
+        }
+    }
+
+    @media (min-width: 1200px) {
+        form {
+            width: 320px;
+        }
+    }
+
+    /**************/
+    /* Decorative */
+    /**************/
+
+    text-align: center;
+
+    form {
+        display: inline-block;
+        float: none;
+        text-align: left;
+
+        fieldset {
+            position: relative;
+            border: 1px solid #999;
+            background-color: $backgroundGray;
+            padding: 45px 35px 25px 35px;
+            font-size: 9pt;
+        }
+
+        legend {
+            span {
+                position: absolute;
+                top: 15px;
+                font-size: 17pt;
+            }
+        }
+
+        label {
+            display: block;
+            color: $labelGray;
+            padding: 4px 0;
+        }
+
+        input {
+            width: 100%;
+            border: 1px solid $inputBorderGray;
+            padding: 5px;
+        }
+
+        button {
+            color: $buttonForegroundWhite;
+            background: $buttonBackgroundBlue !important;
+            border: 0;
+            width: auto;
+            padding: 6px;
+
+            &:disabled {
+                background: $buttonDisabledBackgroundBlue !important;
+                color: #EAEEF1;
+            }
+        }
+
+    }
+
+    .forgot-credentials {
+        text-align: right;
+
+        & > a {
+            display: inline !important;
+            color: #1070b0;
+        }
+
+        div {
+            border: 1px solid $borderGray;
+            padding: 10px;
+            color: $borderGray;
+            text-align: left;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+    }
+
+    .error {
+        label {
+            color: $errorRed;
+        }
+
+        input {
+            border: 1px solid $errorRed;
+        }
+    }
+
+    .error-show {
+        color: $errorRed;
+        font-weight: bold;
+    }
+
+    .error-hide {
+        display: none;
+    }
+
+}

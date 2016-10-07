@@ -44,9 +44,11 @@ if(k&&j[k]&&(e||j[k].data)||void 0!==d||"string"!=typeof b)return k||(k=i?a[h]=c
  var assetsDirectory = '';
 var DEEPLINK_DIR = DEEPLINK_DIR || '';
 var SiteConfig = {
-		version: '0.2.1',
+	version: '0.1.1',
     assetsDirectory: assetsDirectory,
-    webRoot: DEEPLINK_DIR
+    webRoot: DEEPLINK_DIR,
+		loginUsername: 'test.instructor@macmillan.com',
+    loginPassword: '2O17_R0cks!'
 };
 
 /*! BBPreload.js */
@@ -79,6 +81,35 @@ var BBPreload = ( function() {
         batchpreload : batchpreload
 	};
 } )();
+/*! FormValidation.js */
+var FormValidation = (function() {
+    function validateEmail(value) {
+        var re = /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/;
+        return re.test(value);
+    }
+    function validatePhoneNumber(value) {
+        var re = /^(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?$/;
+        return re.test(value);
+    }
+    function validateZipCode(value) {
+        var re = /^(\d{5}-\d{4})|(\d{5})$/g;
+        return re.test(value);
+    }
+    function validatePassword(value, callback) {
+        return value.length && callback.call(this, value);
+    }
+    function validate(value, matchValue) {
+        return value === matchValue;
+    }
+    return {
+        validate : validate,
+        validateEmail : validateEmail,
+        validateZipCode : validateZipCode,
+        validatePassword : validatePassword,
+        validatePhoneNumber : validatePhoneNumber
+    };
+})();
+
 /*! GATracker_v1.js */
  var GATracker = (function(){
 	function initGA(gaid){
@@ -179,6 +210,229 @@ rc.homePageComponent = React.createClass({
         return React.createElement("div", { id: "homepage" });
     }
 });
+/*! login/login.jsx */
+rc.loginPageComponent = React.createClass({
+    displayName: 'loginPageComponent',
+    getInitialState: function getInitialState() {
+        return {
+            valid: true
+        };
+    },
+    handleSubmit: function handleSubmit(e) {
+        e.preventDefault();
+        var emailAddress = SiteConfig.loginUsername;
+        var password = SiteConfig.loginPassword;
+        var isEmailValid = FormValidation.validate(this.refs.email.state.value, emailAddress);
+        var isPasswordValid = FormValidation.validate(this.refs.password.state.value, password);
+        var isFormValid = isEmailValid && isPasswordValid;
+        grandCentral.trigger('to_inputField_email', { valid: isEmailValid });
+        grandCentral.trigger('to_inputField_password', { valid: isPasswordValid });
+        grandCentral.trigger('to_button', { enabled: isFormValid });
+        grandCentral.trigger('to_errorMessage', { show: !isFormValid });
+        if (isFormValid) {
+            this.postForm();
+        }
+    },
+    postForm: function postForm() {
+        var data = {
+            email: this.refs.email.state.value,
+            password: this.refs.password.value
+        };
+        window.location.href = '/#/dashboard';
+    },
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement(
+            'div',
+            { id: 'loginpage', className: 'container' },
+            React.createElement(
+                'form',
+                { onSubmit: this.handleSubmit,
+                    name: 'loginform', action: '#', method: 'post' },
+                React.createElement(
+                    'fieldset',
+                    { name: 'login' },
+                    React.createElement(
+                        'legend',
+                        null,
+                        React.createElement(
+                            'span',
+                            null,
+                            'Sign in'
+                        )
+                    ),
+                    React.createElement(rc.inputFieldComponent, {
+                        ref: 'email',
+                        type: 'email',
+                        name: 'email',
+                        labelText: 'Email address:',
+                        errorClass: 'error'
+                    }),
+                    React.createElement(rc.inputFieldComponent, {
+                        ref: 'password',
+                        name: 'password',
+                        type: 'password',
+                        labelText: 'Password:',
+                        errorClass: 'error'
+                    }),
+                    React.createElement(rc.inlineMessageComponent, {
+                        ref: 'forgotComponent',
+                        linkText: 'Forgot credentials?',
+                        copyText: 'To get the current username and password, contact your sales rep.'
+                    }),
+                    React.createElement(rc.errorMessageComponent, {
+                        message: 'Invalid username or password.',
+                        className: 'error-message'
+                    }),
+                    React.createElement(rc.buttonComponent, {
+                        buttonName: 'submit',
+                        buttonText: 'Sign in',
+                        enabled: this.state.valid
+                    })
+                )
+            )
+        );
+    }
+});
+/*! forms/button.jsx */
+rc.buttonComponent = React.createClass({
+    displayName: 'buttonComponent',
+    getInitialState: function getInitialState() {
+        return {
+            enabled: true
+        };
+    },
+    componentDidMount: function componentDidMount() {
+        var self = this;
+        grandCentral.on('to_button', function (data) {
+            self.setState({
+                enabled: data.enabled
+            });
+        });
+    },
+    handleClick: function handleClick(name, e) {
+        e.preventDefault();
+    },
+    render: function render() {
+        return React.createElement(
+            'p',
+            null,
+            React.createElement(
+                'button',
+                {
+                    name: this.props.buttonName,
+                    disabled: !this.state.enabled },
+                this.props.buttonText
+            )
+        );
+    }
+});
+/*! forms/errormessage.jsx */
+rc.errorMessageComponent = React.createClass({
+    displayName: 'errorMessageComponent',
+    getInitialState: function getInitialState() {
+        return {
+            show: false
+        };
+    },
+    componentDidMount: function componentDidMount() {
+        var self = this;
+        grandCentral.on('to_errorMessage', function (data) {
+            self.setState({
+                show: data.show
+            });
+        });
+    },
+    handleClick: function handleClick(name, e) {
+        e.preventDefault();
+    },
+    render: function render() {
+        var className = !this.state.show ? 'error-hide' : 'error-show';
+        return React.createElement(
+            'p',
+            { className: className },
+            this.props.message
+        );
+    }
+});
+/*! forms/inlinemessage.jsx */
+rc.inlineMessageComponent = React.createClass({
+    displayName: "inlineMessageComponent",
+    getInitialState: function getInitialState() {
+        return {
+            isClicked: false
+        };
+    },
+    handleClick: function handleClick(e) {
+        e.preventDefault();
+        this.setState({
+            isClicked: true
+        });
+    },
+    render: function render() {
+        var partial = !this.state.isClicked ? React.createElement(
+            "a",
+            { href: "#", onClick: this.handleClick },
+            this.props.linkText
+        ) : React.createElement(
+            "div",
+            null,
+            this.props.copyText
+        );
+        return React.createElement(
+            "p",
+            { className: "forgot-credentials" },
+            partial
+        );
+    }
+});
+/*! forms/inputfield.jsx */
+rc.inputFieldComponent = React.createClass({
+    displayName: 'inputFieldComponent',
+    getInitialState: function getInitialState() {
+        return {
+            value: '',
+            valid: true
+        };
+    },
+    componentDidMount: function componentDidMount() {
+        var self = this;
+        grandCentral.on('to_inputField_' + this.props.name, function (data) {
+            self.setState({
+                value: self.state.value,
+                valid: data.valid
+            });
+        });
+    },
+    handleChange: function handleChange(name, e) {
+        var value = e.target.value;
+        this.setState({
+            value: value,
+            valid: typeof this.props.validate !== 'undefined' ? this.props.validate.call(this, value) : true
+        });
+        grandCentral.trigger('to_button', { enabled: true });
+        grandCentral.trigger('to_errorMessage', { show: false });
+    },
+    render: function render() {
+        var errorClass = this.state.valid ? null : this.props.errorClass;
+        return React.createElement(
+            'p',
+            { className: errorClass },
+            React.createElement(
+                'label',
+                { htmlFor: this.props.name },
+                this.props.labelText
+            ),
+            React.createElement('input', {
+                name: this.props.name,
+                type: this.props.type,
+                required: this.props.required,
+                value: this.state.value,
+                maxLength: this.props.maxLength,
+                onChange: this.handleChange.bind(null, this) })
+        );
+    }
+});
 /*! header/header.jsx */
 rc.header = React.createClass({
     displayName: "header",
@@ -187,52 +441,6 @@ rc.header = React.createClass({
             "h2",
             null,
             "Backbone Multipage Boilerplate"
-        );
-    }
-});
-/*! loader/loader.jsx */
-rc.loader = React.createClass({
-    displayName: 'loader',
-    stack: [],
-    getInitialState: function getInitialState() {
-        return {
-            show: false
-        };
-    },
-    componentDidMount: function componentDidMount(currentPage) {
-        var self = this;
-        grandCentral.off('loaderStart').on('loaderStart', function (uniqueString) {
-            if ($.inArray(uniqueString, self.stack) == -1) {
-                console.log('loaderStart(' + uniqueString + ')');
-                self.stack.push(uniqueString);
-                self.setState({ show: true });
-            }
-        });
-        grandCentral.off('loaderEnd').on('loaderEnd', function (uniqueString) {
-            var i = $.inArray(uniqueString, self.stack);
-            if (i > -1) {
-                self.stack.splice(i, 1);
-                console.log('loaderEnd(' + uniqueString + ')');
-            }
-            if (self.stack.length === 0) {
-                self.setState({ show: false });
-            }
-        });
-    },
-    reset: function reset() {
-        this.stack = [];
-        this.setState({ show: false });
-    },
-    render: function render() {
-        var classes = this.state.show ? 'active' : '';
-        return React.createElement(
-            'div',
-            { id: 'loader', className: classes },
-            React.createElement(
-                'div',
-                { className: 'loadingmessage' },
-                React.createElement('img', { className: 'spinner', src: SiteConfig.assetsDirectory + 'images/ui/spinner.gif' })
-            )
         );
     }
 });
@@ -303,6 +511,52 @@ rc.mainmodal = React.createClass({
                         outputArray
                     )
                 )
+            )
+        );
+    }
+});
+/*! loader/loader.jsx */
+rc.loader = React.createClass({
+    displayName: 'loader',
+    stack: [],
+    getInitialState: function getInitialState() {
+        return {
+            show: false
+        };
+    },
+    componentDidMount: function componentDidMount(currentPage) {
+        var self = this;
+        grandCentral.off('loaderStart').on('loaderStart', function (uniqueString) {
+            if ($.inArray(uniqueString, self.stack) == -1) {
+                console.log('loaderStart(' + uniqueString + ')');
+                self.stack.push(uniqueString);
+                self.setState({ show: true });
+            }
+        });
+        grandCentral.off('loaderEnd').on('loaderEnd', function (uniqueString) {
+            var i = $.inArray(uniqueString, self.stack);
+            if (i > -1) {
+                self.stack.splice(i, 1);
+                console.log('loaderEnd(' + uniqueString + ')');
+            }
+            if (self.stack.length === 0) {
+                self.setState({ show: false });
+            }
+        });
+    },
+    reset: function reset() {
+        this.stack = [];
+        this.setState({ show: false });
+    },
+    render: function render() {
+        var classes = this.state.show ? 'active' : '';
+        return React.createElement(
+            'div',
+            { id: 'loader', className: classes },
+            React.createElement(
+                'div',
+                { className: 'loadingmessage' },
+                React.createElement('img', { className: 'spinner', src: SiteConfig.assetsDirectory + 'images/ui/spinner.gif' })
             )
         );
     }
@@ -446,7 +700,7 @@ routerSetupConfig.initialize = function() {
     ReactDOM.render(
         React.createElement( rc.header ),
         document.getElementById('headercontainer')
-    ); 
+    );
     ReactDOM.render(
         React.createElement( rc.nav ),
         document.getElementById('navcontainer')
@@ -454,13 +708,13 @@ routerSetupConfig.initialize = function() {
     ReactDOM.render(
         React.createElement( rc.mainmodal ),
         document.getElementById('modalcontainer')
-    );    
+    );
     ReactDOM.render(
         React.createElement( rc.loader ),
         document.getElementById('loadercontainer')
-    );   
+    );
     Nux.initTrack(
-        { 
+        {
             'GA':'', 
             'Splunk':''
         }
@@ -468,6 +722,7 @@ routerSetupConfig.initialize = function() {
 };
 routerSetupConfig.routes =  {
     '(?*path)': function(f, q){ this.routeTunnel('react', 'home', rc.homePageComponent, f, q); },
+    'login(/*path)': function(f, q){ this.routeTunnel('react', 'login', rc.loginPageComponent, f, q); },
     '*badroute': function(){ this.navigate('#', {trigger: true}); }
 };
 routerSetupConfig.prePageChange =  function(){
@@ -486,7 +741,7 @@ routerSetupConfig.postRouteChange =  function(){
             var p = this.status.currentFragsArray.indexOf(modalFragment);
             if (p === this.status.currentFragsArray.length-1  && chosenTemplate!='') {
                 console.log('modalShow detected as the last fragment, opening ', chosenTemplate);
-                grandCentral.trigger( 'modalShow', chosenTemplate ); 
+                grandCentral.trigger( 'modalShow', chosenTemplate );
             }
         }
     } else {
