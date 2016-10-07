@@ -17,10 +17,10 @@ routerSetupConfig.initialize = function() {
         React.createElement( rc.header ),
         document.getElementById('headercontainer')
     );
-    ReactDOM.render(
+    /*ReactDOM.render(
         React.createElement( rc.nav ),
         document.getElementById('navcontainer')
-    );
+    );*/
     ReactDOM.render(
         React.createElement( rc.mainmodal ),
         document.getElementById('modalcontainer')
