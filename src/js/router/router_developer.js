@@ -16,7 +16,7 @@ routerSetupConfig.initialize = function() {
     ReactDOM.render(
         React.createElement( rc.header ),
         document.getElementById('headercontainer')
-    ); 
+    );
     ReactDOM.render(
         React.createElement( rc.nav ),
         document.getElementById('navcontainer')
@@ -24,16 +24,16 @@ routerSetupConfig.initialize = function() {
     ReactDOM.render(
         React.createElement( rc.mainmodal ),
         document.getElementById('modalcontainer')
-    );    
+    );
     ReactDOM.render(
         React.createElement( rc.loader ),
         document.getElementById('loadercontainer')
-    );   
+    );
 
 
     //Initialize Tracking
     Nux.initTrack(
-        { 
+        {
             'GA':'', // Insert Campaign Property ID here (starts with UA-)
             'Splunk':''
         }
@@ -51,7 +51,8 @@ routerSetupConfig.routes =  {
     // home page route uses a react component as a page
     '(?*path)': function(f, q){ this.routeTunnel('react', 'home', rc.homePageComponent, f, q); },
 
-
+    /* LOGIN PAGE */
+    'login(/*path)': function(f, q){ this.routeTunnel('react', 'login', rc.loginPageComponent, f, q); },
 
     '*badroute': function(){ this.navigate('#', {trigger: true}); }
     // for more information on routing try reading http://mrbool.com/backbone-js-router/28001
@@ -67,11 +68,11 @@ routerSetupConfig.routes =  {
 
 routerSetupConfig.prePageChange =  function(){
     /*  any code that must happen before every page change ... place here
-        a page means the first url fragment so changing from 
-        #/walkingdead/daryl 
-        to 
-        #/walkingdead/michonne 
-        would NOT qualify 
+        a page means the first url fragment so changing from
+        #/walkingdead/daryl
+        to
+        #/walkingdead/michonne
+        would NOT qualify
     */
 };
 
@@ -84,11 +85,11 @@ routerSetupConfig.postPageChange =  function(){
 
 routerSetupConfig.postRouteChange =  function(){
     /*  any code that must happen after every ROUTE change ... place here
-        changing from 
-        #/walkingdead/daryl 
-        to 
-        #/walkingdead/michonne 
-        WOULD qualify 
+        changing from
+        #/walkingdead/daryl
+        to
+        #/walkingdead/michonne
+        WOULD qualify
     */
 
     // Trigger Pageview Tracking
@@ -111,11 +112,11 @@ routerSetupConfig.postRouteChange =  function(){
             // before calling to open the modal
             if (p === this.status.currentFragsArray.length-1  && chosenTemplate!='') {
                 console.log('modalShow detected as the last fragment, opening ', chosenTemplate);
-                grandCentral.trigger( 'modalShow', chosenTemplate ); 
+                grandCentral.trigger( 'modalShow', chosenTemplate );
             }
         }
     } else {
-        // fire close event anyway in case we are using the browser back button 
+        // fire close event anyway in case we are using the browser back button
         grandCentral.trigger('modalHide');
     }
 }
@@ -132,5 +133,3 @@ routerSetupConfig.appStatusNowReady =  function(){
     Nux.attachTrack();
 
 };
-
-
