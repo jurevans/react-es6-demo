@@ -6,6 +6,8 @@ var rc = {};
 /*! dc_header_v1.js */
 var dc = {};
 
+/*! dashboard/dashboard.jsx */
+"use strict";
 "use strict";
 /*! home/home.jsx */
 rc.homePageComponent = React.createClass({

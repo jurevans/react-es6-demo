@@ -170,6 +170,7 @@ var Nux = (function(){
 var rc = {};
 /*! dc_header_v1.js */
 var dc = {};
+/*! dashboard/dashboard.jsx */
 /*! home/home.jsx */
 rc.homePageComponent = React.createClass({
     displayName: "homePageComponent",
