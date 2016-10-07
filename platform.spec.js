@@ -1,5 +1,26 @@
 reactTestUtils = React.addons.TestUtils;
 
+/* Use this to suppress any Console Errors you don't want to see in your Karma Tests */
+console.error = function(e){
+    var warning_getInitialState = 'Warning: getInitialState';
+    if(e.indexOf(warning_getInitialState) > -1){
+        // Suppress getInitialState Warnings
+    }else{
+        console.log(e);
+    }
+};
+
+/* We're not testing AJAX calls, so suppress errors */
+console.log = function(e){
+    var strErr = 'strErr ';
+    if(e.indexOf(strErr) > -1){
+        // Suppress AJAX strErr Warnings
+    }else{
+        // *** NOTE: We use console.info to avoid infinite looping
+        console.info.apply(console, arguments);
+    }
+};
+
 describe('suite of tests for the platform',function () {
     it('Router base js\' status object should not be changed', function() {
         console.log('Router base js\' status object should not be changed');
