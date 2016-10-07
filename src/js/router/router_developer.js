@@ -53,6 +53,8 @@ routerSetupConfig.routes =  {
 
     /* LOGIN PAGE */
     'login(/*path)': function(f, q){ this.routeTunnel('react', 'login', rc.loginPageComponent, f, q); },
+    /* USER DASHBOARD */
+    'dashboard(/*path)': function(f, q){ this.routeTunnel('react', 'dashboard', rc.dashboardPageComponent, f, q); },
 
     '*badroute': function(){ this.navigate('#', {trigger: true}); }
     // for more information on routing try reading http://mrbool.com/backbone-js-router/28001
@@ -91,6 +93,14 @@ routerSetupConfig.postRouteChange =  function(){
         #/walkingdead/michonne
         WOULD qualify
     */
+
+    
+    if(app.status.currentPage == 'login'){
+        SiteConfig.loggedin = 'false';
+    }else{
+        SiteConfig.loggedin = 'true';
+    }
+    grandCentral.trigger('routeChange');
 
     // Trigger Pageview Tracking
     Nux.sendPageview();
@@ -131,5 +141,7 @@ routerSetupConfig.appStatusNowReady =  function(){
 
     // Attach Event Tracking to the page
     Nux.attachTrack();
+
+
 
 };
