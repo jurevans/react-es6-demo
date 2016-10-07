@@ -6,8 +6,6 @@ var rc = {};
 /*! dc_header_v1.js */
 var dc = {};
 
-/*! dashboard/dashboard.jsx */
-"use strict";
 "use strict";
 /*! home/home.jsx */
 rc.homePageComponent = React.createClass({
@@ -15,6 +13,52 @@ rc.homePageComponent = React.createClass({
     render: function render() {
         console.log(this.constructor.displayName + ' render()');
         return React.createElement("div", { id: "homepage" });
+    }
+});
+'use strict';
+/*! dashboard/dashboard.jsx */
+rc.dashboardPageComponent = React.createClass({
+    displayName: 'dashboardPageComponent',
+    getInitialState: function getInitialState() {
+        if (!app.stores.dashboard) {
+            app.stores.dashboard = {
+                mycourses: {
+                    courses: [{
+                        course_id: 'Psych101',
+                        title: 'Psychology Product Name',
+                        book: 'Psychology, 10th Edition, Myers',
+                        product: 'LearningCurve',
+                        cover: 'https://d67woptvev43m.cloudfront.net/Images/1709887/myers11einmodules_cover.jpg'
+                    }, {
+                        course_id: 'Econ101',
+                        title: 'Economics Product Name',
+                        book: 'Book title goes here',
+                        product: 'FlipIt + Sapling',
+                        cover: ''
+                    }, {
+                        course_id: 'English101',
+                        title: 'English Product Name',
+                        book: 'Book title goes here',
+                        product: 'Writing Tools + Diagnostics',
+                        cover: ''
+                    }, {
+                        course_id: 'Chem101',
+                        title: 'Chemistry Product Name',
+                        book: 'Book title goes here',
+                        product: 'Diagnostics + Sapling',
+                        cover: ''
+                    }]
+                }
+            };
+        }
+        return app.stores.dashboard;
+    },
+    render: function render() {
+        var mycourses = [];
+        _.each(app.stores.dashboard.mycourses.courses, function (course) {
+            mycourses.push(React.createElement(rc.dashboardCourseComponent, { ref: course.course_id, key: course.course_id, course: course }));
+        });
+        return React.createElement('div', { id: 'dashboard' });
     }
 });
 'use strict';
@@ -258,6 +302,53 @@ rc.header = React.createClass({
     }
 });
 'use strict';
+/*! loader/loader.jsx */
+rc.loader = React.createClass({
+    displayName: 'loader',
+    stack: [],
+    getInitialState: function getInitialState() {
+        return {
+            show: false
+        };
+    },
+    componentDidMount: function componentDidMount(currentPage) {
+        var self = this;
+        grandCentral.off('loaderStart').on('loaderStart', function (uniqueString) {
+            if ($.inArray(uniqueString, self.stack) == -1) {
+                console.log('loaderStart(' + uniqueString + ')');
+                self.stack.push(uniqueString);
+                self.setState({ show: true });
+            }
+        });
+        grandCentral.off('loaderEnd').on('loaderEnd', function (uniqueString) {
+            var i = $.inArray(uniqueString, self.stack);
+            if (i > -1) {
+                self.stack.splice(i, 1);
+                console.log('loaderEnd(' + uniqueString + ')');
+            }
+            if (self.stack.length === 0) {
+                self.setState({ show: false });
+            }
+        });
+    },
+    reset: function reset() {
+        this.stack = [];
+        this.setState({ show: false });
+    },
+    render: function render() {
+        var classes = this.state.show ? 'active' : '';
+        return React.createElement(
+            'div',
+            { id: 'loader', className: classes },
+            React.createElement(
+                'div',
+                { className: 'loadingmessage' },
+                React.createElement('img', { className: 'spinner', src: SiteConfig.assetsDirectory + 'images/ui/spinner.gif' })
+            )
+        );
+    }
+});
+'use strict';
 /*! mainmodal/mainmodal.jsx */
 rc.mainmodal = React.createClass({
     displayName: 'mainmodal',
@@ -325,53 +416,6 @@ rc.mainmodal = React.createClass({
                         outputArray
                     )
                 )
-            )
-        );
-    }
-});
-'use strict';
-/*! loader/loader.jsx */
-rc.loader = React.createClass({
-    displayName: 'loader',
-    stack: [],
-    getInitialState: function getInitialState() {
-        return {
-            show: false
-        };
-    },
-    componentDidMount: function componentDidMount(currentPage) {
-        var self = this;
-        grandCentral.off('loaderStart').on('loaderStart', function (uniqueString) {
-            if ($.inArray(uniqueString, self.stack) == -1) {
-                console.log('loaderStart(' + uniqueString + ')');
-                self.stack.push(uniqueString);
-                self.setState({ show: true });
-            }
-        });
-        grandCentral.off('loaderEnd').on('loaderEnd', function (uniqueString) {
-            var i = $.inArray(uniqueString, self.stack);
-            if (i > -1) {
-                self.stack.splice(i, 1);
-                console.log('loaderEnd(' + uniqueString + ')');
-            }
-            if (self.stack.length === 0) {
-                self.setState({ show: false });
-            }
-        });
-    },
-    reset: function reset() {
-        this.stack = [];
-        this.setState({ show: false });
-    },
-    render: function render() {
-        var classes = this.state.show ? 'active' : '';
-        return React.createElement(
-            'div',
-            { id: 'loader', className: classes },
-            React.createElement(
-                'div',
-                { className: 'loadingmessage' },
-                React.createElement('img', { className: 'spinner', src: SiteConfig.assetsDirectory + 'images/ui/spinner.gif' })
             )
         );
     }
