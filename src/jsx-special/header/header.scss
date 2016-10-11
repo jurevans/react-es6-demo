@@ -7,22 +7,30 @@
     color: #333;
     font-family: helvetica, arial, sans-serif;
     margin: 0 0 20px 0;
+    .logo {
+        width: 80%;
+        float: left;
+    }
+    #accountSection {
+        width: 20%;
+        float: right;
+        line-height: 60px;
+        text-align: right;
+        color: #666;
+        &.false {
+            display: none;
+        }
+        .itemDivider {
+            border-left: 2px solid gray;
+            width: 2px;
+            height: auto;
+            margin: 0 10px;
+        }
+        .logout {
+            color: $headerBlue;
+            cursor: pointer;
+        }
+    }
 }
 
-#headercontainer h2 {
 
-    padding-left: 20px;
-
-
-    /* made with  http://www.colorzilla.com/gradient-editor/ */
-
-    background: rgb(238,238,238); /* Old browsers */
-    background: -moz-linear-gradient(left,  rgba(238,238,238,1) 0%, rgba(255,255,255,1) 28%, rgba(238,238,238,1) 79%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(238,238,238,1)), color-stop(28%,rgba(255,255,255,1)), color-stop(79%,rgba(238,238,238,1))); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(left,  rgba(238,238,238,1) 0%,rgba(255,255,255,1) 28%,rgba(238,238,238,1) 79%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(left,  rgba(238,238,238,1) 0%,rgba(255,255,255,1) 28%,rgba(238,238,238,1) 79%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(left,  rgba(238,238,238,1) 0%,rgba(255,255,255,1) 28%,rgba(238,238,238,1) 79%); /* IE10+ */
-    background: linear-gradient(to right,  rgba(238,238,238,1) 0%,rgba(255,255,255,1) 28%,rgba(238,238,238,1) 79%); /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#eeeeee',GradientType=1 ); /* IE6-9 */
-
-}
