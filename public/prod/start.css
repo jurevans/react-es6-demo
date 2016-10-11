@@ -38,8 +38,25 @@ body, html, a, img {
 body {
   font-family: helvetica, arial, sans-serif; }
 /*! structure/_variables.scss */
+/*! loader/loader.scss */
+#loadercontainer #loader {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  top: 0;
+  left: 0; }
+#loadercontainer #loader.active {
+  display: block; }
+#loadercontainer .loadingmessage {
+  top: 50%;
+  position: relative; }
+#loadercontainer .spinner {
+  width: auto;
+  margin-top: -400px; }
 /*! header/header.scss */
-#headercontainer {
+#siteheader {
   width: 100%;
   background: #e8e8e8;
   border: 0;
@@ -47,23 +64,23 @@ body {
   color: #333;
   font-family: helvetica, arial, sans-serif;
   margin: 0 0 20px 0; }
-  #headercontainer .logo {
+  #siteheader .logo {
     width: 80%;
     float: left; }
-  #headercontainer #accountSection {
+  #siteheader #accountSection {
     width: 20%;
     float: right;
     line-height: 60px;
     text-align: right;
     color: #666; }
-    #headercontainer #accountSection.false {
+    #siteheader #accountSection.false {
       display: none; }
-    #headercontainer #accountSection .itemDivider {
+    #siteheader #accountSection .itemDivider {
       border-left: 2px solid gray;
       width: 2px;
       height: auto;
       margin: 0 10px; }
-    #headercontainer #accountSection .logout {
+    #siteheader #accountSection .logout {
       color: #1E78B4;
       cursor: pointer; }
 /*! mainmodal/mainmodal.scss */
@@ -130,23 +147,6 @@ body {
   border: 0; }
 #modalcontainer .modalContentsWrapper {
   padding: 20px; }
-/*! loader/loader.scss */
-#loadercontainer #loader {
-  display: none;
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.8);
-  top: 0;
-  left: 0; }
-#loadercontainer #loader.active {
-  display: block; }
-#loadercontainer .loadingmessage {
-  top: 50%;
-  position: relative; }
-#loadercontainer .spinner {
-  width: auto;
-  margin-top: -400px; }
 /*! nav/nav.scss */
 /*! dashboard/childcomponents/dashboardCourse.scss */
 #dashboard .course {
@@ -196,11 +196,11 @@ body {
       border: 0;
       font-size: 13px;
       font-weight: 100; }
-/*! home/home.scss */
 /*! dashboard/dashboard.scss */
 #dashboard .dashHeader {
   font-size: 20px;
   font-weight: 100; }
+/*! home/home.scss */
 /*! login/login.scss */
 #loginpage {
   margin-top: 50px;

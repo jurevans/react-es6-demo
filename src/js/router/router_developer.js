@@ -1,16 +1,24 @@
 
-
-
-
-
-
-
-
 // ROUTER INITIALIZE
 
 routerSetupConfig.initialize = function() {
     console.log('router initialize()');
     this.status.currentPage = this.status.lastPage = this.status.currentRoute = null;
+
+    //Initialize Tracking
+    Nux.initTrack(
+        {
+            'GA':'', // Insert Campaign Property ID here (starts with UA-)
+            'Splunk':''
+        }
+    );
+};
+
+
+//  Because all the initialize()  functions occur very early before app.status has values like currentPage
+//  we need a function to fire once during the start up and after app.status has populated
+
+routerSetupConfig.appStatusNowReady =  function(){
 
     // Permanent items as react components
     ReactDOM.render(
@@ -30,18 +38,10 @@ routerSetupConfig.initialize = function() {
         document.getElementById('loadercontainer')
     );
 
-
-    //Initialize Tracking
-    Nux.initTrack(
-        {
-            'GA':'', // Insert Campaign Property ID here (starts with UA-)
-            'Splunk':''
-        }
-    );
+    // Attach Event Tracking to the page
+    Nux.attachTrack();
 
 };
-
-
 
 
 // ROUTER ROUTES
@@ -62,10 +62,6 @@ routerSetupConfig.routes =  {
 };
 
 
-
-
-
-
 // ROUTER hooks
 
 routerSetupConfig.prePageChange =  function(){
@@ -82,8 +78,6 @@ routerSetupConfig.postPageChange =  function(){
     // any code that must happen after every page change ... place here
 
 };
-
-
 
 routerSetupConfig.postRouteChange =  function(){
     /*  any code that must happen after every ROUTE change ... place here
@@ -134,14 +128,4 @@ routerSetupConfig.postRouteChange =  function(){
 
 
 
-//  Because all the initialize()  functions occur very early before app.status has values like currentPage
-//  we need a function to fire once during the start up and after app.status has populated
 
-routerSetupConfig.appStatusNowReady =  function(){
-
-    // Attach Event Tracking to the page
-    Nux.attachTrack();
-
-
-
-};

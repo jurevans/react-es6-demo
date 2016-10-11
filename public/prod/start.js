@@ -543,50 +543,6 @@ rc.inputFieldComponent = React.createClass({
         );
     }
 });
-/*! header/header.jsx */
-rc.header = React.createClass({
-  displayName: 'header',
-  getInitialState: function getInitialState() {
-    return {
-      loggedin: SiteConfig.loggedin
-    };
-  },
-  signOut: function signOut(e) {
-    window.location.href = '/#/login';
-  },
-  componentDidMount: function componentDidMount() {
-    var self = this;
-    grandCentral.off('routeChange').on('routeChange', function () {
-      self.setState({ loggedin: SiteConfig.loggedin });
-    });
-  },
-  render: function render() {
-    return React.createElement(
-      'div',
-      { className: 'container' },
-      React.createElement(
-        'a',
-        { className: 'logo', href: '#' },
-        React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/site/logo-macmillan-learning.jpg' })
-      ),
-      React.createElement(
-        'div',
-        { id: 'accountSection', className: this.state.loggedin },
-        React.createElement(
-          'span',
-          { className: 'username' },
-          'Demo User'
-        ),
-        React.createElement('span', { className: 'itemDivider' }),
-        React.createElement(
-          'span',
-          { className: 'logout', onClick: this.signOut },
-          'Sign out'
-        )
-      )
-    );
-  }
-});
 /*! loader/loader.jsx */
 rc.loader = React.createClass({
     displayName: 'loader',
@@ -632,6 +588,89 @@ rc.loader = React.createClass({
             )
         );
     }
+});
+/*! header/header.jsx */
+rc.header = React.createClass({
+	displayName: 'header',
+	getInitialState: function getInitialState() {
+		return {
+			loggedin: SiteConfig.loggedin
+		};
+	},
+	signOut: function signOut(e) {
+		window.location.href = '/#/login';
+	},
+	componentDidMount: function componentDidMount() {
+		var self = this;
+		grandCentral.off('routeChange').on('routeChange', function () {
+			self.setState({ loggedin: SiteConfig.loggedin });
+		});
+	},
+	render: function render() {
+		return React.createElement(
+			'header',
+			{ id: 'siteheader' },
+			React.createElement(
+				'div',
+				{ className: 'container' },
+				React.createElement(
+					'a',
+					{ className: 'logo', href: '#/login' },
+					React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/site/logo-macmillan-learning.jpg' })
+				),
+				React.createElement(
+					'div',
+					{ id: 'accountSection', className: this.state.loggedin },
+					React.createElement(
+						'span',
+						{ className: 'username' },
+						'Demo User'
+					),
+					React.createElement('span', { className: 'itemDivider' }),
+					React.createElement(
+						'span',
+						{ className: 'logout', onClick: this.signOut },
+						'Sign out'
+					)
+				)
+			)
+		);
+	}
+});
+/*! nav/nav.jsx */
+rc.nav = React.createClass({
+	displayName: 'nav',
+	getInitialState: function getInitialState() {
+		return {
+			currentPage: ''
+		};
+	},
+	componentDidMount: function componentDidMount() {
+		var self = this;
+		grandCentral.off('pagechange').on('pagechange', function (data) {
+			self.setState({
+				currentPage: data.currentPage
+			});
+		});
+	},
+	getClassNameWithActive: function getClassNameWithActive(arg) {
+		var className = 'navitem';
+		if (arg == this.state.currentPage) {
+			className = className + ' active';
+		}
+		return className;
+	},
+	render: function render() {
+		return React.createElement(
+			'div',
+			null,
+			React.createElement(
+				'a',
+				{ className: this.getClassNameWithActive('home'), href: '#' },
+				'Home'
+			)
+		);
+	}
 });
 /*! mainmodal/mainmodal.jsx */
 rc.mainmodal = React.createClass({
@@ -703,41 +742,6 @@ rc.mainmodal = React.createClass({
             )
         );
     }
-});
-/*! nav/nav.jsx */
-rc.nav = React.createClass({
-	displayName: 'nav',
-	getInitialState: function getInitialState() {
-		return {
-			currentPage: ''
-		};
-	},
-	componentDidMount: function componentDidMount() {
-		var self = this;
-		grandCentral.off('pagechange').on('pagechange', function (data) {
-			self.setState({
-				currentPage: data.currentPage
-			});
-		});
-	},
-	getClassNameWithActive: function getClassNameWithActive(arg) {
-		var className = 'navitem';
-		if (arg == this.state.currentPage) {
-			className = className + ' active';
-		}
-		return className;
-	},
-	render: function render() {
-		return React.createElement(
-			'div',
-			null,
-			React.createElement(
-				'a',
-				{ className: this.getClassNameWithActive('home'), href: '#' },
-				'Home'
-			)
-		);
-	}
 });
 /*! grandcentral.js */
  var grandCentral = _.extend({}, Backbone.Events);
@@ -840,6 +844,14 @@ routerSetupConfig.routeTunnel = function(renderEngine, currentPage, pageHandle, 
 routerSetupConfig.initialize = function() {
     console.log('router initialize()');
     this.status.currentPage = this.status.lastPage = this.status.currentRoute = null;
+    Nux.initTrack(
+        {
+            'GA':'', 
+            'Splunk':''
+        }
+    );
+};
+routerSetupConfig.appStatusNowReady =  function(){
     ReactDOM.render(
         React.createElement( rc.header ),
         document.getElementById('headercontainer')
@@ -852,12 +864,7 @@ routerSetupConfig.initialize = function() {
         React.createElement( rc.loader ),
         document.getElementById('loadercontainer')
     );
-    Nux.initTrack(
-        {
-            'GA':'', 
-            'Splunk':''
-        }
-    );
+    Nux.attachTrack();
 };
 routerSetupConfig.routes =  {
     '(?*path)': function(f, q){ this.routeTunnel('react', 'home', rc.homePageComponent, f, q); },
@@ -894,9 +901,6 @@ routerSetupConfig.postRouteChange =  function(){
         grandCentral.trigger('modalHide');
     }
 }
-routerSetupConfig.appStatusNowReady =  function(){
-    Nux.attachTrack();
-};
 
 /*! appstarter_v1.js */
 try {

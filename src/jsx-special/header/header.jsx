@@ -20,15 +20,16 @@ rc.header = React.createClass({
     render:function(){
     	
         return (
-			<div className="container">
-                <a className="logo" href="#"><img src={SiteConfig.assetsDirectory + 'images/site/logo-macmillan-learning.jpg'} /></a>
-            	<div id="accountSection" className={this.state.loggedin}>
-            		<span className="username">Demo User</span>
-            		<span className="itemDivider"></span>
-            		<span className="logout" onClick={this.signOut}>Sign out</span>
-            	</div> 
-            </div>
-
+			<header id="siteheader">
+				<div className="container">
+	                <a className="logo" href="#/login"><img src={SiteConfig.assetsDirectory + 'images/site/logo-macmillan-learning.jpg'} /></a>
+	            	<div id="accountSection" className={this.state.loggedin}>
+	            		<span className="username">Demo User</span>
+	            		<span className="itemDivider"></span>
+	            		<span className="logout" onClick={this.signOut}>Sign out</span>
+	            	</div> 
+	            </div>
+            </header>
         );
     }
 });
