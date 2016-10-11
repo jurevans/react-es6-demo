@@ -39,11 +39,12 @@ rc.inputFieldComponent = React.createClass({
 
         return (
             <p className={errorClass}>
-                <label htmlFor={this.props.name}>
+                <label htmlFor={this.props.name} className={this.props.labelClass}>
                     {this.props.labelText}
                 </label>
                 <input
                     name={this.props.name}
+                    className={this.props.inputClass}
                     type={this.props.type}
                     required={this.props.required}
                     value={this.state.value}

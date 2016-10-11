@@ -7,25 +7,25 @@
     /**************/
 
     @media (max-width: 767px) {
-        form {
+        .form {
             width: 320px;
         }
     }
 
     @media (min-width: 768px) and (max-width: 991px) {
-        form {
+        .form {
             width: 320px;
         }
     }
 
     @media (min-width: 992px) and (max-width: 1199px) {
-        form {
+        .form {
             width: 320px;
         }
     }
 
     @media (min-width: 1200px) {
-        form {
+        .form {
             width: 320px;
         }
     }
@@ -36,12 +36,12 @@
 
     text-align: center;
 
-    form {
+    .form {
         display: inline-block;
         float: none;
         text-align: left;
 
-        fieldset {
+        .formfieldset {
             position: relative;
             border: 1px solid #999;
             background-color: $backgroundGray;
@@ -49,27 +49,27 @@
             font-size: 9pt;
         }
 
-        legend {
-            span {
+        .formlegend {
+            .formlegendspan {
                 position: absolute;
                 top: 15px;
                 font-size: 17pt;
             }
         }
 
-        label {
+        .formlabel {
             display: block;
             color: $labelGray;
             padding: 4px 0;
         }
 
-        input {
+        .forminput {
             width: 100%;
             border: 1px solid $inputBorderGray;
             padding: 5px;
         }
 
-        button {
+        .formbutton {
             color: $buttonForegroundWhite;
             background: $buttonBackgroundBlue !important;
             border: 0;
@@ -84,15 +84,14 @@
 
     }
 
-    .forgot-credentials {
-        text-align: right;
-
-        & > a {
+    .forgot {
+        & > .forgotlink {
             display: inline !important;
             color: #1070b0;
+            text-align: right;
         }
 
-        div {
+        .forgotcopy {
             border: 1px solid $borderGray;
             padding: 10px;
             color: $borderGray;
@@ -102,22 +101,22 @@
         }
     }
 
-    .error {
-        label {
+    .forminputerror {
+        .formlabel {
             color: $errorRed;
         }
 
-        input {
+        .forminput {
             border: 1px solid $errorRed;
         }
     }
 
-    .error-show {
+    .errorshow {
         color: $errorRed;
         font-weight: bold;
     }
 
-    .error-hide {
+    .errorhide {
         display: none;
     }
 

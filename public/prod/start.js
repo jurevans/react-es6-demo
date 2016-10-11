@@ -302,16 +302,16 @@ rc.loginPageComponent = React.createClass({
             React.createElement(
                 'form',
                 { onSubmit: this.handleSubmit,
-                    name: 'loginform', action: '#', method: 'post' },
+                    className: 'form', name: 'loginform', action: '#', method: 'post' },
                 React.createElement(
                     'fieldset',
-                    { name: 'login' },
+                    { name: 'login', className: 'formfieldset' },
                     React.createElement(
                         'legend',
-                        null,
+                        { className: 'formlegend' },
                         React.createElement(
                             'span',
-                            null,
+                            { className: 'formlegendspan' },
                             'Sign in'
                         )
                     ),
@@ -320,27 +320,37 @@ rc.loginPageComponent = React.createClass({
                         type: 'email',
                         name: 'email',
                         labelText: 'Email address:',
-                        errorClass: 'error'
+                        errorClass: 'forminputerror',
+                        labelClass: 'formlabel',
+                        inputClass: 'forminput'
                     }),
                     React.createElement(rc.inputFieldComponent, {
                         ref: 'password',
                         name: 'password',
                         type: 'password',
                         labelText: 'Password:',
-                        errorClass: 'error'
+                        errorClass: 'forminputerror',
+                        labelClass: 'formlabel',
+                        inputClass: 'forminput'
                     }),
                     React.createElement(rc.inlineMessageComponent, {
                         ref: 'forgotComponent',
                         linkText: 'Forgot credentials?',
+                        className: 'forgot',
+                        linkClassName: 'forgotlink',
+                        copyClassName: 'forgotcopy',
                         copyText: 'To get the current username and password, contact your sales rep.'
                     }),
                     React.createElement(rc.errorMessageComponent, {
                         message: 'Invalid username or password.',
-                        className: 'error-message'
+                        className: 'errormessage',
+                        errorShowClassName: 'errorshow',
+                        errorHideClassName: 'errorhide'
                     }),
                     React.createElement(rc.buttonComponent, {
                         buttonName: 'submit',
                         buttonText: 'Sign in',
+                        className: 'formbutton',
                         enabled: this.state.valid
                     })
                 )
@@ -431,6 +441,7 @@ rc.buttonComponent = React.createClass({
                 'button',
                 {
                     name: this.props.buttonName,
+                    className: this.props.className,
                     disabled: !this.state.enabled },
                 this.props.buttonText
             )
@@ -457,7 +468,7 @@ rc.errorMessageComponent = React.createClass({
         e.preventDefault();
     },
     render: function render() {
-        var className = !this.state.show ? 'error-hide' : 'error-show';
+        var className = !this.state.show ? this.props.errorHideClassName : this.props.errorShowClassName;
         return React.createElement(
             'p',
             { className: className },
@@ -482,16 +493,16 @@ rc.inlineMessageComponent = React.createClass({
     render: function render() {
         var partial = !this.state.isClicked ? React.createElement(
             "a",
-            { href: "#", onClick: this.handleClick },
+            { href: "#", className: this.props.linkClassName, onClick: this.handleClick },
             this.props.linkText
         ) : React.createElement(
             "div",
-            null,
+            { className: this.props.copyClassName },
             this.props.copyText
         );
         return React.createElement(
             "p",
-            { className: "forgot-credentials" },
+            { className: this.props.className },
             partial
         );
     }
@@ -530,11 +541,12 @@ rc.inputFieldComponent = React.createClass({
             { className: errorClass },
             React.createElement(
                 'label',
-                { htmlFor: this.props.name },
+                { htmlFor: this.props.name, className: this.props.labelClass },
                 this.props.labelText
             ),
             React.createElement('input', {
                 name: this.props.name,
+                className: this.props.inputClass,
                 type: this.props.type,
                 required: this.props.required,
                 value: this.state.value,
