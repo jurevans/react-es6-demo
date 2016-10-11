@@ -42,7 +42,7 @@ rc.loginPageComponent = React.createClass({
     postForm: function() {
         var data = {
             email: this.refs.email.state.value,
-            password: this.refs.password.value
+            password: this.refs.password.state.value
         };
 
         // TODO: Post NSM - actual Ajax call

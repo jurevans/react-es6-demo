@@ -61,6 +61,15 @@ rc.dashboardPageComponent = React.createClass({
         );
     }
 });
+"use strict";
+/*! home/home.jsx */
+rc.homePageComponent = React.createClass({
+    displayName: "homePageComponent",
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement("div", { id: "homepage" });
+    }
+});
 'use strict';
 /*! login/login.jsx */
 rc.loginPageComponent = React.createClass({
@@ -88,7 +97,7 @@ rc.loginPageComponent = React.createClass({
     postForm: function postForm() {
         var data = {
             email: this.refs.email.state.value,
-            password: this.refs.password.value
+            password: this.refs.password.state.value
         };
         window.location.href = '/#/dashboard';
     },
@@ -154,15 +163,6 @@ rc.loginPageComponent = React.createClass({
                 )
             )
         );
-    }
-});
-"use strict";
-/*! home/home.jsx */
-rc.homePageComponent = React.createClass({
-    displayName: "homePageComponent",
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        return React.createElement("div", { id: "homepage" });
     }
 });
 'use strict';
