@@ -66,6 +66,23 @@ body {
     #headercontainer #accountSection .logout {
       color: #1E78B4;
       cursor: pointer; }
+/*! loader/loader.scss */
+#loadercontainer #loader {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  top: 0;
+  left: 0; }
+#loadercontainer #loader.active {
+  display: block; }
+#loadercontainer .loadingmessage {
+  top: 50%;
+  position: relative; }
+#loadercontainer .spinner {
+  width: auto;
+  margin-top: -400px; }
 /*! mainmodal/mainmodal.scss */
 @media (max-width: 767px) {
   #modalcontainer .modalwrapper {
@@ -130,23 +147,6 @@ body {
   border: 0; }
 #modalcontainer .modalContentsWrapper {
   padding: 20px; }
-/*! loader/loader.scss */
-#loadercontainer #loader {
-  display: none;
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.8);
-  top: 0;
-  left: 0; }
-#loadercontainer #loader.active {
-  display: block; }
-#loadercontainer .loadingmessage {
-  top: 50%;
-  position: relative; }
-#loadercontainer .spinner {
-  width: auto;
-  margin-top: -400px; }
 /*! nav/nav.scss */
 /*! dashboard/childcomponents/dashboardCourse.scss */
 #dashboard .course {
@@ -196,76 +196,75 @@ body {
       border: 0;
       font-size: 13px;
       font-weight: 100; }
-/*! home/home.scss */
 /*! dashboard/dashboard.scss */
 #dashboard .dashHeader {
   font-size: 20px;
   font-weight: 100; }
+/*! home/home.scss */
 /*! login/login.scss */
 #loginpage {
   margin-top: 50px;
   text-align: center; }
   @media (max-width: 767px) {
-    #loginpage form {
+    #loginpage .form {
       width: 320px; } }
   @media (min-width: 768px) and (max-width: 991px) {
-    #loginpage form {
+    #loginpage .form {
       width: 320px; } }
   @media (min-width: 992px) and (max-width: 1199px) {
-    #loginpage form {
+    #loginpage .form {
       width: 320px; } }
   @media (min-width: 1200px) {
-    #loginpage form {
+    #loginpage .form {
       width: 320px; } }
-  #loginpage form {
+  #loginpage .form {
     display: inline-block;
     float: none;
     text-align: left; }
-    #loginpage form fieldset {
+    #loginpage .form .formfieldset {
       position: relative;
       border: 1px solid #999;
       background-color: #EFEFEF;
       padding: 45px 35px 25px 35px;
       font-size: 9pt; }
-    #loginpage form legend span {
+    #loginpage .form .formlegend .formlegendspan {
       position: absolute;
       top: 15px;
       font-size: 17pt; }
-    #loginpage form label {
+    #loginpage .form .formlabel {
       display: block;
       color: #666;
       padding: 4px 0; }
-    #loginpage form input {
+    #loginpage .form .forminput {
       width: 100%;
       border: 1px solid #BBBBBB;
       padding: 5px; }
-    #loginpage form button {
+    #loginpage .form .formbutton {
       color: #ffffff;
       background: #1070B0 !important;
       border: 0;
       width: auto;
       padding: 6px; }
-      #loginpage form button:disabled {
+      #loginpage .form .formbutton:disabled {
         background: #96BCD6 !important;
         color: #EAEEF1; }
-  #loginpage .forgot-credentials {
+  #loginpage .forgot > .forgotlink {
+    display: inline !important;
+    color: #1070b0;
     text-align: right; }
-    #loginpage .forgot-credentials > a {
-      display: inline !important;
-      color: #1070b0; }
-    #loginpage .forgot-credentials div {
-      border: 1px solid #A3A3A3;
-      padding: 10px;
-      color: #A3A3A3;
-      text-align: left;
-      margin-top: 15px;
-      margin-bottom: 15px; }
-  #loginpage .error label {
+  #loginpage .forgot .forgotcopy {
+    border: 1px solid #A3A3A3;
+    padding: 10px;
+    color: #A3A3A3;
+    text-align: left;
+    margin-top: 15px;
+    margin-bottom: 15px; }
+  #loginpage .forminputerror .formlabel {
     color: #E62631; }
-  #loginpage .error input {
+  #loginpage .forminputerror .forminput {
     border: 1px solid #E62631; }
-  #loginpage .error-show {
+  #loginpage .errorshow {
     color: #E62631;
     font-weight: bold; }
-  #loginpage .error-hide {
+  #loginpage .errorhide {
     display: none; }

@@ -24,6 +24,7 @@ rc.buttonComponent = React.createClass({
             <p>
                 <button
                     name={this.props.buttonName}
+                    className={this.props.className}
                     disabled={!this.state.enabled}>
                     {this.props.buttonText}
                 </button>

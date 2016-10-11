@@ -20,7 +20,7 @@ rc.errorMessageComponent = React.createClass({
     },
 
     render() {
-        var className = !this.state.show ? 'error-hide' : 'error-show';
+        var className = !this.state.show ? this.props.errorHideClassName : this.props.errorShowClassName;
 
         return (
             <p className={className}>{this.props.message}</p>

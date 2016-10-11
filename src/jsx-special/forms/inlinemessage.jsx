@@ -13,11 +13,11 @@ rc.inlineMessageComponent = React.createClass({
     },
     render : function() {
         var partial = !this.state.isClicked
-            ? <a href="#" onClick={this.handleClick}>{this.props.linkText}</a>
-            : <div>{this.props.copyText}</div>;
+            ? <a href="#" className={this.props.linkClassName} onClick={this.handleClick}>{this.props.linkText}</a>
+            : <div className={this.props.copyClassName}>{this.props.copyText}</div>;
 
         return(
-            <p className="forgot-credentials">
+            <p className={this.props.className}>
                 {partial}
             </p>
         )
