@@ -256,14 +256,6 @@ rc.dashboardPageComponent = React.createClass({
         );
     }
 });
-/*! home/home.jsx */
-rc.homePageComponent = React.createClass({
-    displayName: "homePageComponent",
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        return React.createElement("div", { id: "homepage" });
-    }
-});
 /*! login/login.jsx */
 rc.loginPageComponent = React.createClass({
     displayName: 'loginPageComponent',
@@ -356,6 +348,14 @@ rc.loginPageComponent = React.createClass({
                 )
             )
         );
+    }
+});
+/*! home/home.jsx */
+rc.homePageComponent = React.createClass({
+    displayName: "homePageComponent",
+    render: function render() {
+        console.log(this.constructor.displayName + ' render()');
+        return React.createElement("div", { id: "homepage" });
     }
 });
 /*! dashboard/childcomponents/dashboardCourse.jsx */

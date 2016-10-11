@@ -248,17 +248,18 @@ body {
       #loginpage .form .formbutton:disabled {
         background: #96BCD6 !important;
         color: #EAEEF1; }
-  #loginpage .forgot > .forgotlink {
-    display: inline !important;
-    color: #1070b0;
+  #loginpage .forgot {
     text-align: right; }
-  #loginpage .forgot .forgotcopy {
-    border: 1px solid #A3A3A3;
-    padding: 10px;
-    color: #A3A3A3;
-    text-align: left;
-    margin-top: 15px;
-    margin-bottom: 15px; }
+    #loginpage .forgot > .forgotlink {
+      display: inline !important;
+      color: #1070b0; }
+    #loginpage .forgot .forgotcopy {
+      border: 1px solid #A3A3A3;
+      padding: 10px;
+      color: #A3A3A3;
+      text-align: left;
+      margin-top: 15px;
+      margin-bottom: 15px; }
   #loginpage .forminputerror .formlabel {
     color: #E62631; }
   #loginpage .forminputerror .forminput {

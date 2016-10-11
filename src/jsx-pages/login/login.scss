@@ -78,17 +78,18 @@
 
             &:disabled {
                 background: $buttonDisabledBackgroundBlue !important;
-                color: #EAEEF1;
+                color: $buttonDisabledForegroundWhite;
             }
         }
 
     }
 
     .forgot {
+        text-align: right;
+
         & > .forgotlink {
             display: inline !important;
             color: #1070b0;
-            text-align: right;
         }
 
         .forgotcopy {
