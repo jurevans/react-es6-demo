@@ -55,16 +55,20 @@ rc.loginPageComponent = React.createClass({
         return (
             <div id="loginpage" className="container">
                 <form onSubmit={this.handleSubmit}
-                    name="loginform" action="#" method="post">
-                    <fieldset name="login">
-                        <legend><span>Sign in</span></legend>
+                    className="form" name="loginform" action="#" method="post">
+                    <fieldset name="login" className="formfieldset">
+                        <legend className="formlegend">
+                            <span className="formlegendspan">Sign in</span>
+                        </legend>
 
                         <rc.inputFieldComponent
                             ref="email"
                             type="email"
                             name="email"
                             labelText="Email address:"
-                            errorClass="error"
+                            errorClass="forminputerror"
+                            labelClass="formlabel"
+                            inputClass="forminput"
                             />
 
                         <rc.inputFieldComponent
@@ -72,23 +76,31 @@ rc.loginPageComponent = React.createClass({
                             name="password"
                             type="password"
                             labelText="Password:"
-                            errorClass="error"
+                            errorClass="forminputerror"
+                            labelClass="formlabel"
+                            inputClass="forminput"
                             />
 
                         <rc.inlineMessageComponent
                             ref="forgotComponent"
                             linkText="Forgot credentials?"
+                            className="forgot"
+                            linkClassName="forgotlink"
+                            copyClassName="forgotcopy"
                             copyText="To get the current username and password, contact your sales rep."
                             />
 
                         <rc.errorMessageComponent
                             message="Invalid username or password."
-                            className="error-message"
+                            className="errormessage"
+                            errorShowClassName="errorshow"
+                            errorHideClassName="errorhide"
                             />
 
                         <rc.buttonComponent
                             buttonName="submit"
                             buttonText="Sign in"
+                            className="formbutton"
                             enabled={this.state.valid}
                             />
                     </fieldset>
