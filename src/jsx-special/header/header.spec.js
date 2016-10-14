@@ -26,4 +26,16 @@ describe('Test suite for Header', function() {
 		}).not.toThrow();
 	});
 
+    describe('Sub-test for Header - logged in', function() {
+        beforeAll(function() {
+            /* LOG IN */
+        });
+    });
+
+    describe('Sub-test for Header - logged out', function() {
+        beforeAll(function() {
+            /* LOG OUT */
+        });
+    });
+
 });

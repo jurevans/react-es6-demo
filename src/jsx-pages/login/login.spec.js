@@ -17,7 +17,7 @@ describe('Test suite for Login page component', function() {
 	});
 
     beforeEach(function(){
-
+        /* *** */
 	});
 
     /* Render */
@@ -49,7 +49,6 @@ describe('Test suite for Login page component', function() {
     	});
 
         it('Should validate with the correct username', function(){
-
             console.log(passwordInput.value);
 
             expect(passwordInput.value).toBe(SiteConfig.loginPassword);
