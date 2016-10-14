@@ -33,6 +33,10 @@ describe('Test suite for Login page component', function() {
 		}).not.toThrow();
 	});
 
+    it('Default state should be valid (true)', function() {
+		expect(component.state.valid).toBeTruthy();
+	});
+
     /* This component uses grandCentral to manage actions between fields, messages and Sign In button */
     it('Grand Central Exists', function(){
 		console.log("typeof GrandCentral = " + typeof grandCentral);
@@ -46,31 +50,26 @@ describe('Test suite for Login page component', function() {
         expect(component.postForm).not.toHaveBeenCalled();
     });
 
-    describe('Sub-test - Fields - check validity', function() {
+    describe('Sub-test - Username and Password fields', function() {
         beforeAll(function() {
             email.setState({ value: SiteConfig.loginUsername });
             password.setState({ value: SiteConfig.loginPassword });
     	});
 
-        it('Should validate with the correct username', function(){
-            console.log('Email value: ' + email.state.value);
+        it('Should validate with the correct username and password', function(){
             expect(email.state.value).toBe(SiteConfig.loginUsername);
-
-    	});
-
-        it('Should validate with the correct username', function(){
-            console.log('Password value: ' + password.state.value);
             expect(password.state.value).toBe(SiteConfig.loginPassword);
+
+            expect(email.state.valid).toBeTruthy();
+            expect(password.state.valid).toBeTruthy();
     	});
 
-        /* Types, probably don't need these :/ */
+        /* Types, probably don't need these :-/ */
         it('Email input should be of type "email"', function() {
-            console.log('Email field type: ' + emailInput.type);
             expect(emailInput.type).toBe('email');
         });
 
         it('Password input should be of type "password"', function() {
-            console.log('Password field type: ' + passwordInput.type);
             expect(passwordInput.type).toBe('password');
         });
     });

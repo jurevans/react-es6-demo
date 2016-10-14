@@ -518,6 +518,16 @@ rc.inputFieldComponent = React.createClass({
             valid: true
         };
     },
+    getDefaultProps: function getDefaultProps() {
+        return {
+            name: 'input',
+            className: 'forminput',
+            type: 'text',
+            required: '',
+            value: '',
+            maxLength: 0
+        };
+    },
     componentDidMount: function componentDidMount() {
         var self = this;
         grandCentral.on('to_inputField_' + this.props.name, function (data) {

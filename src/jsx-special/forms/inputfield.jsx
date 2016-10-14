@@ -5,7 +5,16 @@ rc.inputFieldComponent = React.createClass({
             valid : true
         }
     },
-
+    getDefaultProps:function(){
+        return {
+            name: 'input',
+            className: 'forminput',
+            type: 'text',
+            required: '',
+            value: '',
+            maxLength: 0
+        };
+    },
     componentDidMount: function() {
         var self = this;
 
@@ -16,7 +25,6 @@ rc.inputFieldComponent = React.createClass({
             })
         });
     },
-
     handleChange: function(name, e) {
         var value = e.target.value;
 
@@ -31,7 +39,6 @@ rc.inputFieldComponent = React.createClass({
         /* NOTE: May want to parameterize this behavior! */
         grandCentral.trigger('to_button', {enabled: true});
         grandCentral.trigger('to_errorMessage', {show: false});
-
     },
 
     render() {
