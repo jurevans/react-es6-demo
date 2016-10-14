@@ -68,7 +68,7 @@ rc.loginPageComponent = React.createClass({
                             labelText="Email address:"
                             errorClass="forminputerror"
                             labelClass="formlabel"
-                            inputClass="forminput"
+                            inputClass="forminput emailaddress"
                             />
 
                         <rc.inputFieldComponent
@@ -78,7 +78,7 @@ rc.loginPageComponent = React.createClass({
                             labelText="Password:"
                             errorClass="forminputerror"
                             labelClass="formlabel"
-                            inputClass="forminput"
+                            inputClass="forminput password"
                             />
 
                         <rc.inlineMessageComponent

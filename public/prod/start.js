@@ -322,7 +322,7 @@ rc.loginPageComponent = React.createClass({
                         labelText: 'Email address:',
                         errorClass: 'forminputerror',
                         labelClass: 'formlabel',
-                        inputClass: 'forminput'
+                        inputClass: 'forminput emailaddress'
                     }),
                     React.createElement(rc.inputFieldComponent, {
                         ref: 'password',
@@ -331,7 +331,7 @@ rc.loginPageComponent = React.createClass({
                         labelText: 'Password:',
                         errorClass: 'forminputerror',
                         labelClass: 'formlabel',
-                        inputClass: 'forminput'
+                        inputClass: 'forminput password'
                     }),
                     React.createElement(rc.inlineMessageComponent, {
                         ref: 'forgotComponent',
@@ -583,7 +583,7 @@ rc.header = React.createClass({
       ),
       React.createElement(
         'div',
-        { id: 'accountSection', className: this.state.loggedin },
+        { id: 'accountSection', className: 'account ' + this.state.loggedin },
         React.createElement(
           'span',
           { className: 'username' },
