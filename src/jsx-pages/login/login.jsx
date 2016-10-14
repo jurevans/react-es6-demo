@@ -69,6 +69,7 @@ rc.loginPageComponent = React.createClass({
                             errorClass="forminputerror"
                             labelClass="formlabel"
                             inputClass="forminput emailaddress"
+                            maxLength="100"
                             />
 
                         <rc.inputFieldComponent
@@ -79,6 +80,7 @@ rc.loginPageComponent = React.createClass({
                             errorClass="forminputerror"
                             labelClass="formlabel"
                             inputClass="forminput password"
+                            maxLength="50"
                             />
 
                         <rc.inlineMessageComponent

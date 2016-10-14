@@ -129,7 +129,8 @@ rc.loginPageComponent = React.createClass({
                         labelText: 'Email address:',
                         errorClass: 'forminputerror',
                         labelClass: 'formlabel',
-                        inputClass: 'forminput emailaddress'
+                        inputClass: 'forminput emailaddress',
+                        maxLength: '100'
                     }),
                     React.createElement(rc.inputFieldComponent, {
                         ref: 'password',
@@ -138,7 +139,8 @@ rc.loginPageComponent = React.createClass({
                         labelText: 'Password:',
                         errorClass: 'forminputerror',
                         labelClass: 'formlabel',
-                        inputClass: 'forminput password'
+                        inputClass: 'forminput password',
+                        maxLength: '50'
                     }),
                     React.createElement(rc.inlineMessageComponent, {
                         ref: 'forgotComponent',
