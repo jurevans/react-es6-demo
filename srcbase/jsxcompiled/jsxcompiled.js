@@ -160,7 +160,8 @@ rc.loginPageComponent = React.createClass({
                         buttonName: 'submit',
                         buttonText: 'Sign in',
                         className: 'formbutton',
-                        enabled: this.state.valid
+                        enabled: this.state.valid,
+                        ref: 'submit'
                     })
                 )
             )
@@ -330,15 +331,13 @@ rc.inputFieldComponent = React.createClass({
             valid: true
         };
     },
-    getDefaultProps: function getDefaultProps() {
-        return {
-            name: 'input',
-            className: 'forminput',
-            type: 'text',
-            required: '',
-            value: '',
-            maxLength: 0
-        };
+    defaultProps: {
+        name: 'input',
+        className: 'forminput',
+        type: 'text',
+        required: '',
+        value: '',
+        maxLength: 0
     },
     componentDidMount: function componentDidMount() {
         var self = this;

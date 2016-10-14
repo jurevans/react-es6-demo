@@ -1,5 +1,5 @@
 describe('Test suite for Login page component', function() {
-	var component, email, password,
+	var component, email, password, submit,
         emailInput, passwordInput, submitButton;
 
 	beforeAll(function() {
@@ -13,6 +13,7 @@ describe('Test suite for Login page component', function() {
 		component = reactTestUtils.renderIntoDocument(element);
         email = component.refs.email;
         password = component.refs.password;
+        submit = component.refs.submit;
 
         /* DOM */
         emailInput = reactTestUtils.findRenderedDOMComponentWithClass(component, 'emailaddress');

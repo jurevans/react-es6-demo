@@ -104,6 +104,7 @@ rc.loginPageComponent = React.createClass({
                             buttonText="Sign in"
                             className="formbutton"
                             enabled={this.state.valid}
+                            ref="submit"
                             />
                     </fieldset>
                 </form>

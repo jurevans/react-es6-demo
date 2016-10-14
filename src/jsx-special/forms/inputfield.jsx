@@ -5,15 +5,13 @@ rc.inputFieldComponent = React.createClass({
             valid : true
         }
     },
-    getDefaultProps:function(){
-        return {
-            name: 'input',
-            className: 'forminput',
-            type: 'text',
-            required: '',
-            value: '',
-            maxLength: 0
-        };
+    defaultProps: {
+        name: 'input',
+        className: 'forminput',
+        type: 'text',
+        required: '',
+        value: '',
+        maxLength: 0
     },
     componentDidMount: function() {
         var self = this;
