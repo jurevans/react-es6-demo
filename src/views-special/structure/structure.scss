@@ -28,8 +28,11 @@ body, html, a, img { padding: 0; border: 0; margin: 0; }
 
 
 
-/*   non essential css   */
-
+/* Apply the 'flex' class to vertically center inner content */
+#appContainer .flex {
+	display: flex;
+	align-items: center;
+}
 
 /*   non essential css   */
 #pagecontainer { padding: 0 15px; }

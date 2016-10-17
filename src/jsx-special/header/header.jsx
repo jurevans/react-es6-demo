@@ -21,11 +21,12 @@ rc.header = React.createClass({
     	
         return (
 			<header id="siteheader">
-				<div className="container">
+				<div className="flex container">
 	                <a className="logo" href="#/login"><img src={SiteConfig.assetsDirectory + 'images/site/logo-macmillan-learning.jpg'} /></a>
 	            	<div id="accountSection" className={this.state.loggedin}>
 	            		<span className="username">Demo User</span>
 	            		<span className="itemDivider"></span>
+	            		<br />
 	            		<span className="logout" onClick={this.signOut}>Sign out</span>
 	            	</div> 
 	            </div>

@@ -375,15 +375,15 @@ rc.dashboardCourseComponent = React.createClass({
     render: function render() {
         return React.createElement(
             'div',
-            { className: 'course' },
+            { className: 'course flex row' },
             React.createElement(
                 'div',
-                { className: 'bookcover' },
+                { className: 'bookcover col-xs-4 col-sm-2 col-md-2' },
                 React.createElement('img', { src: this.props.course.cover ? this.props.course.cover : SiteConfig.assetsDirectory + 'images/site/bookcover.png' })
             ),
             React.createElement(
                 'div',
-                { className: 'courseinfo' },
+                { className: 'courseinfo col-xs-8 col-sm-7 col-md-7' },
                 React.createElement(
                     'span',
                     { className: 'coursetitle' },
@@ -404,7 +404,7 @@ rc.dashboardCourseComponent = React.createClass({
             ),
             React.createElement(
                 'div',
-                { className: 'coursebutton' },
+                { className: 'coursebutton col-xs-12 col-sm-3 col-md-3' },
                 React.createElement(
                     'button',
                     { className: 'enterproduct' },
@@ -555,6 +555,55 @@ rc.inputFieldComponent = React.createClass({
         );
     }
 });
+/*! header/header.jsx */
+rc.header = React.createClass({
+	displayName: 'header',
+	getInitialState: function getInitialState() {
+		return {
+			loggedin: SiteConfig.loggedin
+		};
+	},
+	signOut: function signOut(e) {
+		window.location.href = '/#/login';
+	},
+	componentDidMount: function componentDidMount() {
+		var self = this;
+		grandCentral.off('routeChange').on('routeChange', function () {
+			self.setState({ loggedin: SiteConfig.loggedin });
+		});
+	},
+	render: function render() {
+		return React.createElement(
+			'header',
+			{ id: 'siteheader' },
+			React.createElement(
+				'div',
+				{ className: 'flex container' },
+				React.createElement(
+					'a',
+					{ className: 'logo', href: '#/login' },
+					React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/site/logo-macmillan-learning.jpg' })
+				),
+				React.createElement(
+					'div',
+					{ id: 'accountSection', className: this.state.loggedin },
+					React.createElement(
+						'span',
+						{ className: 'username' },
+						'Demo User'
+					),
+					React.createElement('span', { className: 'itemDivider' }),
+					React.createElement('br', null),
+					React.createElement(
+						'span',
+						{ className: 'logout', onClick: this.signOut },
+						'Sign out'
+					)
+				)
+			)
+		);
+	}
+});
 /*! loader/loader.jsx */
 rc.loader = React.createClass({
     displayName: 'loader',
@@ -600,89 +649,6 @@ rc.loader = React.createClass({
             )
         );
     }
-});
-/*! header/header.jsx */
-rc.header = React.createClass({
-	displayName: 'header',
-	getInitialState: function getInitialState() {
-		return {
-			loggedin: SiteConfig.loggedin
-		};
-	},
-	signOut: function signOut(e) {
-		window.location.href = '/#/login';
-	},
-	componentDidMount: function componentDidMount() {
-		var self = this;
-		grandCentral.off('routeChange').on('routeChange', function () {
-			self.setState({ loggedin: SiteConfig.loggedin });
-		});
-	},
-	render: function render() {
-		return React.createElement(
-			'header',
-			{ id: 'siteheader' },
-			React.createElement(
-				'div',
-				{ className: 'container' },
-				React.createElement(
-					'a',
-					{ className: 'logo', href: '#/login' },
-					React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/site/logo-macmillan-learning.jpg' })
-				),
-				React.createElement(
-					'div',
-					{ id: 'accountSection', className: this.state.loggedin },
-					React.createElement(
-						'span',
-						{ className: 'username' },
-						'Demo User'
-					),
-					React.createElement('span', { className: 'itemDivider' }),
-					React.createElement(
-						'span',
-						{ className: 'logout', onClick: this.signOut },
-						'Sign out'
-					)
-				)
-			)
-		);
-	}
-});
-/*! nav/nav.jsx */
-rc.nav = React.createClass({
-	displayName: 'nav',
-	getInitialState: function getInitialState() {
-		return {
-			currentPage: ''
-		};
-	},
-	componentDidMount: function componentDidMount() {
-		var self = this;
-		grandCentral.off('pagechange').on('pagechange', function (data) {
-			self.setState({
-				currentPage: data.currentPage
-			});
-		});
-	},
-	getClassNameWithActive: function getClassNameWithActive(arg) {
-		var className = 'navitem';
-		if (arg == this.state.currentPage) {
-			className = className + ' active';
-		}
-		return className;
-	},
-	render: function render() {
-		return React.createElement(
-			'div',
-			null,
-			React.createElement(
-				'a',
-				{ className: this.getClassNameWithActive('home'), href: '#' },
-				'Home'
-			)
-		);
-	}
 });
 /*! mainmodal/mainmodal.jsx */
 rc.mainmodal = React.createClass({
@@ -754,6 +720,41 @@ rc.mainmodal = React.createClass({
             )
         );
     }
+});
+/*! nav/nav.jsx */
+rc.nav = React.createClass({
+	displayName: 'nav',
+	getInitialState: function getInitialState() {
+		return {
+			currentPage: ''
+		};
+	},
+	componentDidMount: function componentDidMount() {
+		var self = this;
+		grandCentral.off('pagechange').on('pagechange', function (data) {
+			self.setState({
+				currentPage: data.currentPage
+			});
+		});
+	},
+	getClassNameWithActive: function getClassNameWithActive(arg) {
+		var className = 'navitem';
+		if (arg == this.state.currentPage) {
+			className = className + ' active';
+		}
+		return className;
+	},
+	render: function render() {
+		return React.createElement(
+			'div',
+			null,
+			React.createElement(
+				'a',
+				{ className: this.getClassNameWithActive('home'), href: '#' },
+				'Home'
+			)
+		);
+	}
 });
 /*! grandcentral.js */
  var grandCentral = _.extend({}, Backbone.Events);
