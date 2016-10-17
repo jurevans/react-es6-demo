@@ -24,6 +24,10 @@ describe('Test suite for Header', function() {
 		expect(function() {
 			component;
 		}).not.toThrow();
+
+        expect(reactTestUtils.isDOMComponent(account)).toBeTruthy();
+        expect(reactTestUtils.isDOMComponent(username)).toBeTruthy();
+        expect(reactTestUtils.isDOMComponent(logout)).toBeTruthy();
 	});
 
     describe('Sub-test for Header - logged in', function() {

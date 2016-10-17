@@ -25,7 +25,7 @@ describe('Test suite for Login page component', function() {
         /* *** */
 	});
 
-    /* Render */
+    /* Render Component and Child Components */
     it('The Login Page component renders to the page', function() {
 		console.log('The Login Page component should render without errors');
 
