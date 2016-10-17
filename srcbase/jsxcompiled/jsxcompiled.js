@@ -113,7 +113,7 @@ rc.loginPageComponent = React.createClass({
         console.log(this.constructor.displayName + ' render()');
         return React.createElement(
             'div',
-            { id: 'loginpage', className: 'container' },
+            { id: 'loginpage', className: 'container', 'aria-label': 'Sign In' },
             React.createElement(
                 'form',
                 { onSubmit: this.handleSubmit,
@@ -382,7 +382,7 @@ rc.inputFieldComponent = React.createClass({
     render: function render() {
         var errorClass = this.state.valid ? null : this.props.errorClass;
         return React.createElement(
-            'p',
+            'div',
             { className: errorClass },
             React.createElement(
                 'label',
@@ -390,6 +390,7 @@ rc.inputFieldComponent = React.createClass({
                 this.props.labelText
             ),
             React.createElement('input', {
+                id: this.props.name,
                 name: this.props.name,
                 className: this.props.inputClass,
                 type: this.props.type,
