@@ -42,7 +42,7 @@ rc.loginPageComponent = React.createClass({
     postForm: function() {
         var data = {
             email: this.refs.email.state.value,
-            password: this.refs.password.value
+            password: this.refs.password.state.value
         };
 
         // TODO: Post NSM - actual Ajax call
@@ -68,7 +68,8 @@ rc.loginPageComponent = React.createClass({
                             labelText="Email address:"
                             errorClass="forminputerror"
                             labelClass="formlabel"
-                            inputClass="forminput"
+                            inputClass="forminput emailaddress"
+                            maxLength="100"
                             />
 
                         <rc.inputFieldComponent
@@ -78,7 +79,8 @@ rc.loginPageComponent = React.createClass({
                             labelText="Password:"
                             errorClass="forminputerror"
                             labelClass="formlabel"
-                            inputClass="forminput"
+                            inputClass="forminput password"
+                            maxLength="50"
                             />
 
                         <rc.inlineMessageComponent
@@ -102,6 +104,7 @@ rc.loginPageComponent = React.createClass({
                             buttonText="Sign in"
                             className="formbutton"
                             enabled={this.state.valid}
+                            ref="submit"
                             />
                     </fieldset>
                 </form>

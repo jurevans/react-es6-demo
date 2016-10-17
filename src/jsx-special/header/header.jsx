@@ -3,7 +3,7 @@ rc.header = React.createClass({
         return {
         	loggedin: SiteConfig.loggedin
         }
-    },    
+    },
 	signOut:function(e){
 		// TODO: Post NSM - actual Ajax call
         window.location.href='/#/login';
@@ -15,15 +15,14 @@ rc.header = React.createClass({
 				{loggedin: SiteConfig.loggedin}
 			);
 		});
-		
 	},
     render:function(){
-    	
+
         return (
 			<header id="siteheader">
 				<div className="flex container">
 	                <a className="logo" href="#/login"><img src={SiteConfig.assetsDirectory + 'images/site/logo-macmillan-learning.jpg'} /></a>
-	            	<div id="accountSection" className={this.state.loggedin}>
+	            	<div id="accountSection" className={'account ' + this.state.loggedin}>
 	            		<span className="username">Demo User</span>
 	            		<span className="itemDivider"></span>
 	            		<br />
