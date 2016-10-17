@@ -130,7 +130,6 @@ body {
   border: 0; }
 #modalcontainer .modalContentsWrapper {
   padding: 20px; }
-/*! nav/nav.scss */
 /*! loader/loader.scss */
 #loadercontainer #loader {
   display: none;
@@ -148,6 +147,7 @@ body {
 #loadercontainer .spinner {
   width: auto;
   margin-top: -400px; }
+/*! nav/nav.scss */
 /*! dashboard/childcomponents/dashboardCourse.scss */
 #dashboard .course {
   width: 100%;
@@ -196,11 +196,11 @@ body {
       border: 0;
       font-size: 13px;
       font-weight: 100; }
-/*! home/home.scss */
 /*! dashboard/dashboard.scss */
 #dashboard .dashHeader {
   font-size: 20px;
   font-weight: 100; }
+/*! home/home.scss */
 /*! login/login.scss */
 #loginpage {
   margin-top: 50px;
@@ -230,11 +230,11 @@ body {
       border: 1px solid #999;
       background-color: #EFEFEF;
       padding: 45px 35px 25px 35px;
-      font-size: 9pt; }
+      font-size: 9px; }
     #loginpage .form .formlegend .formlegendspan {
       position: absolute;
       top: 15px;
-      font-size: 17pt; }
+      font-size: 17px; }
     #loginpage .form .formlabel {
       display: block;
       color: #666;

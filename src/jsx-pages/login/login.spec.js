@@ -38,14 +38,20 @@ describe('Test suite for Login page component', function() {
         expect(reactTestUtils.isDOMComponent(submitButton)).toBeTruthy();
 	});
 
+    /* This component uses grandCentral to manage actions between fields, messages and Sign In button */
+
+    it('Grand Central Exists', function(){
+        console.log("typeof GrandCentral = " + typeof grandCentral);
+        expect(typeof grandCentral).not.toBe("undefined")
+    });
+
+    it('FormValidation should exist.', function(){
+        console.log("typeof FormValidation = " + typeof FormValidation);
+        expect(typeof FormValidation).not.toBe("undefined")
+    });
+
     it('Default state should be valid (true)', function() {
 		expect(component.state.valid).toBeTruthy();
-	});
-
-    /* This component uses grandCentral to manage actions between fields, messages and Sign In button */
-    it('Grand Central Exists', function(){
-		console.log("typeof GrandCentral = " + typeof grandCentral);
-		expect(typeof grandCentral).not.toBe("undefined")
 	});
 
     it('Should not post the form if invalid', function() {
@@ -61,9 +67,12 @@ describe('Test suite for Login page component', function() {
             password.setState({ value: SiteConfig.loginPassword });
     	});
 
+        // Test FormValidation
         it('Should validate with the correct username and password', function(){
             expect(email.state.value).toBe(SiteConfig.loginUsername);
             expect(password.state.value).toBe(SiteConfig.loginPassword);
+
+            expect(FormValidation.validate(email.state.value, SiteConfig.loginUsername)).toBeTruthy();
 
             expect(email.state.valid).toBeTruthy();
             expect(password.state.valid).toBeTruthy();
