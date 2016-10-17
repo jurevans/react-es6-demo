@@ -290,7 +290,7 @@ rc.loginPageComponent = React.createClass({
     postForm: function postForm() {
         var data = {
             email: this.refs.email.state.value,
-            password: this.refs.password.value
+            password: this.refs.password.state.value
         };
         window.location.href = '/#/dashboard';
     },
@@ -322,7 +322,8 @@ rc.loginPageComponent = React.createClass({
                         labelText: 'Email address:',
                         errorClass: 'forminputerror',
                         labelClass: 'formlabel',
-                        inputClass: 'forminput'
+                        inputClass: 'forminput emailaddress',
+                        maxLength: '100'
                     }),
                     React.createElement(rc.inputFieldComponent, {
                         ref: 'password',
@@ -331,7 +332,8 @@ rc.loginPageComponent = React.createClass({
                         labelText: 'Password:',
                         errorClass: 'forminputerror',
                         labelClass: 'formlabel',
-                        inputClass: 'forminput'
+                        inputClass: 'forminput password',
+                        maxLength: '50'
                     }),
                     React.createElement(rc.inlineMessageComponent, {
                         ref: 'forgotComponent',
@@ -351,7 +353,8 @@ rc.loginPageComponent = React.createClass({
                         buttonName: 'submit',
                         buttonText: 'Sign in',
                         className: 'formbutton',
-                        enabled: this.state.valid
+                        enabled: this.state.valid,
+                        ref: 'submit'
                     })
                 )
             )
@@ -516,6 +519,14 @@ rc.inputFieldComponent = React.createClass({
             valid: true
         };
     },
+    defaultProps: {
+        name: 'input',
+        className: 'forminput',
+        type: 'text',
+        required: '',
+        value: '',
+        maxLength: 0
+    },
     componentDidMount: function componentDidMount() {
         var self = this;
         grandCentral.on('to_inputField_' + this.props.name, function (data) {
@@ -583,7 +594,7 @@ rc.header = React.createClass({
       ),
       React.createElement(
         'div',
-        { id: 'accountSection', className: this.state.loggedin },
+        { id: 'accountSection', className: 'account ' + this.state.loggedin },
         React.createElement(
           'span',
           { className: 'username' },
