@@ -67,12 +67,13 @@ describe('Test suite for Login page component', function() {
             password.setState({ value: SiteConfig.loginPassword });
     	});
 
-        // Test FormValidation
+        /* Test FormValidation Lib */
         it('Should validate with the correct username and password', function(){
             expect(email.state.value).toBe(SiteConfig.loginUsername);
             expect(password.state.value).toBe(SiteConfig.loginPassword);
 
-            expect(FormValidation.validate(email.state.value, SiteConfig.loginUsername)).toBeTruthy();
+            expect(FormValidation.validate(emailInput.value, SiteConfig.loginUsername)).toBeTruthy();
+            expect(FormValidation.validate(passwordInput.value, SiteConfig.loginPassword)).toBeTruthy();
 
             expect(email.state.valid).toBeTruthy();
             expect(password.state.valid).toBeTruthy();
