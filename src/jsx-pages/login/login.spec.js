@@ -61,7 +61,7 @@ describe('Test suite for Login page component', function() {
         expect(component.postForm).not.toHaveBeenCalled();
     });
 
-    describe('Sub-test - Username and Password fields', function() {
+    describe('Sub-test - Username and Password fields - Valid data', function() {
         beforeAll(function() {
             email.setState({ value: SiteConfig.loginUsername });
             password.setState({ value: SiteConfig.loginPassword });
@@ -87,6 +87,22 @@ describe('Test suite for Login page component', function() {
         it('Password input should be of type "password"', function() {
             expect(passwordInput.type).toBe('password');
         });
+    });
+
+    describe('Sub-test - Username and Password fields - Invalid data', function() {
+        beforeAll(function() {
+            email.setState({ value: 'test' });
+            password.setState({ value: 'test' });
+    	});
+
+        /* Test FormValidation Lib */
+        it('Should not validate with incorrect username and/or password', function(){
+            expect(email.state.value).not.toBe(SiteConfig.loginUsername);
+            expect(password.state.value).not.toBe(SiteConfig.loginPassword);
+
+            expect(FormValidation.validate(emailInput.value, SiteConfig.loginUsername)).not.toBeTruthy();
+            expect(FormValidation.validate(passwordInput.value, SiteConfig.loginPassword)).not.toBeTruthy();
+    	});
     });
 
 });

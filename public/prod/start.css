@@ -38,34 +38,6 @@ body, html, a, img {
 body {
   font-family: helvetica, arial, sans-serif; }
 /*! structure/_variables.scss */
-/*! header/header.scss */
-#headercontainer {
-  width: 100%;
-  background: #e8e8e8;
-  border: 0;
-  height: 60px;
-  color: #333;
-  font-family: helvetica, arial, sans-serif;
-  margin: 0 0 20px 0; }
-  #headercontainer .logo {
-    width: 80%;
-    float: left; }
-  #headercontainer #accountSection {
-    width: 20%;
-    float: right;
-    line-height: 60px;
-    text-align: right;
-    color: #666; }
-    #headercontainer #accountSection.false {
-      display: none; }
-    #headercontainer #accountSection .itemDivider {
-      border-left: 2px solid gray;
-      width: 2px;
-      height: auto;
-      margin: 0 10px; }
-    #headercontainer #accountSection .logout {
-      color: #1E78B4;
-      cursor: pointer; }
 /*! mainmodal/mainmodal.scss */
 @media (max-width: 767px) {
   #modalcontainer .modalwrapper {
@@ -130,6 +102,35 @@ body {
   border: 0; }
 #modalcontainer .modalContentsWrapper {
   padding: 20px; }
+/*! header/header.scss */
+#headercontainer {
+  width: 100%;
+  background: #e8e8e8;
+  border: 0;
+  height: 60px;
+  color: #333;
+  font-family: helvetica, arial, sans-serif;
+  margin: 0 0 20px 0; }
+  #headercontainer .logo {
+    width: 80%;
+    float: left; }
+  #headercontainer #accountSection {
+    width: 20%;
+    float: right;
+    line-height: 60px;
+    text-align: right;
+    color: #666; }
+    #headercontainer #accountSection.false {
+      display: none; }
+    #headercontainer #accountSection .itemDivider {
+      border-left: 2px solid gray;
+      width: 2px;
+      height: auto;
+      margin: 0 10px; }
+    #headercontainer #accountSection .logout {
+      color: #1E78B4;
+      cursor: pointer; }
+/*! nav/nav.scss */
 /*! loader/loader.scss */
 #loadercontainer #loader {
   display: none;
@@ -147,7 +148,6 @@ body {
 #loadercontainer .spinner {
   width: auto;
   margin-top: -400px; }
-/*! nav/nav.scss */
 /*! dashboard/childcomponents/dashboardCourse.scss */
 #dashboard .course {
   width: 100%;
@@ -230,11 +230,11 @@ body {
       border: 1px solid #999;
       background-color: #EFEFEF;
       padding: 45px 35px 25px 35px;
-      font-size: 9px; }
+      font-size: 12px; }
     #loginpage .form .formlegend .formlegendspan {
       position: absolute;
       top: 15px;
-      font-size: 17px; }
+      font-size: 21px; }
     #loginpage .form .formlabel {
       display: block;
       color: #666;
