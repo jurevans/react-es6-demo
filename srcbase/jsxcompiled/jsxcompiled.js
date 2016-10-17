@@ -381,7 +381,6 @@ rc.inputFieldComponent = React.createClass({
 'use strict';
 /*! header/header.jsx */
 rc.header = React.createClass({
-<<<<<<< HEAD
 	displayName: 'header',
 	getInitialState: function getInitialState() {
 		return {
@@ -411,7 +410,7 @@ rc.header = React.createClass({
 				),
 				React.createElement(
 					'div',
-					{ id: 'accountSection', className: this.state.loggedin },
+					{ id: 'accountSection', className: 'account ' + this.state.loggedin },
 					React.createElement(
 						'span',
 						{ className: 'username' },
@@ -428,49 +427,6 @@ rc.header = React.createClass({
 			)
 		);
 	}
-=======
-  displayName: 'header',
-  getInitialState: function getInitialState() {
-    return {
-      loggedin: SiteConfig.loggedin
-    };
-  },
-  signOut: function signOut(e) {
-    window.location.href = '/#/login';
-  },
-  componentDidMount: function componentDidMount() {
-    var self = this;
-    grandCentral.off('routeChange').on('routeChange', function () {
-      self.setState({ loggedin: SiteConfig.loggedin });
-    });
-  },
-  render: function render() {
-    return React.createElement(
-      'div',
-      { className: 'container' },
-      React.createElement(
-        'a',
-        { className: 'logo', href: '#' },
-        React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/site/logo-macmillan-learning.jpg' })
-      ),
-      React.createElement(
-        'div',
-        { id: 'accountSection', className: 'account ' + this.state.loggedin },
-        React.createElement(
-          'span',
-          { className: 'username' },
-          'Demo User'
-        ),
-        React.createElement('span', { className: 'itemDivider' }),
-        React.createElement(
-          'span',
-          { className: 'logout', onClick: this.signOut },
-          'Sign out'
-        )
-      )
-    );
-  }
->>>>>>> 6c5430a501242e2d8be354628b98c429670be015
 });
 'use strict';
 /*! loader/loader.jsx */
