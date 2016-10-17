@@ -32,6 +32,10 @@ describe('Test suite for Login page component', function() {
 		expect(function() {
 			component;
 		}).not.toThrow();
+
+        expect(reactTestUtils.isDOMComponent(emailInput)).toBeTruthy();
+        expect(reactTestUtils.isDOMComponent(passwordInput)).toBeTruthy();
+        expect(reactTestUtils.isDOMComponent(submitButton)).toBeTruthy();
 	});
 
     it('Default state should be valid (true)', function() {
