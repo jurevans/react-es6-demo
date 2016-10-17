@@ -61,14 +61,21 @@ rc.dashboardPageComponent = React.createClass({
         );
     }
 });
-"use strict";
+'use strict';
 /*! home/home.jsx */
 rc.homePageComponent = React.createClass({
-    displayName: "homePageComponent",
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        return React.createElement("div", { id: "homepage" });
+  displayName: 'homePageComponent',
+  componentWillMount: function componentWillMount() {
+    if (app.status.loggedin == 'true') {
+      window.location.href = '/#/dashboard';
+    } else {
+      window.location.href = '/#/login';
     }
+  },
+  render: function render() {
+    console.log(this.constructor.displayName + ' render()');
+    return React.createElement('div', { id: 'homepage' });
+  }
 });
 'use strict';
 /*! login/login.jsx */
@@ -99,6 +106,7 @@ rc.loginPageComponent = React.createClass({
             email: this.refs.email.state.value,
             password: this.refs.password.state.value
         };
+        io_lib.verifyLogin(data);
         window.location.href = '/#/dashboard';
     },
     render: function render() {
@@ -163,6 +171,20 @@ rc.loginPageComponent = React.createClass({
                         enabled: this.state.valid,
                         ref: 'submit'
                     })
+                )
+            ),
+            React.createElement(
+                'div',
+                { className: 'testcreds' },
+                React.createElement(
+                    'div',
+                    null,
+                    SiteConfig.loginUsername
+                ),
+                React.createElement(
+                    'div',
+                    null,
+                    SiteConfig.loginPassword
                 )
             )
         );
@@ -384,16 +406,17 @@ rc.header = React.createClass({
 	displayName: 'header',
 	getInitialState: function getInitialState() {
 		return {
-			loggedin: SiteConfig.loggedin
+			loggedin: app.status.loggedin
 		};
 	},
 	signOut: function signOut(e) {
+		io_lib.logOut();
 		window.location.href = '/#/login';
 	},
 	componentDidMount: function componentDidMount() {
 		var self = this;
 		grandCentral.off('routeChange').on('routeChange', function () {
-			self.setState({ loggedin: SiteConfig.loggedin });
+			self.setState({ loggedin: app.status.loggedin });
 		});
 	},
 	render: function render() {
@@ -405,7 +428,7 @@ rc.header = React.createClass({
 				{ className: 'flex container' },
 				React.createElement(
 					'a',
-					{ className: 'logo', href: '#/login' },
+					{ className: 'logo', href: '#' },
 					React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/site/logo-macmillan-learning.jpg' })
 				),
 				React.createElement(

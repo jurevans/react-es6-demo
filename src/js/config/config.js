@@ -3,7 +3,7 @@ var DEEPLINK_DIR = DEEPLINK_DIR || '';
 
 var SiteConfig = {
 
-	version: '0.5.1',
+	version: '0.8.1',
 
     //defaultPage: 'home',
     assetsDirectory: assetsDirectory,

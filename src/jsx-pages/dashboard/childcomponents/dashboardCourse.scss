@@ -1,20 +1,50 @@
 #dashboard {
-	@media (max-width: 767px) {
-	
+	@media (max-width: 767px) {	
+		/* display:flex screws up Bootstrap columns in mobile */
+		.course.flex {
+			display: block !important;
+		}
+
+		.course {
+			height: auto;
+			padding-top: 10px;
+			padding-bottom: 10px;
+			.bookcover {
+				margin-left: 0;
+			}
+			.coursebutton {
+				padding-top: 10px;
+			}
+		}
 	}
 	@media (min-width: 768px) and (max-width: 991px) {
 		.course { 
 			height: 120px;
+			padding-top: 10px;
+			padding-bottom: 10px;
+			.bookcover {
+				margin-left: 30px;
+			}
 		}
 	}
 	@media (min-width: 992px) and (max-width: 1199px) {
 		.course { 
 			height: 120px;
+			padding-top: 10px;
+			padding-bottom: 10px;
+			.bookcover {
+				margin-left: 30px;
+			}
 		}
 	}
 	@media (min-width: 1200px) {
 		.course { 
 			height: 120px;
+			padding-top: 10px;
+			padding-bottom: 10px;
+			.bookcover {
+				margin-left: 30px;
+			}
 		}
 	}
 	.course {
@@ -23,7 +53,6 @@
 		background-color: $backgroundGray;
 		margin: 15px 0;
 		.bookcover {
-			margin-left: 30px;
 			img {
 				border: 1px solid black;
 				max-width: 76px;
@@ -50,7 +79,7 @@
 				color: white;
 				background-color: $buttonBackgroundBlue;
 				border: 0;
-				font-size: 13px;
+				font-size: 14px;
     			font-weight: 100;
 			}
 		}

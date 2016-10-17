@@ -88,12 +88,6 @@ routerSetupConfig.postRouteChange =  function(){
         WOULD qualify
     */
 
-    
-    if(app.status.currentPage == 'login'){
-        SiteConfig.loggedin = 'false';
-    }else{
-        SiteConfig.loggedin = 'true';
-    }
     grandCentral.trigger('routeChange');
 
     // Trigger Pageview Tracking

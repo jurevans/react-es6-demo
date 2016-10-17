@@ -44,7 +44,7 @@ if(k&&j[k]&&(e||j[k].data)||void 0!==d||"string"!=typeof b)return k||(k=i?a[h]=c
  var assetsDirectory = '';
 var DEEPLINK_DIR = DEEPLINK_DIR || '';
 var SiteConfig = {
-	version: '0.5.1',
+	version: '0.8.1',
     assetsDirectory: assetsDirectory,
     webRoot: DEEPLINK_DIR,
 	loginUsername: 'test.instructor@macmillan.com',
@@ -193,6 +193,25 @@ var Nux = (function(){
 		sendPageview: sendPageview
 	}
 })();
+/*! io_lib.js */
+ var io_lib = ( function() {
+    var dev = 'https://dev-aws-student.macmillanhighered.com';
+    var qa = 'https://qa-aws-student.macmillanhighered.com';
+    var loadtest = 'https://student.lt.macmillan.cloud';
+    var pr = 'https://dev-aws-student.macmillanhighered.com';
+    var prod = 'https://student.macmillanhighered.com';
+    function verifyLogin(data) {
+        app.status.loggedin = 'true';
+    }
+    function logOut(){
+        app.status.loggedin = 'false';
+    }
+    return {
+        verifyLogin : verifyLogin,
+        logOut: logOut
+    };
+} )();
+
 /*! htmlpartials.js */
  window.htmlpartials = {
   "structure": "<div id=\"appContainer\">\n    <div id=\"headercontainer\"></div>\n    <div id=\"navcontainer\"></div>\n    <div id=\"pagecontainer\"></div>\n    <div id=\"footercontainer\"></div>\n    <div id=\"modalcontainer\"></div>\n    <div id=\"loadercontainer\"></div>\n</div>"
@@ -258,11 +277,18 @@ rc.dashboardPageComponent = React.createClass({
 });
 /*! home/home.jsx */
 rc.homePageComponent = React.createClass({
-    displayName: "homePageComponent",
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        return React.createElement("div", { id: "homepage" });
+  displayName: 'homePageComponent',
+  componentWillMount: function componentWillMount() {
+    if (app.status.loggedin == 'true') {
+      window.location.href = '/#/dashboard';
+    } else {
+      window.location.href = '/#/login';
     }
+  },
+  render: function render() {
+    console.log(this.constructor.displayName + ' render()');
+    return React.createElement('div', { id: 'homepage' });
+  }
 });
 /*! login/login.jsx */
 rc.loginPageComponent = React.createClass({
@@ -292,6 +318,7 @@ rc.loginPageComponent = React.createClass({
             email: this.refs.email.state.value,
             password: this.refs.password.state.value
         };
+        io_lib.verifyLogin(data);
         window.location.href = '/#/dashboard';
     },
     render: function render() {
@@ -356,6 +383,20 @@ rc.loginPageComponent = React.createClass({
                         enabled: this.state.valid,
                         ref: 'submit'
                     })
+                )
+            ),
+            React.createElement(
+                'div',
+                { className: 'testcreds' },
+                React.createElement(
+                    'div',
+                    null,
+                    SiteConfig.loginUsername
+                ),
+                React.createElement(
+                    'div',
+                    null,
+                    SiteConfig.loginPassword
                 )
             )
         );
@@ -571,16 +612,17 @@ rc.header = React.createClass({
 	displayName: 'header',
 	getInitialState: function getInitialState() {
 		return {
-			loggedin: SiteConfig.loggedin
+			loggedin: app.status.loggedin
 		};
 	},
 	signOut: function signOut(e) {
+		io_lib.logOut();
 		window.location.href = '/#/login';
 	},
 	componentDidMount: function componentDidMount() {
 		var self = this;
 		grandCentral.off('routeChange').on('routeChange', function () {
-			self.setState({ loggedin: SiteConfig.loggedin });
+			self.setState({ loggedin: app.status.loggedin });
 		});
 	},
 	render: function render() {
@@ -592,7 +634,7 @@ rc.header = React.createClass({
 				{ className: 'flex container' },
 				React.createElement(
 					'a',
-					{ className: 'logo', href: '#/login' },
+					{ className: 'logo', href: '#' },
 					React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/site/logo-macmillan-learning.jpg' })
 				),
 				React.createElement(
@@ -901,11 +943,6 @@ routerSetupConfig.prePageChange =  function(){
 routerSetupConfig.postPageChange =  function(){
 };
 routerSetupConfig.postRouteChange =  function(){
-        if(app.status.currentPage == 'login'){
-        SiteConfig.loggedin = 'false';
-    }else{
-        SiteConfig.loggedin = 'true';
-    }
     grandCentral.trigger('routeChange');
     Nux.sendPageview();
     if (this.status.currentFragString) {

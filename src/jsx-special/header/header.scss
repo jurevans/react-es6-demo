@@ -32,8 +32,9 @@
         float: right;
         text-align: right;
         color: #666;
-        &.false {
-            display: none;
+        display: none;
+        &.true {
+            display: block;
         }
         .itemDivider {
             border-left: 2px solid gray;

@@ -75,9 +75,10 @@ body {
     width: 30%;
     float: right;
     text-align: right;
-    color: #666; }
-    #siteheader #accountSection.false {
-      display: none; }
+    color: #666;
+    display: none; }
+    #siteheader #accountSection.true {
+      display: block; }
     #siteheader #accountSection .itemDivider {
       border-left: 2px solid gray;
       width: 2px;
@@ -168,6 +169,68 @@ body {
 #modalcontainer .modalContentsWrapper {
   padding: 20px; }
 /*! nav/nav.scss */
+/*! dashboard/childcomponents/dashboardCourse.scss */
+@media (max-width: 767px) {
+  #dashboard {
+     }
+    #dashboard .course.flex {
+      display: block !important; }
+    #dashboard .course {
+      height: auto;
+      padding-top: 10px;
+      padding-bottom: 10px; }
+      #dashboard .course .bookcover {
+        margin-left: 0; }
+      #dashboard .course .coursebutton {
+        padding-top: 10px; } }
+@media (min-width: 768px) and (max-width: 991px) {
+  #dashboard .course {
+    height: 120px;
+    padding-top: 10px;
+    padding-bottom: 10px; }
+    #dashboard .course .bookcover {
+      margin-left: 30px; } }
+@media (min-width: 992px) and (max-width: 1199px) {
+  #dashboard .course {
+    height: 120px;
+    padding-top: 10px;
+    padding-bottom: 10px; }
+    #dashboard .course .bookcover {
+      margin-left: 30px; } }
+@media (min-width: 1200px) {
+  #dashboard .course {
+    height: 120px;
+    padding-top: 10px;
+    padding-bottom: 10px; }
+    #dashboard .course .bookcover {
+      margin-left: 30px; } }
+#dashboard .course {
+  width: 100%;
+  border: 2px solid #A3A3A3;
+  background-color: #EFEFEF;
+  margin: 15px 0; }
+  #dashboard .course .bookcover img {
+    border: 1px solid black;
+    max-width: 76px; }
+  #dashboard .course .courseinfo {
+    color: #8D8D8D;
+    font-size: 12px;
+    font-style: italic; }
+    #dashboard .course .courseinfo span {
+      width: 100%; }
+    #dashboard .course .courseinfo .coursetitle {
+      color: #2B72A5;
+      font-size: 18px;
+      font-weight: bold;
+      font-style: normal; }
+  #dashboard .course .coursebutton .enterproduct {
+    width: 120px;
+    height: 30px;
+    color: white;
+    background-color: #1070B0;
+    border: 0;
+    font-size: 14px;
+    font-weight: 100; }
 /*! dashboard/dashboard.scss */
 #dashboard .dashHeader {
   font-size: 20px;
@@ -177,22 +240,37 @@ body {
 #loginpage {
   margin-top: 50px;
   text-align: center; }
+  #loginpage .testcreds {
+    margin-top: 50px;
+    color: #DDD; }
   @media (max-width: 767px) {
     #loginpage .form {
       width: 100%;
-      max-width: 320px; } }
+      max-width: 320px; }
+      #loginpage .form .formfieldset {
+        font-size: 14px;
+        padding: 45px 15px 25px 15px; } }
   @media (min-width: 768px) and (max-width: 991px) {
     #loginpage .form {
       width: 100%;
-      max-width: 320px; } }
+      max-width: 320px; }
+      #loginpage .form .formfieldset {
+        font-size: 12px;
+        padding: 45px 35px 25px 35px; } }
   @media (min-width: 992px) and (max-width: 1199px) {
     #loginpage .form {
       width: 100%;
-      max-width: 320px; } }
+      max-width: 320px; }
+      #loginpage .form .formfieldset {
+        font-size: 12px;
+        padding: 45px 35px 25px 35px; } }
   @media (min-width: 1200px) {
     #loginpage .form {
       width: 100%;
-      max-width: 320px; } }
+      max-width: 320px; }
+      #loginpage .form .formfieldset {
+        font-size: 12px;
+        padding: 45px 35px 25px 35px; } }
   #loginpage .form {
     display: inline-block;
     float: none;
@@ -200,13 +278,11 @@ body {
     #loginpage .form .formfieldset {
       position: relative;
       border: 1px solid #999;
-      background-color: #EFEFEF;
-      padding: 45px 35px 25px 35px;
-      font-size: 9pt; }
+      background-color: #EFEFEF; }
     #loginpage .form .formlegend .formlegendspan {
       position: absolute;
       top: 15px;
-      font-size: 17pt; }
+      font-size: 22px; }
     #loginpage .form .formlabel {
       display: block;
       color: #666;
@@ -220,7 +296,8 @@ body {
       background: #1070B0 !important;
       border: 0;
       width: auto;
-      padding: 6px; }
+      padding: 6px 12px;
+      font-size: 14px; }
       #loginpage .form .formbutton:disabled {
         background: #96BCD6 !important;
         color: #EAEEF1; }
@@ -245,42 +322,3 @@ body {
     font-weight: bold; }
   #loginpage .errorhide {
     display: none; }
-/*! dashboard/childcomponents/dashboardCourse.scss */
-@media (min-width: 768px) and (max-width: 991px) {
-  #dashboard .course {
-    height: 120px; } }
-@media (min-width: 992px) and (max-width: 1199px) {
-  #dashboard .course {
-    height: 120px; } }
-@media (min-width: 1200px) {
-  #dashboard .course {
-    height: 120px; } }
-#dashboard .course {
-  width: 100%;
-  border: 2px solid #A3A3A3;
-  background-color: #EFEFEF;
-  margin: 15px 0; }
-  #dashboard .course .bookcover {
-    margin-left: 30px; }
-    #dashboard .course .bookcover img {
-      border: 1px solid black;
-      max-width: 76px; }
-  #dashboard .course .courseinfo {
-    color: #8D8D8D;
-    font-size: 12px;
-    font-style: italic; }
-    #dashboard .course .courseinfo span {
-      width: 100%; }
-    #dashboard .course .courseinfo .coursetitle {
-      color: #2B72A5;
-      font-size: 18px;
-      font-weight: bold;
-      font-style: normal; }
-  #dashboard .course .coursebutton .enterproduct {
-    width: 120px;
-    height: 30px;
-    color: white;
-    background-color: #1070B0;
-    border: 0;
-    font-size: 13px;
-    font-weight: 100; }
