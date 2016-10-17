@@ -44,7 +44,7 @@ if(k&&j[k]&&(e||j[k].data)||void 0!==d||"string"!=typeof b)return k||(k=i?a[h]=c
  var assetsDirectory = '';
 var DEEPLINK_DIR = DEEPLINK_DIR || '';
 var SiteConfig = {
-	version: '0.8.1',
+	version: '0.9.1',
     assetsDirectory: assetsDirectory,
     webRoot: DEEPLINK_DIR,
 	loginUsername: 'test.instructor@macmillan.com',
@@ -325,7 +325,7 @@ rc.loginPageComponent = React.createClass({
         console.log(this.constructor.displayName + ' render()');
         return React.createElement(
             'div',
-            { id: 'loginpage', className: 'container' },
+            { id: 'loginpage', className: 'container', 'aria-label': 'Sign In' },
             React.createElement(
                 'form',
                 { onSubmit: this.handleSubmit,
@@ -589,7 +589,7 @@ rc.inputFieldComponent = React.createClass({
     render: function render() {
         var errorClass = this.state.valid ? null : this.props.errorClass;
         return React.createElement(
-            'p',
+            'div',
             { className: errorClass },
             React.createElement(
                 'label',
@@ -597,6 +597,7 @@ rc.inputFieldComponent = React.createClass({
                 this.props.labelText
             ),
             React.createElement('input', {
+                id: this.props.name,
                 name: this.props.name,
                 className: this.props.inputClass,
                 type: this.props.type,

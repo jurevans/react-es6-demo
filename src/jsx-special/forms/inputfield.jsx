@@ -43,11 +43,12 @@ rc.inputFieldComponent = React.createClass({
         var errorClass = this.state.valid ? null : this.props.errorClass;
 
         return (
-            <p className={errorClass}>
+            <div className={errorClass}>
                 <label htmlFor={this.props.name} className={this.props.labelClass}>
                     {this.props.labelText}
                 </label>
                 <input
+                    id={this.props.name}
                     name={this.props.name}
                     className={this.props.inputClass}
                     type={this.props.type}
@@ -55,7 +56,7 @@ rc.inputFieldComponent = React.createClass({
                     value={this.state.value}
                     maxLength={this.props.maxLength}
                     onChange={this.handleChange.bind(null, this)} />
-                </p>
+            </div>
             );
         }
 });

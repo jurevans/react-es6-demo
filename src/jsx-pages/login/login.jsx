@@ -54,7 +54,7 @@ rc.loginPageComponent = React.createClass({
         console.log(this.constructor.displayName + ' render()');
 
         return (
-            <div id="loginpage" className="container">
+            <div id="loginpage" className="container" aria-label="Sign In">
                 <form onSubmit={this.handleSubmit}
                     className="form" name="loginform" action="#" method="post">
                     <fieldset name="login" className="formfieldset">
