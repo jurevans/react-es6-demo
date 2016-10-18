@@ -46,6 +46,7 @@ rc.loginPageComponent = React.createClass({
         };
 
         // TODO: Post NSM - actual Ajax call
+        io_lib.verifyLogin(data);
         window.location.href='/#/dashboard';
     },
 
@@ -108,6 +109,10 @@ rc.loginPageComponent = React.createClass({
                             />
                     </fieldset>
                 </form>
+                <div className="testcreds">
+                    <div>{SiteConfig.loginUsername}</div>
+                    <div>{SiteConfig.loginPassword}</div>
+                </div>
             </div>
         );
     }

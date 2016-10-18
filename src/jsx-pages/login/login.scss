@@ -1,6 +1,13 @@
 /* login.scss */
 
 #loginpage {
+
+    .testcreds {
+        margin-top: 50px;
+        color: #DDD;
+    }
+
+
     margin-top: 50px;
     /**************/
     /* Structural */
@@ -10,6 +17,10 @@
         .form {
             width: 100%;
             max-width: 320px;
+            .formfieldset {
+                font-size: 14px;
+                padding: 45px 15px 25px 15px;
+            }
         }
     }
 
@@ -17,6 +28,10 @@
         .form {
             width: 100%;
             max-width: 320px;
+            .formfieldset {
+                font-size: 12px;
+                padding: 45px 35px 25px 35px;
+            }
         }
     }
 
@@ -24,6 +39,10 @@
         .form {
             width: 100%;
             max-width: 320px;
+            .formfieldset {
+                font-size: 12px;
+                padding: 45px 35px 25px 35px;
+            }
         }
     }
 
@@ -31,6 +50,10 @@
         .form {
             width: 100%;
             max-width: 320px;
+            .formfieldset {
+                font-size: 12px;
+                padding: 45px 35px 25px 35px;
+            }
         }
     }
 
@@ -49,15 +72,22 @@
             position: relative;
             border: 1px solid #999;
             background-color: $backgroundGray;
+<<<<<<< HEAD
             padding: 45px 35px 25px 35px;
             font-size: 12px;
+=======
+>>>>>>> 5c7f8c17b12cd39d1976d76a387854cb2536cd1b
         }
 
         .formlegend {
             .formlegendspan {
                 position: absolute;
                 top: 15px;
+<<<<<<< HEAD
                 font-size: 21px;
+=======
+                font-size: 22px;
+>>>>>>> 5c7f8c17b12cd39d1976d76a387854cb2536cd1b
             }
         }
 
@@ -78,7 +108,8 @@
             background: $buttonBackgroundBlue !important;
             border: 0;
             width: auto;
-            padding: 6px;
+            padding: 6px 12px;
+            font-size: 14px;
 
             &:disabled {
                 background: $buttonDisabledBackgroundBlue !important;

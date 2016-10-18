@@ -61,14 +61,21 @@ rc.dashboardPageComponent = React.createClass({
         );
     }
 });
-"use strict";
+'use strict';
 /*! home/home.jsx */
 rc.homePageComponent = React.createClass({
-    displayName: "homePageComponent",
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        return React.createElement("div", { id: "homepage" });
+  displayName: 'homePageComponent',
+  componentWillMount: function componentWillMount() {
+    if (app.status.loggedin == 'true') {
+      window.location.href = '/#/dashboard';
+    } else {
+      window.location.href = '/#/login';
     }
+  },
+  render: function render() {
+    console.log(this.constructor.displayName + ' render()');
+    return React.createElement('div', { id: 'homepage' });
+  }
 });
 'use strict';
 /*! login/login.jsx */
@@ -99,6 +106,7 @@ rc.loginPageComponent = React.createClass({
             email: this.refs.email.state.value,
             password: this.refs.password.state.value
         };
+        io_lib.verifyLogin(data);
         window.location.href = '/#/dashboard';
     },
     render: function render() {
@@ -164,6 +172,20 @@ rc.loginPageComponent = React.createClass({
                         ref: 'submit'
                     })
                 )
+            ),
+            React.createElement(
+                'div',
+                { className: 'testcreds' },
+                React.createElement(
+                    'div',
+                    null,
+                    SiteConfig.loginUsername
+                ),
+                React.createElement(
+                    'div',
+                    null,
+                    SiteConfig.loginPassword
+                )
             )
         );
     }
@@ -186,15 +208,15 @@ rc.dashboardCourseComponent = React.createClass({
     render: function render() {
         return React.createElement(
             'div',
-            { className: 'course' },
+            { className: 'course flex row' },
             React.createElement(
                 'div',
-                { className: 'bookcover' },
+                { className: 'bookcover col-xs-4 col-sm-2 col-md-2' },
                 React.createElement('img', { src: this.props.course.cover ? this.props.course.cover : SiteConfig.assetsDirectory + 'images/site/bookcover.png' })
             ),
             React.createElement(
                 'div',
-                { className: 'courseinfo' },
+                { className: 'courseinfo col-xs-8 col-sm-7 col-md-7' },
                 React.createElement(
                     'span',
                     { className: 'coursetitle' },
@@ -215,7 +237,7 @@ rc.dashboardCourseComponent = React.createClass({
             ),
             React.createElement(
                 'div',
-                { className: 'coursebutton' },
+                { className: 'coursebutton col-xs-12 col-sm-3 col-md-3' },
                 React.createElement(
                     'button',
                     { className: 'enterproduct' },
@@ -379,51 +401,6 @@ rc.inputFieldComponent = React.createClass({
     }
 });
 'use strict';
-/*! header/header.jsx */
-rc.header = React.createClass({
-  displayName: 'header',
-  getInitialState: function getInitialState() {
-    return {
-      loggedin: SiteConfig.loggedin
-    };
-  },
-  signOut: function signOut(e) {
-    window.location.href = '/#/login';
-  },
-  componentDidMount: function componentDidMount() {
-    var self = this;
-    grandCentral.off('routeChange').on('routeChange', function () {
-      self.setState({ loggedin: SiteConfig.loggedin });
-    });
-  },
-  render: function render() {
-    return React.createElement(
-      'div',
-      { className: 'container' },
-      React.createElement(
-        'a',
-        { className: 'logo', href: '#' },
-        React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/site/logo-macmillan-learning.jpg' })
-      ),
-      React.createElement(
-        'div',
-        { id: 'accountSection', className: 'account ' + this.state.loggedin },
-        React.createElement(
-          'span',
-          { className: 'username' },
-          'Demo User'
-        ),
-        React.createElement('span', { className: 'itemDivider' }),
-        React.createElement(
-          'span',
-          { className: 'logout', onClick: this.signOut },
-          'Sign out'
-        )
-      )
-    );
-  }
-});
-'use strict';
 /*! loader/loader.jsx */
 rc.loader = React.createClass({
     displayName: 'loader',
@@ -469,6 +446,57 @@ rc.loader = React.createClass({
             )
         );
     }
+});
+'use strict';
+/*! header/header.jsx */
+rc.header = React.createClass({
+	displayName: 'header',
+	getInitialState: function getInitialState() {
+		return {
+			loggedin: app.status.loggedin
+		};
+	},
+	signOut: function signOut(e) {
+		io_lib.logOut();
+		window.location.href = '/#/login';
+	},
+	componentDidMount: function componentDidMount() {
+		var self = this;
+		grandCentral.off('routeChange').on('routeChange', function () {
+			self.setState({ loggedin: app.status.loggedin });
+		});
+	},
+	render: function render() {
+		return React.createElement(
+			'header',
+			{ id: 'siteheader' },
+			React.createElement(
+				'div',
+				{ className: 'flex container' },
+				React.createElement(
+					'a',
+					{ className: 'logo', href: '#' },
+					React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/site/logo-macmillan-learning.jpg' })
+				),
+				React.createElement(
+					'div',
+					{ id: 'accountSection', className: 'account ' + this.state.loggedin },
+					React.createElement(
+						'span',
+						{ className: 'username' },
+						'Demo User'
+					),
+					React.createElement('span', { className: 'itemDivider' }),
+					React.createElement('br', null),
+					React.createElement(
+						'span',
+						{ className: 'logout', onClick: this.signOut },
+						'Sign out'
+					)
+				)
+			)
+		);
+	}
 });
 'use strict';
 /*! mainmodal/mainmodal.jsx */
