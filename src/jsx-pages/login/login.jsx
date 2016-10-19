@@ -64,8 +64,9 @@ rc.loginPageComponent = React.createClass({
 
                         <rc.inputFieldComponent
                             ref="email"
-                            type="email"
+                            id="email"
                             name="email"
+                            type="email"
                             labelText="Email address:"
                             errorClass="forminputerror"
                             labelClass="formlabel"
@@ -75,6 +76,7 @@ rc.loginPageComponent = React.createClass({
 
                         <rc.inputFieldComponent
                             ref="password"
+                            id="password"
                             name="password"
                             type="password"
                             labelText="Password:"

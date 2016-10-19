@@ -32,23 +32,13 @@ describe('Test suite for Login page component', function() {
 		expect(function() {
 			component;
 		}).not.toThrow();
+	});
 
+	it('The sub-components should render to the page', function() {
         expect(reactTestUtils.isDOMComponent(emailInput)).toBeTruthy();
         expect(reactTestUtils.isDOMComponent(passwordInput)).toBeTruthy();
         expect(reactTestUtils.isDOMComponent(submitButton)).toBeTruthy();
 	});
-
-    /* This component uses grandCentral to manage actions between fields, messages and Sign In button */
-
-    it('Grand Central Exists', function(){
-        console.log("typeof GrandCentral = " + typeof grandCentral);
-        expect(typeof grandCentral).not.toBe("undefined")
-    });
-
-    it('FormValidation should exist.', function(){
-        console.log("typeof FormValidation = " + typeof FormValidation);
-        expect(typeof FormValidation).not.toBe("undefined")
-    });
 
     it('Default state should be valid (true)', function() {
 		expect(component.state.valid).toBeTruthy();
@@ -56,6 +46,8 @@ describe('Test suite for Login page component', function() {
 
     it('Should not post the form if invalid', function() {
         /* Don't post form data if form is invalid */
+
+        /* Talk to Satya about this */
         spyOn(component, "postForm");
         reactTestUtils.Simulate.click(submitButton);
         expect(component.postForm).not.toHaveBeenCalled();
@@ -79,7 +71,6 @@ describe('Test suite for Login page component', function() {
             expect(password.state.valid).toBeTruthy();
     	});
 
-        /* Types, probably don't need these :-/ */
         it('Email input should be of type "email"', function() {
             expect(emailInput.type).toBe('email');
         });

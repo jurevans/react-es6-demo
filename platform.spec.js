@@ -13,7 +13,7 @@ console.error = function(e){
 /* We're not testing AJAX calls, so suppress errors */
 console.log = function(e){
     var strErr = 'strErr ';
-    if(e.indexOf(strErr) > -1){
+    if(typeof e !== 'object' && typeof e !== 'function' && e.indexOf(strErr) > -1){
         // Suppress AJAX strErr Warnings
     }else{
         // *** NOTE: We use console.info to avoid infinite looping
@@ -31,5 +31,13 @@ describe('suite of tests for the platform',function () {
         console.log('Router base js\' routeTunnel() function should not be changed');
         var checksum = md5(routerSetupConfig.routeTunnel.toString());
         expect(checksum).toBe('d656a594c101d87e724043621e4a0083');
+    });
+    it('Grand Central Exists', function(){
+        console.log("typeof GrandCentral = " + typeof grandCentral);
+        expect(typeof grandCentral).not.toBe("undefined")
+    });
+    it('FormValidation should exist.', function(){
+        console.log("typeof FormValidation = " + typeof FormValidation);
+        expect(typeof FormValidation).not.toBe("undefined")
     });
 });
