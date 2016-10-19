@@ -14,6 +14,7 @@ describe('Test suite for Login page component', function() {
         email = component.refs.email;
         password = component.refs.password;
         submit = component.refs.submit;
+		message = component.refs.forgotComponent;
 
         /* DOM */
         emailInput = reactTestUtils.findRenderedDOMComponentWithClass(component, 'emailaddress');
@@ -59,7 +60,6 @@ describe('Test suite for Login page component', function() {
             password.setState({ value: SiteConfig.loginPassword });
     	});
 
-        /* Test FormValidation Lib */
         it('Should validate with the correct username and password', function(){
             expect(email.state.value).toBe(SiteConfig.loginUsername);
             expect(password.state.value).toBe(SiteConfig.loginPassword);
