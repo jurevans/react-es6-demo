@@ -72,6 +72,7 @@ rc.loginPageComponent = React.createClass({
                             labelClass="formlabel"
                             inputClass="forminput emailaddress"
                             maxLength="100"
+                            required=""
                             />
 
                         <rc.inputFieldComponent
@@ -84,6 +85,7 @@ rc.loginPageComponent = React.createClass({
                             labelClass="formlabel"
                             inputClass="forminput password"
                             maxLength="50"
+                            required=""
                             />
 
                         <rc.inlineMessageComponent
