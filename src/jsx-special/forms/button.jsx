@@ -1,23 +1,27 @@
-rc.buttonComponent = React.createClass({
-    getInitialState() {
-        return {
-            enabled : true
-        }
-    },
+rc.buttonComponent = class ButtonComponent extends React.Component {
+    constructor (props) {
+        super(props);
 
-    componentDidMount : function() {
+        this.state = {
+            enabled: true
+        }
+
+        this.handleClick = this.handleClick.bind(this)
+    }
+
+    componentDidMount () {
         var self = this;
 
-        grandCentral.on('to_button', function(data) {
+        grandCentral.on('to_button', (data) => {
             self.setState({
                 enabled : data.enabled
             })
         });
-    },
+    }
 
-    handleClick : function(name, e) {
+    handleClick (name, e) {
         e.preventDefault();
-    },
+    }
 
     render() {
         return (
@@ -32,4 +36,4 @@ rc.buttonComponent = React.createClass({
             </p>
         );
     }
-});
+};

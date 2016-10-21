@@ -1,17 +1,23 @@
-rc.inlineMessageComponent = React.createClass({
-    getInitialState : function() {
-        return {
+rc.inlineMessageComponent = class inlineMessageComponent extends React.Component {
+    constructor (props) {
+        super(props);
+
+        this.state = {
             isClicked: false
         }
-    },
-    handleClick : function(e) {
+
+        this.handleClick = this.handleClick.bind(this);
+    }
+
+    handleClick (e) {
         e.preventDefault();
 
         this.setState({
             isClicked: true
         })
-    },
-    render : function() {
+    }
+
+    render () {
         var partial = !this.state.isClicked
             ? <a href="#" className={this.props.linkClassName} onClick={this.handleClick}>{this.props.linkText}</a>
             : <div className={this.props.copyClassName}>{this.props.copyText}</div>;
@@ -22,4 +28,4 @@ rc.inlineMessageComponent = React.createClass({
             </p>
         )
     }
-})
+}

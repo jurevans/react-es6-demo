@@ -1,29 +1,34 @@
-rc.errorMessageComponent = React.createClass({
-    getInitialState() {
-        return {
+rc.errorMessageComponent = class ErrorMessage extends React.Component {
+
+    constructor (props) {
+        super(props);
+
+        this.state = {
             show: false
         }
-    },
 
-    componentDidMount : function() {
-        var self = this;
+        this.handleClick = this.handleClick.bind(this);
+    }
 
-        grandCentral.on('to_errorMessage', function(data) {
+    componentDidMount () {
+        let self = this;
+
+        grandCentral.on('to_errorMessage', (data) => {
             self.setState({
                 show: data.show
             })
         });
-    },
+    }
 
-    handleClick : function(name, e) {
+    handleClick (name, e) {
         e.preventDefault();
-    },
+    }
 
     render() {
-        var className = !this.state.show ? this.props.errorHideClassName : this.props.errorShowClassName;
+        let className = !this.state.show ? this.props.errorHideClassName : this.props.errorShowClassName;
 
         return (
             <p className={className}>{this.props.message}</p>
         );
     }
-});
+};

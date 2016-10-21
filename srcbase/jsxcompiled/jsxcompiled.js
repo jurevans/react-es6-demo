@@ -272,101 +272,147 @@ rc.dashboardCourseComponent = React.createClass({
     }
 });
 "use strict";
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 /*! login/childComponents/inlinemessage.jsx */
-rc.inlineMessageComponent = React.createClass({
-    displayName: "inlineMessageComponent",
-    getInitialState: function getInitialState() {
-        return {
+rc.inlineMessageComponent = function (_React$Component) {
+    _inherits(inlineMessageComponent, _React$Component);
+    function inlineMessageComponent(props) {
+        _classCallCheck(this, inlineMessageComponent);
+        var _this = _possibleConstructorReturn(this, (inlineMessageComponent.__proto__ || Object.getPrototypeOf(inlineMessageComponent)).call(this, props));
+        _this.state = {
             isClicked: false
         };
-    },
-    handleClick: function handleClick(e) {
-        e.preventDefault();
-        this.setState({
-            isClicked: true
-        });
-    },
-    render: function render() {
-        var partial = !this.state.isClicked ? React.createElement(
-            "a",
-            { href: "#", className: this.props.linkClassName, onClick: this.handleClick },
-            this.props.linkText
-        ) : React.createElement(
-            "div",
-            { className: this.props.copyClassName },
-            this.props.copyText
-        );
-        return React.createElement(
-            "p",
-            { className: this.props.className },
-            partial
-        );
+        _this.handleClick = _this.handleClick.bind(_this);
+        return _this;
     }
-});
+    _createClass(inlineMessageComponent, [{
+        key: "handleClick",
+        value: function handleClick(e) {
+            e.preventDefault();
+            this.setState({
+                isClicked: true
+            });
+        }
+    }, {
+        key: "render",
+        value: function render() {
+            var partial = !this.state.isClicked ? React.createElement(
+                "a",
+                { href: "#", className: this.props.linkClassName, onClick: this.handleClick },
+                this.props.linkText
+            ) : React.createElement(
+                "div",
+                { className: this.props.copyClassName },
+                this.props.copyText
+            );
+            return React.createElement(
+                "p",
+                { className: this.props.className },
+                partial
+            );
+        }
+    }]);
+    return inlineMessageComponent;
+}(React.Component);
 'use strict';
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 /*! forms/button.jsx */
-rc.buttonComponent = React.createClass({
-    displayName: 'buttonComponent',
-    getInitialState: function getInitialState() {
-        return {
+rc.buttonComponent = function (_React$Component) {
+    _inherits(ButtonComponent, _React$Component);
+    function ButtonComponent(props) {
+        _classCallCheck(this, ButtonComponent);
+        var _this = _possibleConstructorReturn(this, (ButtonComponent.__proto__ || Object.getPrototypeOf(ButtonComponent)).call(this, props));
+        _this.state = {
             enabled: true
         };
-    },
-    componentDidMount: function componentDidMount() {
-        var self = this;
-        grandCentral.on('to_button', function (data) {
-            self.setState({
-                enabled: data.enabled
-            });
-        });
-    },
-    handleClick: function handleClick(name, e) {
-        e.preventDefault();
-    },
-    render: function render() {
-        return React.createElement(
-            'p',
-            null,
-            React.createElement(
-                'button',
-                {
-                    name: this.props.buttonName,
-                    className: this.props.className,
-                    disabled: !this.state.enabled },
-                this.props.buttonText
-            )
-        );
+        _this.handleClick = _this.handleClick.bind(_this);
+        return _this;
     }
-});
+    _createClass(ButtonComponent, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var self = this;
+            grandCentral.on('to_button', function (data) {
+                self.setState({
+                    enabled: data.enabled
+                });
+            });
+        }
+    }, {
+        key: 'handleClick',
+        value: function handleClick(name, e) {
+            e.preventDefault();
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return React.createElement(
+                'p',
+                null,
+                React.createElement(
+                    'button',
+                    {
+                        name: this.props.buttonName,
+                        className: this.props.className,
+                        disabled: !this.state.enabled },
+                    this.props.buttonText
+                )
+            );
+        }
+    }]);
+    return ButtonComponent;
+}(React.Component);
 'use strict';
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 /*! forms/errormessage.jsx */
-rc.errorMessageComponent = React.createClass({
-    displayName: 'errorMessageComponent',
-    getInitialState: function getInitialState() {
-        return {
+rc.errorMessageComponent = function (_React$Component) {
+    _inherits(ErrorMessage, _React$Component);
+    function ErrorMessage(props) {
+        _classCallCheck(this, ErrorMessage);
+        var _this = _possibleConstructorReturn(this, (ErrorMessage.__proto__ || Object.getPrototypeOf(ErrorMessage)).call(this, props));
+        _this.state = {
             show: false
         };
-    },
-    componentDidMount: function componentDidMount() {
-        var self = this;
-        grandCentral.on('to_errorMessage', function (data) {
-            self.setState({
-                show: data.show
-            });
-        });
-    },
-    handleClick: function handleClick(name, e) {
-        e.preventDefault();
-    },
-    render: function render() {
-        var className = !this.state.show ? this.props.errorHideClassName : this.props.errorShowClassName;
-        return React.createElement(
-            'p',
-            { className: className },
-            this.props.message
-        );
+        _this.handleClick = _this.handleClick.bind(_this);
+        return _this;
     }
-});
+    _createClass(ErrorMessage, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var self = this;
+            grandCentral.on('to_errorMessage', function (data) {
+                self.setState({
+                    show: data.show
+                });
+            });
+        }
+    }, {
+        key: 'handleClick',
+        value: function handleClick(name, e) {
+            e.preventDefault();
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var className = !this.state.show ? this.props.errorHideClassName : this.props.errorShowClassName;
+            return React.createElement(
+                'p',
+                { className: className },
+                this.props.message
+            );
+        }
+    }]);
+    return ErrorMessage;
+}(React.Component);
 'use strict';
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -485,53 +531,6 @@ rc.header = React.createClass({
 	}
 });
 'use strict';
-/*! loader/loader.jsx */
-rc.loader = React.createClass({
-    displayName: 'loader',
-    stack: [],
-    getInitialState: function getInitialState() {
-        return {
-            show: false
-        };
-    },
-    componentDidMount: function componentDidMount(currentPage) {
-        var self = this;
-        grandCentral.off('loaderStart').on('loaderStart', function (uniqueString) {
-            if ($.inArray(uniqueString, self.stack) == -1) {
-                console.log('loaderStart(' + uniqueString + ')');
-                self.stack.push(uniqueString);
-                self.setState({ show: true });
-            }
-        });
-        grandCentral.off('loaderEnd').on('loaderEnd', function (uniqueString) {
-            var i = $.inArray(uniqueString, self.stack);
-            if (i > -1) {
-                self.stack.splice(i, 1);
-                console.log('loaderEnd(' + uniqueString + ')');
-            }
-            if (self.stack.length === 0) {
-                self.setState({ show: false });
-            }
-        });
-    },
-    reset: function reset() {
-        this.stack = [];
-        this.setState({ show: false });
-    },
-    render: function render() {
-        var classes = this.state.show ? 'active' : '';
-        return React.createElement(
-            'div',
-            { id: 'loader', className: classes },
-            React.createElement(
-                'div',
-                { className: 'loadingmessage' },
-                React.createElement('img', { className: 'spinner', src: SiteConfig.assetsDirectory + 'images/ui/spinner.gif' })
-            )
-        );
-    }
-});
-'use strict';
 /*! mainmodal/mainmodal.jsx */
 rc.mainmodal = React.createClass({
     displayName: 'mainmodal',
@@ -599,6 +598,53 @@ rc.mainmodal = React.createClass({
                         outputArray
                     )
                 )
+            )
+        );
+    }
+});
+'use strict';
+/*! loader/loader.jsx */
+rc.loader = React.createClass({
+    displayName: 'loader',
+    stack: [],
+    getInitialState: function getInitialState() {
+        return {
+            show: false
+        };
+    },
+    componentDidMount: function componentDidMount(currentPage) {
+        var self = this;
+        grandCentral.off('loaderStart').on('loaderStart', function (uniqueString) {
+            if ($.inArray(uniqueString, self.stack) == -1) {
+                console.log('loaderStart(' + uniqueString + ')');
+                self.stack.push(uniqueString);
+                self.setState({ show: true });
+            }
+        });
+        grandCentral.off('loaderEnd').on('loaderEnd', function (uniqueString) {
+            var i = $.inArray(uniqueString, self.stack);
+            if (i > -1) {
+                self.stack.splice(i, 1);
+                console.log('loaderEnd(' + uniqueString + ')');
+            }
+            if (self.stack.length === 0) {
+                self.setState({ show: false });
+            }
+        });
+    },
+    reset: function reset() {
+        this.stack = [];
+        this.setState({ show: false });
+    },
+    render: function render() {
+        var classes = this.state.show ? 'active' : '';
+        return React.createElement(
+            'div',
+            { id: 'loader', className: classes },
+            React.createElement(
+                'div',
+                { className: 'loadingmessage' },
+                React.createElement('img', { className: 'spinner', src: SiteConfig.assetsDirectory + 'images/ui/spinner.gif' })
             )
         );
     }
