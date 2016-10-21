@@ -87,7 +87,6 @@ body {
     #siteheader #accountSection .logout {
       color: #1E78B4;
       cursor: pointer; }
-/*! nav/nav.scss */
 /*! loader/loader.scss */
 #loadercontainer #loader {
   display: none;
@@ -169,6 +168,7 @@ body {
   border: 0; }
 #modalcontainer .modalContentsWrapper {
   padding: 20px; }
+/*! nav/nav.scss */
 /*! dashboard/childcomponents/dashboardCourse.scss */
 @media (max-width: 767px) {
   #dashboard {
@@ -235,7 +235,6 @@ body {
 #dashboard .dashHeader {
   font-size: 20px;
   font-weight: 100; }
-/*! home/home.scss */
 /*! login/login.scss */
 #loginpage {
   margin-top: 50px;
@@ -324,3 +323,4 @@ body {
     font-weight: bold; }
   #loginpage .errorhide {
     display: none; }
+/*! home/home.scss */
