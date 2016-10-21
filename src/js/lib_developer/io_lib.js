@@ -9,8 +9,11 @@ var io_lib = ( function() {
     var prod = 'https://student.macmillanhighered.com';
 
     // Private methods.
-    function verifyLogin(data) {
+    function verifyLogin(data, callback) {
+        var response = {};
         app.status.loggedin = 'true';
+
+        callback.call(this, response);
     }
 
     function logOut(){

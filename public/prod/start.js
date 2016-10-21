@@ -200,8 +200,10 @@ var Nux = (function(){
     var loadtest = 'https://student.lt.macmillan.cloud';
     var pr = 'https://dev-aws-student.macmillanhighered.com';
     var prod = 'https://student.macmillanhighered.com';
-    function verifyLogin(data) {
+    function verifyLogin(data, callback) {
+        var response = {};
         app.status.loggedin = 'true';
+        callback.call(this, response);
     }
     function logOut(){
         app.status.loggedin = 'false';
@@ -290,118 +292,140 @@ rc.homePageComponent = React.createClass({
     return React.createElement('div', { id: 'homepage' });
   }
 });
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 /*! login/login.jsx */
-rc.loginPageComponent = React.createClass({
-    displayName: 'loginPageComponent',
-    getInitialState: function getInitialState() {
-        return {
+rc.loginPageComponent = function (_React$Component) {
+    _inherits(LoginPageComponent, _React$Component);
+    function LoginPageComponent(props) {
+        _classCallCheck(this, LoginPageComponent);
+        var _this = _possibleConstructorReturn(this, (LoginPageComponent.__proto__ || Object.getPrototypeOf(LoginPageComponent)).call(this, props));
+        _this.state = {
             valid: true
         };
-    },
-    handleSubmit: function handleSubmit(e) {
-        e.preventDefault();
-        var emailAddress = SiteConfig.loginUsername;
-        var password = SiteConfig.loginPassword;
-        var isEmailValid = FormValidation.validate(this.refs.email.state.value, emailAddress);
-        var isPasswordValid = FormValidation.validate(this.refs.password.state.value, password);
-        var isFormValid = isEmailValid && isPasswordValid;
-        grandCentral.trigger('to_inputField_email', { valid: isEmailValid });
-        grandCentral.trigger('to_inputField_password', { valid: isPasswordValid });
-        grandCentral.trigger('to_button', { enabled: isFormValid });
-        grandCentral.trigger('to_errorMessage', { show: !isFormValid });
-        if (isFormValid) {
-            this.postForm();
+        _this.handleSubmit = _this.handleSubmit.bind(_this);
+        return _this;
+    }
+    _createClass(LoginPageComponent, [{
+        key: 'handleSubmit',
+        value: function handleSubmit(e) {
+            e.preventDefault();
+            var emailAddress = SiteConfig.loginUsername;
+            var password = SiteConfig.loginPassword;
+            var isEmailValid = FormValidation.validate(this.refs.email.state.value, emailAddress);
+            var isPasswordValid = FormValidation.validate(this.refs.password.state.value, password);
+            var isFormValid = isEmailValid && isPasswordValid;
+            grandCentral.trigger('to_inputField_email', { valid: isEmailValid });
+            grandCentral.trigger('to_inputField_password', { valid: isPasswordValid });
+            grandCentral.trigger('to_button', { enabled: isFormValid });
+            grandCentral.trigger('to_errorMessage', { show: !isFormValid });
+            if (isFormValid) {
+                this.postForm();
+            }
         }
-    },
-    postForm: function postForm() {
-        var data = {
-            email: this.refs.email.state.value,
-            password: this.refs.password.state.value
-        };
-        io_lib.verifyLogin(data);
-        window.location.href = '/#/dashboard';
-    },
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        return React.createElement(
-            'div',
-            { id: 'loginpage', className: 'container', 'aria-label': 'Sign In' },
-            React.createElement(
-                'form',
-                { onSubmit: this.handleSubmit,
-                    className: 'form', name: 'loginform', action: '#', method: 'post' },
-                React.createElement(
-                    'fieldset',
-                    { name: 'login', className: 'formfieldset' },
-                    React.createElement(
-                        'legend',
-                        { className: 'formlegend' },
-                        React.createElement(
-                            'span',
-                            { className: 'formlegendspan' },
-                            'Sign in'
-                        )
-                    ),
-                    React.createElement(rc.inputFieldComponent, {
-                        ref: 'email',
-                        type: 'email',
-                        name: 'email',
-                        labelText: 'Email address:',
-                        errorClass: 'forminputerror',
-                        labelClass: 'formlabel',
-                        inputClass: 'forminput emailaddress',
-                        maxLength: '100'
-                    }),
-                    React.createElement(rc.inputFieldComponent, {
-                        ref: 'password',
-                        name: 'password',
-                        type: 'password',
-                        labelText: 'Password:',
-                        errorClass: 'forminputerror',
-                        labelClass: 'formlabel',
-                        inputClass: 'forminput password',
-                        maxLength: '50'
-                    }),
-                    React.createElement(rc.inlineMessageComponent, {
-                        ref: 'forgotComponent',
-                        linkText: 'Forgot credentials?',
-                        className: 'forgot',
-                        linkClassName: 'forgotlink',
-                        copyClassName: 'forgotcopy',
-                        copyText: 'To get the current username and password, contact your sales rep.'
-                    }),
-                    React.createElement(rc.errorMessageComponent, {
-                        message: 'Invalid username or password.',
-                        className: 'errormessage',
-                        errorShowClassName: 'errorshow',
-                        errorHideClassName: 'errorhide'
-                    }),
-                    React.createElement(rc.buttonComponent, {
-                        buttonName: 'submit',
-                        buttonText: 'Sign in',
-                        className: 'formbutton',
-                        enabled: this.state.valid,
-                        ref: 'submit'
-                    })
-                )
-            ),
-            React.createElement(
+    }, {
+        key: 'postForm',
+        value: function postForm() {
+            var data = {
+                email: this.refs.email.state.value,
+                password: this.refs.password.state.value
+            };
+            io_lib.verifyLogin(data, function (response) {
+                console.log(response);
+                window.location.href = '/#/dashboard';
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            console.log(this.constructor.displayName + ' render()');
+            return React.createElement(
                 'div',
-                { className: 'testcreds' },
+                { id: 'loginpage', className: 'container', 'aria-label': 'Sign In' },
                 React.createElement(
-                    'div',
-                    null,
-                    SiteConfig.loginUsername
+                    'form',
+                    { onSubmit: this.handleSubmit,
+                        className: 'form', name: 'loginform', action: '#', method: 'post' },
+                    React.createElement(
+                        'fieldset',
+                        { name: 'login', className: 'formfieldset' },
+                        React.createElement(
+                            'legend',
+                            { className: 'formlegend' },
+                            React.createElement(
+                                'span',
+                                { className: 'formlegendspan' },
+                                'Sign in'
+                            )
+                        ),
+                        React.createElement(rc.inputFieldComponent, {
+                            ref: 'email',
+                            id: 'email',
+                            name: 'email',
+                            type: 'email',
+                            labelText: 'Email address:',
+                            errorClass: 'forminputerror',
+                            labelClass: 'formlabel',
+                            inputClass: 'forminput emailaddress',
+                            maxLength: '100',
+                            required: ''
+                        }),
+                        React.createElement(rc.inputFieldComponent, {
+                            ref: 'password',
+                            id: 'password',
+                            name: 'password',
+                            type: 'password',
+                            labelText: 'Password:',
+                            errorClass: 'forminputerror',
+                            labelClass: 'formlabel',
+                            inputClass: 'forminput password',
+                            maxLength: '50',
+                            required: ''
+                        }),
+                        React.createElement(rc.inlineMessageComponent, {
+                            ref: 'forgotComponent',
+                            linkText: 'Forgot credentials?',
+                            className: 'forgot',
+                            linkClassName: 'forgotlink',
+                            copyClassName: 'forgotcopy',
+                            copyText: 'To get the current username and password, contact your sales rep.'
+                        }),
+                        React.createElement(rc.errorMessageComponent, {
+                            message: 'Invalid username or password.',
+                            className: 'errormessage',
+                            errorShowClassName: 'errorshow',
+                            errorHideClassName: 'errorhide'
+                        }),
+                        React.createElement(rc.buttonComponent, {
+                            buttonName: 'submit',
+                            buttonText: 'Sign in',
+                            className: 'formbutton',
+                            enabled: this.state.valid,
+                            ref: 'submit'
+                        })
+                    )
                 ),
                 React.createElement(
                     'div',
-                    null,
-                    SiteConfig.loginPassword
+                    { className: 'testcreds' },
+                    React.createElement(
+                        'div',
+                        null,
+                        SiteConfig.loginUsername
+                    ),
+                    React.createElement(
+                        'div',
+                        null,
+                        SiteConfig.loginPassword
+                    )
                 )
-            )
-        );
-    }
-});
+            );
+        }
+    }]);
+    return LoginPageComponent;
+}(React.Component);
 /*! dashboard/childcomponents/dashboardCourse.jsx */
 rc.dashboardCourseComponent = React.createClass({
     displayName: 'dashboardCourseComponent',
@@ -455,6 +479,37 @@ rc.dashboardCourseComponent = React.createClass({
                     'Enter product'
                 )
             )
+        );
+    }
+});
+/*! login/childComponents/inlinemessage.jsx */
+rc.inlineMessageComponent = React.createClass({
+    displayName: "inlineMessageComponent",
+    getInitialState: function getInitialState() {
+        return {
+            isClicked: false
+        };
+    },
+    handleClick: function handleClick(e) {
+        e.preventDefault();
+        this.setState({
+            isClicked: true
+        });
+    },
+    render: function render() {
+        var partial = !this.state.isClicked ? React.createElement(
+            "a",
+            { href: "#", className: this.props.linkClassName, onClick: this.handleClick },
+            this.props.linkText
+        ) : React.createElement(
+            "div",
+            { className: this.props.copyClassName },
+            this.props.copyText
+        );
+        return React.createElement(
+            "p",
+            { className: this.props.className },
+            partial
         );
     }
 });
@@ -517,37 +572,6 @@ rc.errorMessageComponent = React.createClass({
             'p',
             { className: className },
             this.props.message
-        );
-    }
-});
-/*! forms/inlinemessage.jsx */
-rc.inlineMessageComponent = React.createClass({
-    displayName: "inlineMessageComponent",
-    getInitialState: function getInitialState() {
-        return {
-            isClicked: false
-        };
-    },
-    handleClick: function handleClick(e) {
-        e.preventDefault();
-        this.setState({
-            isClicked: true
-        });
-    },
-    render: function render() {
-        var partial = !this.state.isClicked ? React.createElement(
-            "a",
-            { href: "#", className: this.props.linkClassName, onClick: this.handleClick },
-            this.props.linkText
-        ) : React.createElement(
-            "div",
-            { className: this.props.copyClassName },
-            this.props.copyText
-        );
-        return React.createElement(
-            "p",
-            { className: this.props.className },
-            partial
         );
     }
 });

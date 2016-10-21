@@ -45,8 +45,6 @@ body, html, a, img {
 body {
   font-family: helvetica, arial, sans-serif; }
 /*! structure/_variables.scss */
-<<<<<<< HEAD
-=======
 /*! header/header.scss */
 #siteheader {
   width: 100%;
@@ -106,7 +104,6 @@ body {
 #loadercontainer .spinner {
   width: auto;
   margin-top: -400px; }
->>>>>>> 5c7f8c17b12cd39d1976d76a387854cb2536cd1b
 /*! mainmodal/mainmodal.scss */
 @media (max-width: 767px) {
   #modalcontainer .modalwrapper {
@@ -171,34 +168,6 @@ body {
   border: 0; }
 #modalcontainer .modalContentsWrapper {
   padding: 20px; }
-/*! header/header.scss */
-#headercontainer {
-  width: 100%;
-  background: #e8e8e8;
-  border: 0;
-  height: 60px;
-  color: #333;
-  font-family: helvetica, arial, sans-serif;
-  margin: 0 0 20px 0; }
-  #headercontainer .logo {
-    width: 80%;
-    float: left; }
-  #headercontainer #accountSection {
-    width: 20%;
-    float: right;
-    line-height: 60px;
-    text-align: right;
-    color: #666; }
-    #headercontainer #accountSection.false {
-      display: none; }
-    #headercontainer #accountSection .itemDivider {
-      border-left: 2px solid gray;
-      width: 2px;
-      height: auto;
-      margin: 0 10px; }
-    #headercontainer #accountSection .logout {
-      color: #1E78B4;
-      cursor: pointer; }
 /*! nav/nav.scss */
 /*! dashboard/childcomponents/dashboardCourse.scss */
 @media (max-width: 767px) {
@@ -254,21 +223,6 @@ body {
       font-size: 18px;
       font-weight: bold;
       font-style: normal; }
-<<<<<<< HEAD
-  #dashboard .course .coursebutton {
-    padding: 14px;
-    margin-right: 50px;
-    display: inline-block;
-    float: right; }
-    #dashboard .course .coursebutton .enterproduct {
-      width: 120px;
-      height: 30px;
-      color: white;
-      background-color: #1070B0;
-      border: 0;
-      font-size: 13px;
-      font-weight: 100; }
-=======
   #dashboard .course .coursebutton .enterproduct {
     width: 120px;
     height: 30px;
@@ -277,7 +231,6 @@ body {
     border: 0;
     font-size: 14px;
     font-weight: 100; }
->>>>>>> 5c7f8c17b12cd39d1976d76a387854cb2536cd1b
 /*! dashboard/dashboard.scss */
 #dashboard .dashHeader {
   font-size: 20px;
@@ -325,21 +278,13 @@ body {
     #loginpage .form .formfieldset {
       position: relative;
       border: 1px solid #999;
-<<<<<<< HEAD
       background-color: #EFEFEF;
       padding: 45px 35px 25px 35px;
       font-size: 12px; }
     #loginpage .form .formlegend .formlegendspan {
       position: absolute;
       top: 15px;
-      font-size: 21px; }
-=======
-      background-color: #EFEFEF; }
-    #loginpage .form .formlegend .formlegendspan {
-      position: absolute;
-      top: 15px;
       font-size: 22px; }
->>>>>>> 5c7f8c17b12cd39d1976d76a387854cb2536cd1b
     #loginpage .form .formlabel {
       display: block;
       color: #666;

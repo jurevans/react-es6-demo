@@ -1,14 +1,16 @@
 /* Log in to product page */
 
-rc.loginPageComponent = React.createClass({
-    getInitialState: function() {
-        // Valid until proven false
-        return {
+rc.loginPageComponent = class LoginPageComponent extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
             valid : true
-        };
-    },
+        }
 
-    handleSubmit: function(e) {
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleSubmit (e) {
         e.preventDefault();
 
         // For NSM testing
@@ -37,20 +39,24 @@ rc.loginPageComponent = React.createClass({
         if(isFormValid) {
             this.postForm();
         }
-    },
+    }
 
-    postForm: function() {
+    postForm () {
         var data = {
             email: this.refs.email.state.value,
             password: this.refs.password.state.value
         };
 
         // TODO: Post NSM - actual Ajax call
-        io_lib.verifyLogin(data);
-        window.location.href='/#/dashboard';
-    },
+        io_lib.verifyLogin(data, function(response) {
+            console.log(response);
 
-    render: function() {
+            window.location.href='/#/dashboard';
+        });
+
+    }
+
+    render () {
         console.log(this.constructor.displayName + ' render()');
 
         return (
@@ -120,4 +126,4 @@ rc.loginPageComponent = React.createClass({
             </div>
         );
     }
-});
+};
