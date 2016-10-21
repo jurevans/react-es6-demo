@@ -314,8 +314,10 @@ rc.loginPageComponent = function (_React$Component) {
             e.preventDefault();
             var emailAddress = SiteConfig.loginUsername;
             var password = SiteConfig.loginPassword;
-            var isEmailValid = FormValidation.validate(this.refs.email.state.value, emailAddress);
-            var isPasswordValid = FormValidation.validate(this.refs.password.state.value, password);
+            var isEmailValid = FormValidation.validateEmail(this.refs.email.state.value, emailAddress);
+            var isPasswordValid = FormValidation.validatePassword(this.refs.password.state.value, function (value) {
+                return 'test' === value;
+            });
             var isFormValid = isEmailValid && isPasswordValid;
             grandCentral.trigger('to_inputField_email', { valid: isEmailValid });
             grandCentral.trigger('to_inputField_password', { valid: isPasswordValid });
@@ -575,109 +577,71 @@ rc.errorMessageComponent = React.createClass({
         );
     }
 });
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 /*! forms/inputfield.jsx */
-rc.inputFieldComponent = React.createClass({
-    displayName: 'inputFieldComponent',
-    getInitialState: function getInitialState() {
-        return {
+rc.inputFieldComponent = function (_React$Component) {
+    _inherits(InputFieldComponent, _React$Component);
+    function InputFieldComponent(props) {
+        _classCallCheck(this, InputFieldComponent);
+        var _this = _possibleConstructorReturn(this, (InputFieldComponent.__proto__ || Object.getPrototypeOf(InputFieldComponent)).call(this, props));
+        _this.state = {
             value: '',
             valid: true
         };
-    },
-    defaultProps: {
-        name: 'input',
-        className: 'forminput',
-        type: 'text',
-        required: '',
-        value: '',
-        maxLength: 0
-    },
-    componentDidMount: function componentDidMount() {
-        var self = this;
-        grandCentral.on('to_inputField_' + this.props.name, function (data) {
-            self.setState({
-                value: self.state.value,
-                valid: data.valid
+        _this.handleChange = _this.handleChange.bind(_this);
+        return _this;
+    }
+    _createClass(InputFieldComponent, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var self = this;
+            grandCentral.on('to_inputField_' + this.props.name, function (data) {
+                self.setState({
+                    value: self.state.value,
+                    valid: data.valid
+                });
             });
-        });
-    },
-    handleChange: function handleChange(name, e) {
-        var value = e.target.value;
-        this.setState({
-            value: value,
-            valid: typeof this.props.validate !== 'undefined' ? this.props.validate.call(this, value) : true
-        });
-        grandCentral.trigger('to_button', { enabled: true });
-        grandCentral.trigger('to_errorMessage', { show: false });
-    },
-    render: function render() {
-        var errorClass = this.state.valid ? null : this.props.errorClass;
-        return React.createElement(
-            'div',
-            { className: errorClass },
-            React.createElement(
-                'label',
-                { htmlFor: this.props.name, className: this.props.labelClass },
-                this.props.labelText
-            ),
-            React.createElement('input', {
-                id: this.props.name,
-                name: this.props.name,
-                className: this.props.inputClass,
-                type: this.props.type,
-                required: this.props.required,
-                value: this.state.value,
-                maxLength: this.props.maxLength,
-                onChange: this.handleChange.bind(null, this) })
-        );
-    }
-});
-/*! loader/loader.jsx */
-rc.loader = React.createClass({
-    displayName: 'loader',
-    stack: [],
-    getInitialState: function getInitialState() {
-        return {
-            show: false
-        };
-    },
-    componentDidMount: function componentDidMount(currentPage) {
-        var self = this;
-        grandCentral.off('loaderStart').on('loaderStart', function (uniqueString) {
-            if ($.inArray(uniqueString, self.stack) == -1) {
-                console.log('loaderStart(' + uniqueString + ')');
-                self.stack.push(uniqueString);
-                self.setState({ show: true });
-            }
-        });
-        grandCentral.off('loaderEnd').on('loaderEnd', function (uniqueString) {
-            var i = $.inArray(uniqueString, self.stack);
-            if (i > -1) {
-                self.stack.splice(i, 1);
-                console.log('loaderEnd(' + uniqueString + ')');
-            }
-            if (self.stack.length === 0) {
-                self.setState({ show: false });
-            }
-        });
-    },
-    reset: function reset() {
-        this.stack = [];
-        this.setState({ show: false });
-    },
-    render: function render() {
-        var classes = this.state.show ? 'active' : '';
-        return React.createElement(
-            'div',
-            { id: 'loader', className: classes },
-            React.createElement(
+        }
+    }, {
+        key: 'handleChange',
+        value: function handleChange(name, e) {
+            var value = e.target.value;
+            this.setState({
+                value: value,
+                valid: typeof this.props.validate !== 'undefined' ? this.props.validate.call(this, value) : true
+            });
+            grandCentral.trigger('to_button', { enabled: true });
+            grandCentral.trigger('to_errorMessage', { show: false });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var errorClass = this.state.valid ? null : this.props.errorClass;
+            return React.createElement(
                 'div',
-                { className: 'loadingmessage' },
-                React.createElement('img', { className: 'spinner', src: SiteConfig.assetsDirectory + 'images/ui/spinner.gif' })
-            )
-        );
-    }
-});
+                { className: errorClass },
+                React.createElement(
+                    'label',
+                    { htmlFor: this.props.name, className: this.props.labelClass },
+                    this.props.labelText
+                ),
+                React.createElement('input', {
+                    id: this.props.name,
+                    name: this.props.name,
+                    className: this.props.inputClass,
+                    type: this.props.type,
+                    required: this.props.required,
+                    value: this.state.value,
+                    maxLength: this.props.maxLength,
+                    onChange: this.handleChange.bind(null, this) })
+            );
+        }
+    }]);
+    return InputFieldComponent;
+}(React.Component);
 /*! header/header.jsx */
 rc.header = React.createClass({
 	displayName: 'header',
@@ -727,6 +691,52 @@ rc.header = React.createClass({
 			)
 		);
 	}
+});
+/*! loader/loader.jsx */
+rc.loader = React.createClass({
+    displayName: 'loader',
+    stack: [],
+    getInitialState: function getInitialState() {
+        return {
+            show: false
+        };
+    },
+    componentDidMount: function componentDidMount(currentPage) {
+        var self = this;
+        grandCentral.off('loaderStart').on('loaderStart', function (uniqueString) {
+            if ($.inArray(uniqueString, self.stack) == -1) {
+                console.log('loaderStart(' + uniqueString + ')');
+                self.stack.push(uniqueString);
+                self.setState({ show: true });
+            }
+        });
+        grandCentral.off('loaderEnd').on('loaderEnd', function (uniqueString) {
+            var i = $.inArray(uniqueString, self.stack);
+            if (i > -1) {
+                self.stack.splice(i, 1);
+                console.log('loaderEnd(' + uniqueString + ')');
+            }
+            if (self.stack.length === 0) {
+                self.setState({ show: false });
+            }
+        });
+    },
+    reset: function reset() {
+        this.stack = [];
+        this.setState({ show: false });
+    },
+    render: function render() {
+        var classes = this.state.show ? 'active' : '';
+        return React.createElement(
+            'div',
+            { id: 'loader', className: classes },
+            React.createElement(
+                'div',
+                { className: 'loadingmessage' },
+                React.createElement('img', { className: 'spinner', src: SiteConfig.assetsDirectory + 'images/ui/spinner.gif' })
+            )
+        );
+    }
 });
 /*! mainmodal/mainmodal.jsx */
 rc.mainmodal = React.createClass({

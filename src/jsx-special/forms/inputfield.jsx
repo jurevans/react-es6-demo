@@ -1,30 +1,29 @@
-rc.inputFieldComponent = React.createClass({
-    getInitialState() {
-        return {
+rc.inputFieldComponent = class InputFieldComponent extends React.Component {
+
+    constructor (props) {
+        super(props);
+
+        this.state = {
             value : '',
             valid : true
         }
-    },
-    defaultProps: {
-        name: 'input',
-        className: 'forminput',
-        type: 'text',
-        required: '',
-        value: '',
-        maxLength: 0
-    },
-    componentDidMount: function() {
-        var self = this;
 
-        grandCentral.on('to_inputField_' + this.props.name, function(data) {
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    componentDidMount () {
+        let self = this;
+
+        grandCentral.on('to_inputField_' + this.props.name, (data) => {
             self.setState({
                 value : self.state.value,
                 valid : data.valid
             })
         });
-    },
-    handleChange: function(name, e) {
-        var value = e.target.value;
+    }
+
+    handleChange (name, e) {
+        let value = e.target.value;
 
         this.setState({
             value : value,
@@ -37,10 +36,10 @@ rc.inputFieldComponent = React.createClass({
         /* NOTE: May want to parameterize this behavior! */
         grandCentral.trigger('to_button', {enabled: true});
         grandCentral.trigger('to_errorMessage', {show: false});
-    },
+    }
 
     render() {
-        var errorClass = this.state.valid ? null : this.props.errorClass;
+        let errorClass = this.state.valid ? null : this.props.errorClass;
 
         return (
             <div className={errorClass}>
@@ -59,4 +58,4 @@ rc.inputFieldComponent = React.createClass({
             </div>
             );
         }
-});
+};

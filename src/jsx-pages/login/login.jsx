@@ -3,6 +3,7 @@
 rc.loginPageComponent = class LoginPageComponent extends React.Component {
     constructor(props) {
         super(props);
+
         this.state = {
             valid : true
         }
@@ -14,22 +15,20 @@ rc.loginPageComponent = class LoginPageComponent extends React.Component {
         e.preventDefault();
 
         // For NSM testing
-        var emailAddress = SiteConfig.loginUsername;
-        var password = SiteConfig.loginPassword;
+        let emailAddress = SiteConfig.loginUsername;
+        let password = SiteConfig.loginPassword;
 
         // Use generic validator since we are only matching a specific email, not a pattern
-        var isEmailValid = FormValidation.validate(this.refs.email.state.value, emailAddress);
-        // var isEmailValid = FormValidation.validateEmail(this.refs.email.state.value, emailAddress);
+        // let isEmailValid = FormValidation.validate(this.refs.email.state.value, emailAddress);
+        let isEmailValid = FormValidation.validateEmail(this.refs.email.state.value, emailAddress);
 
         // Use generic validator since we are only matching a specific email, not a pattern
-        var isPasswordValid = FormValidation.validate(this.refs.password.state.value, password);
-        /*
-        var isPasswordValid = FormValidation.validatePassword(this.refs.password.state.value, function(value){
-            return password === value;
+        let isPasswordValid =  FormValidation.validatePassword(this.refs.password.state.value, function(value){
+            return 'test' === value;
         });
-        */
 
-        var isFormValid = isEmailValid && isPasswordValid;
+
+        let isFormValid = isEmailValid && isPasswordValid;
 
         grandCentral.trigger('to_inputField_email', { valid: isEmailValid });
         grandCentral.trigger('to_inputField_password', { valid: isPasswordValid });
@@ -42,7 +41,7 @@ rc.loginPageComponent = class LoginPageComponent extends React.Component {
     }
 
     postForm () {
-        var data = {
+        let data = {
             email: this.refs.email.state.value,
             password: this.refs.password.state.value
         };
