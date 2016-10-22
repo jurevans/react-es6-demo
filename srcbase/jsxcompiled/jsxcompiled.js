@@ -194,20 +194,6 @@ rc.loginPageComponent = function (_React$Component) {
                             ref: 'submit'
                         })
                     )
-                ),
-                React.createElement(
-                    'div',
-                    { className: 'testcreds' },
-                    React.createElement(
-                        'div',
-                        null,
-                        SiteConfig.loginUsername
-                    ),
-                    React.createElement(
-                        'div',
-                        null,
-                        SiteConfig.loginPassword
-                    )
                 )
             );
         }

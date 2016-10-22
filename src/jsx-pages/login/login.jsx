@@ -118,10 +118,6 @@ rc.loginPageComponent = class LoginPageComponent extends React.Component {
                             />
                     </fieldset>
                 </form>
-                <div className="testcreds">
-                    <div>{SiteConfig.loginUsername}</div>
-                    <div>{SiteConfig.loginPassword}</div>
-                </div>
             </div>
         );
     }
