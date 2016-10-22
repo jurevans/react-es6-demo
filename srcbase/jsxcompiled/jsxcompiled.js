@@ -62,6 +62,22 @@ rc.dashboardPageComponent = React.createClass({
     }
 });
 'use strict';
+/*! home/home.jsx */
+rc.homePageComponent = React.createClass({
+  displayName: 'homePageComponent',
+  componentWillMount: function componentWillMount() {
+    if (app.status.loggedin == 'true') {
+      window.location.href = '/#/dashboard';
+    } else {
+      window.location.href = '/#/login';
+    }
+  },
+  render: function render() {
+    console.log(this.constructor.displayName + ' render()');
+    return React.createElement('div', { id: 'homepage' });
+  }
+});
+'use strict';
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -199,22 +215,6 @@ rc.loginPageComponent = function (_React$Component) {
     return LoginPageComponent;
 }(React.Component);
 'use strict';
-/*! home/home.jsx */
-rc.homePageComponent = React.createClass({
-  displayName: 'homePageComponent',
-  componentWillMount: function componentWillMount() {
-    if (app.status.loggedin == 'true') {
-      window.location.href = '/#/dashboard';
-    } else {
-      window.location.href = '/#/login';
-    }
-  },
-  render: function render() {
-    console.log(this.constructor.displayName + ' render()');
-    return React.createElement('div', { id: 'homepage' });
-  }
-});
-'use strict';
 /*! dashboard/childcomponents/dashboardCourse.jsx */
 rc.dashboardCourseComponent = React.createClass({
     displayName: 'dashboardCourseComponent',
@@ -318,57 +318,6 @@ rc.inlineMessageComponent = function (_React$Component) {
     return inlineMessageComponent;
 }(React.Component);
 'use strict';
-/*! header/header.jsx */
-rc.header = React.createClass({
-	displayName: 'header',
-	getInitialState: function getInitialState() {
-		return {
-			loggedin: app.status.loggedin
-		};
-	},
-	signOut: function signOut(e) {
-		io_lib.logOut();
-		window.location.href = '/#/login';
-	},
-	componentDidMount: function componentDidMount() {
-		var self = this;
-		grandCentral.off('routeChange').on('routeChange', function () {
-			self.setState({ loggedin: app.status.loggedin });
-		});
-	},
-	render: function render() {
-		return React.createElement(
-			'header',
-			{ id: 'siteheader' },
-			React.createElement(
-				'div',
-				{ className: 'flex container' },
-				React.createElement(
-					'a',
-					{ className: 'logo', href: '#' },
-					React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/site/logo-macmillan-learning.jpg' })
-				),
-				React.createElement(
-					'div',
-					{ id: 'accountSection', className: 'account ' + this.state.loggedin },
-					React.createElement(
-						'span',
-						{ className: 'username' },
-						'Demo User'
-					),
-					React.createElement('span', { className: 'itemDivider' }),
-					React.createElement('br', null),
-					React.createElement(
-						'span',
-						{ className: 'logout', onClick: this.signOut },
-						'Sign out'
-					)
-				)
-			)
-		);
-	}
-});
-'use strict';
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -464,6 +413,38 @@ rc.errorMessageComponent = function (_React$Component) {
     }]);
     return ErrorMessage;
 }(React.Component);
+"use strict";
+/*! forms/inlinemessage.jsx */
+rc.inlineMessageComponent = React.createClass({
+    displayName: "inlineMessageComponent",
+    getInitialState: function getInitialState() {
+        return {
+            isClicked: false
+        };
+    },
+    handleClick: function handleClick(e) {
+        e.preventDefault();
+        this.setState({
+            isClicked: true
+        });
+    },
+    render: function render() {
+        var partial = !this.state.isClicked ? React.createElement(
+            "a",
+            { href: "#", className: this.props.linkClassName, onClick: this.handleClick },
+            this.props.linkText
+        ) : React.createElement(
+            "div",
+            { className: this.props.copyClassName },
+            this.props.copyText
+        );
+        return React.createElement(
+            "p",
+            { className: this.props.className },
+            partial
+        );
+    }
+});
 'use strict';
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -530,6 +511,57 @@ rc.inputFieldComponent = function (_React$Component) {
     }]);
     return InputFieldComponent;
 }(React.Component);
+'use strict';
+/*! header/header.jsx */
+rc.header = React.createClass({
+	displayName: 'header',
+	getInitialState: function getInitialState() {
+		return {
+			loggedin: app.status.loggedin
+		};
+	},
+	signOut: function signOut(e) {
+		io_lib.logOut();
+		window.location.href = '/#/login';
+	},
+	componentDidMount: function componentDidMount() {
+		var self = this;
+		grandCentral.off('routeChange').on('routeChange', function () {
+			self.setState({ loggedin: app.status.loggedin });
+		});
+	},
+	render: function render() {
+		return React.createElement(
+			'header',
+			{ id: 'siteheader' },
+			React.createElement(
+				'div',
+				{ className: 'flex container' },
+				React.createElement(
+					'a',
+					{ className: 'logo', href: '#' },
+					React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/site/logo.jpg' })
+				),
+				React.createElement(
+					'div',
+					{ id: 'accountSection', className: 'account ' + this.state.loggedin },
+					React.createElement(
+						'span',
+						{ className: 'username' },
+						'Demo User'
+					),
+					React.createElement('span', { className: 'itemDivider' }),
+					React.createElement('br', null),
+					React.createElement(
+						'span',
+						{ className: 'logout', onClick: this.signOut },
+						'Sign out'
+					)
+				)
+			)
+		);
+	}
+});
 'use strict';
 /*! loader/loader.jsx */
 rc.loader = React.createClass({

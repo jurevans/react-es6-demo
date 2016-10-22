@@ -235,6 +235,7 @@ body {
 #dashboard .dashHeader {
   font-size: 20px;
   font-weight: 100; }
+/*! home/home.scss */
 /*! login/login.scss */
 #loginpage {
   margin-top: 50px;
@@ -323,4 +324,3 @@ body {
     font-weight: bold; }
   #loginpage .errorhide {
     display: none; }
-/*! home/home.scss */
