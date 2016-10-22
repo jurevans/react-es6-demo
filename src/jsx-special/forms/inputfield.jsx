@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 rc.inputFieldComponent = React.createClass({
     getInitialState() {
         return {
@@ -17,14 +18,40 @@ rc.inputFieldComponent = React.createClass({
         var self = this;
 
         grandCentral.on('to_inputField_' + this.props.name, function(data) {
+=======
+rc.inputFieldComponent = class InputFieldComponent extends React.Component {
+
+    constructor (props) {
+        super(props);
+
+        this.state = {
+            value : '',
+            valid : true
+        }
+
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    componentDidMount () {
+        let self = this;
+
+        grandCentral.on('to_inputField_' + this.props.name, (data) => {
+>>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f
             self.setState({
                 value : self.state.value,
                 valid : data.valid
             })
         });
+<<<<<<< HEAD
     },
     handleChange: function(name, e) {
         var value = e.target.value;
+=======
+    }
+
+    handleChange (name, e) {
+        let value = e.target.value;
+>>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f
 
         this.setState({
             value : value,
@@ -37,10 +64,17 @@ rc.inputFieldComponent = React.createClass({
         /* NOTE: May want to parameterize this behavior! */
         grandCentral.trigger('to_button', {enabled: true});
         grandCentral.trigger('to_errorMessage', {show: false});
+<<<<<<< HEAD
     },
 
     render() {
         var errorClass = this.state.valid ? null : this.props.errorClass;
+=======
+    }
+
+    render() {
+        let errorClass = this.state.valid ? null : this.props.errorClass;
+>>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f
 
         return (
             <div className={errorClass}>
@@ -59,4 +93,8 @@ rc.inputFieldComponent = React.createClass({
             </div>
             );
         }
+<<<<<<< HEAD
 });
+=======
+};
+>>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f

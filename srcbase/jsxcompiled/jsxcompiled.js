@@ -54,6 +54,7 @@ rc.dashboardPageComponent = React.createClass({
             { id: 'dashboard', className: 'container' },
             React.createElement(
                 'header',
+<<<<<<< HEAD
                 { id: 'dashhead', className: 'dashHeader', 'aria-label': 'My courses' },
                 'My courses'
             ),
@@ -62,10 +63,156 @@ rc.dashboardPageComponent = React.createClass({
                 { 'aria-labelledby': 'dashhead' },
                 mycourses
             )
+=======
+                { className: 'dashHeader' },
+                'My courses'
+            ),
+            mycourses
+>>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f
         );
     }
 });
 'use strict';
+<<<<<<< HEAD
+=======
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+/*! login/login.jsx */
+rc.loginPageComponent = function (_React$Component) {
+    _inherits(LoginPageComponent, _React$Component);
+    function LoginPageComponent(props) {
+        _classCallCheck(this, LoginPageComponent);
+        var _this = _possibleConstructorReturn(this, (LoginPageComponent.__proto__ || Object.getPrototypeOf(LoginPageComponent)).call(this, props));
+        _this.state = {
+            valid: true
+        };
+        _this.handleSubmit = _this.handleSubmit.bind(_this);
+        return _this;
+    }
+    _createClass(LoginPageComponent, [{
+        key: 'handleSubmit',
+        value: function handleSubmit(e) {
+            e.preventDefault();
+            var emailAddress = SiteConfig.loginUsername;
+            var password = SiteConfig.loginPassword;
+            var isEmailValid = FormValidation.validateEmail(this.refs.email.state.value, emailAddress);
+            var isPasswordValid = FormValidation.validatePassword(this.refs.password.state.value, function (value) {
+                return 'test' === value;
+            });
+            var isFormValid = isEmailValid && isPasswordValid;
+            grandCentral.trigger('to_inputField_email', { valid: isEmailValid });
+            grandCentral.trigger('to_inputField_password', { valid: isPasswordValid });
+            grandCentral.trigger('to_button', { enabled: isFormValid });
+            grandCentral.trigger('to_errorMessage', { show: !isFormValid });
+            if (isFormValid) {
+                this.postForm();
+            }
+        }
+    }, {
+        key: 'postForm',
+        value: function postForm() {
+            var data = {
+                email: this.refs.email.state.value,
+                password: this.refs.password.state.value
+            };
+            io_lib.verifyLogin(data, function (response) {
+                console.log(response);
+                window.location.href = '/#/dashboard';
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            console.log(this.constructor.displayName + ' render()');
+            return React.createElement(
+                'div',
+                { id: 'loginpage', className: 'container', 'aria-label': 'Sign In' },
+                React.createElement(
+                    'form',
+                    { onSubmit: this.handleSubmit,
+                        className: 'form', name: 'loginform', action: '#', method: 'post' },
+                    React.createElement(
+                        'fieldset',
+                        { name: 'login', className: 'formfieldset' },
+                        React.createElement(
+                            'legend',
+                            { className: 'formlegend' },
+                            React.createElement(
+                                'span',
+                                { className: 'formlegendspan' },
+                                'Sign in'
+                            )
+                        ),
+                        React.createElement(rc.inputFieldComponent, {
+                            ref: 'email',
+                            id: 'email',
+                            name: 'email',
+                            type: 'email',
+                            labelText: 'Email address:',
+                            errorClass: 'forminputerror',
+                            labelClass: 'formlabel',
+                            inputClass: 'forminput emailaddress',
+                            maxLength: '100',
+                            required: ''
+                        }),
+                        React.createElement(rc.inputFieldComponent, {
+                            ref: 'password',
+                            id: 'password',
+                            name: 'password',
+                            type: 'password',
+                            labelText: 'Password:',
+                            errorClass: 'forminputerror',
+                            labelClass: 'formlabel',
+                            inputClass: 'forminput password',
+                            maxLength: '50',
+                            required: ''
+                        }),
+                        React.createElement(rc.inlineMessageComponent, {
+                            ref: 'forgotComponent',
+                            linkText: 'Forgot credentials?',
+                            className: 'forgot',
+                            linkClassName: 'forgotlink',
+                            copyClassName: 'forgotcopy',
+                            copyText: 'To get the current username and password, contact your sales rep.'
+                        }),
+                        React.createElement(rc.errorMessageComponent, {
+                            message: 'Invalid username or password.',
+                            className: 'errormessage',
+                            errorShowClassName: 'errorshow',
+                            errorHideClassName: 'errorhide'
+                        }),
+                        React.createElement(rc.buttonComponent, {
+                            buttonName: 'submit',
+                            buttonText: 'Sign in',
+                            className: 'formbutton',
+                            enabled: this.state.valid,
+                            ref: 'submit'
+                        })
+                    )
+                ),
+                React.createElement(
+                    'div',
+                    { className: 'testcreds' },
+                    React.createElement(
+                        'div',
+                        null,
+                        SiteConfig.loginUsername
+                    ),
+                    React.createElement(
+                        'div',
+                        null,
+                        SiteConfig.loginPassword
+                    )
+                )
+            );
+        }
+    }]);
+    return LoginPageComponent;
+}(React.Component);
+'use strict';
+>>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f
 /*! home/home.jsx */
 rc.homePageComponent = React.createClass({
   displayName: 'homePageComponent',
@@ -82,6 +229,7 @@ rc.homePageComponent = React.createClass({
   }
 });
 'use strict';
+<<<<<<< HEAD
 /*! login/login.jsx */
 rc.loginPageComponent = React.createClass({
     displayName: 'loginPageComponent',
@@ -195,6 +343,8 @@ rc.loginPageComponent = React.createClass({
     }
 });
 'use strict';
+=======
+>>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f
 /*! dashboard/childcomponents/dashboardCourse.jsx */
 rc.dashboardCourseComponent = React.createClass({
     displayName: 'dashboardCourseComponent',
@@ -205,18 +355,30 @@ rc.dashboardCourseComponent = React.createClass({
                 title: '',
                 book: '',
                 product: '',
+<<<<<<< HEAD
                 cover: SiteConfig.assetsDirectory + 'images/site/pikachu.gif'
+=======
+                cover: SiteConfig.assetsDirectory + 'images/site/bookcover.png'
+>>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f
             }
         };
     },
     render: function render() {
         return React.createElement(
+<<<<<<< HEAD
             'li',
+=======
+            'div',
+>>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f
             { className: 'course flex row' },
             React.createElement(
                 'div',
                 { className: 'bookcover col-xs-4 col-sm-2 col-md-2' },
+<<<<<<< HEAD
                 React.createElement('img', { src: this.props.course.cover ? this.props.course.cover : SiteConfig.assetsDirectory + 'images/site/pikachu.gif' })
+=======
+                React.createElement('img', { src: this.props.course.cover ? this.props.course.cover : SiteConfig.assetsDirectory + 'images/site/bookcover.png' })
+>>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f
             ),
             React.createElement(
                 'div',
@@ -251,6 +413,7 @@ rc.dashboardCourseComponent = React.createClass({
         );
     }
 });
+<<<<<<< HEAD
 'use strict';
 /*! forms/button.jsx */
 rc.buttonComponent = React.createClass({
@@ -405,6 +568,54 @@ rc.inputFieldComponent = React.createClass({
         );
     }
 });
+=======
+"use strict";
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+/*! login/childComponents/inlinemessage.jsx */
+rc.inlineMessageComponent = function (_React$Component) {
+    _inherits(inlineMessageComponent, _React$Component);
+    function inlineMessageComponent(props) {
+        _classCallCheck(this, inlineMessageComponent);
+        var _this = _possibleConstructorReturn(this, (inlineMessageComponent.__proto__ || Object.getPrototypeOf(inlineMessageComponent)).call(this, props));
+        _this.state = {
+            isClicked: false
+        };
+        _this.handleClick = _this.handleClick.bind(_this);
+        return _this;
+    }
+    _createClass(inlineMessageComponent, [{
+        key: "handleClick",
+        value: function handleClick(e) {
+            e.preventDefault();
+            this.setState({
+                isClicked: true
+            });
+        }
+    }, {
+        key: "render",
+        value: function render() {
+            var partial = !this.state.isClicked ? React.createElement(
+                "a",
+                { href: "#", className: this.props.linkClassName, onClick: this.handleClick },
+                this.props.linkText
+            ) : React.createElement(
+                "div",
+                { className: this.props.copyClassName },
+                this.props.copyText
+            );
+            return React.createElement(
+                "p",
+                { className: this.props.className },
+                partial
+            );
+        }
+    }]);
+    return inlineMessageComponent;
+}(React.Component);
+>>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f
 'use strict';
 /*! header/header.jsx */
 rc.header = React.createClass({
@@ -457,6 +668,171 @@ rc.header = React.createClass({
 	}
 });
 'use strict';
+<<<<<<< HEAD
+=======
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+/*! forms/button.jsx */
+rc.buttonComponent = function (_React$Component) {
+    _inherits(ButtonComponent, _React$Component);
+    function ButtonComponent(props) {
+        _classCallCheck(this, ButtonComponent);
+        var _this = _possibleConstructorReturn(this, (ButtonComponent.__proto__ || Object.getPrototypeOf(ButtonComponent)).call(this, props));
+        _this.state = {
+            enabled: true
+        };
+        _this.handleClick = _this.handleClick.bind(_this);
+        return _this;
+    }
+    _createClass(ButtonComponent, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var self = this;
+            grandCentral.on('to_button', function (data) {
+                self.setState({
+                    enabled: data.enabled
+                });
+            });
+        }
+    }, {
+        key: 'handleClick',
+        value: function handleClick(name, e) {
+            e.preventDefault();
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return React.createElement(
+                'p',
+                null,
+                React.createElement(
+                    'button',
+                    {
+                        name: this.props.buttonName,
+                        className: this.props.className,
+                        disabled: !this.state.enabled },
+                    this.props.buttonText
+                )
+            );
+        }
+    }]);
+    return ButtonComponent;
+}(React.Component);
+'use strict';
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+/*! forms/errormessage.jsx */
+rc.errorMessageComponent = function (_React$Component) {
+    _inherits(ErrorMessage, _React$Component);
+    function ErrorMessage(props) {
+        _classCallCheck(this, ErrorMessage);
+        var _this = _possibleConstructorReturn(this, (ErrorMessage.__proto__ || Object.getPrototypeOf(ErrorMessage)).call(this, props));
+        _this.state = {
+            show: false
+        };
+        _this.handleClick = _this.handleClick.bind(_this);
+        return _this;
+    }
+    _createClass(ErrorMessage, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var self = this;
+            grandCentral.on('to_errorMessage', function (data) {
+                self.setState({
+                    show: data.show
+                });
+            });
+        }
+    }, {
+        key: 'handleClick',
+        value: function handleClick(name, e) {
+            e.preventDefault();
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var className = !this.state.show ? this.props.errorHideClassName : this.props.errorShowClassName;
+            return React.createElement(
+                'p',
+                { className: className },
+                this.props.message
+            );
+        }
+    }]);
+    return ErrorMessage;
+}(React.Component);
+'use strict';
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+/*! forms/inputfield.jsx */
+rc.inputFieldComponent = function (_React$Component) {
+    _inherits(InputFieldComponent, _React$Component);
+    function InputFieldComponent(props) {
+        _classCallCheck(this, InputFieldComponent);
+        var _this = _possibleConstructorReturn(this, (InputFieldComponent.__proto__ || Object.getPrototypeOf(InputFieldComponent)).call(this, props));
+        _this.state = {
+            value: '',
+            valid: true
+        };
+        _this.handleChange = _this.handleChange.bind(_this);
+        return _this;
+    }
+    _createClass(InputFieldComponent, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var self = this;
+            grandCentral.on('to_inputField_' + this.props.name, function (data) {
+                self.setState({
+                    value: self.state.value,
+                    valid: data.valid
+                });
+            });
+        }
+    }, {
+        key: 'handleChange',
+        value: function handleChange(name, e) {
+            var value = e.target.value;
+            this.setState({
+                value: value,
+                valid: typeof this.props.validate !== 'undefined' ? this.props.validate.call(this, value) : true
+            });
+            grandCentral.trigger('to_button', { enabled: true });
+            grandCentral.trigger('to_errorMessage', { show: false });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var errorClass = this.state.valid ? null : this.props.errorClass;
+            return React.createElement(
+                'div',
+                { className: errorClass },
+                React.createElement(
+                    'label',
+                    { htmlFor: this.props.name, className: this.props.labelClass },
+                    this.props.labelText
+                ),
+                React.createElement('input', {
+                    id: this.props.name,
+                    name: this.props.name,
+                    className: this.props.inputClass,
+                    type: this.props.type,
+                    required: this.props.required,
+                    value: this.state.value,
+                    maxLength: this.props.maxLength,
+                    onChange: this.handleChange.bind(null, this) })
+            );
+        }
+    }]);
+    return InputFieldComponent;
+}(React.Component);
+'use strict';
+>>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f
 /*! loader/loader.jsx */
 rc.loader = React.createClass({
     displayName: 'loader',

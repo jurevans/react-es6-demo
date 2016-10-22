@@ -88,10 +88,13 @@ routerSetupConfig.postRouteChange =  function(){
         WOULD qualify
     */
 
+<<<<<<< HEAD
     if(app.status.loggedin !== 'true'){
         window.location.href='/#/login';
     }
 
+=======
+>>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f
     grandCentral.trigger('routeChange');
 
     // Trigger Pageview Tracking

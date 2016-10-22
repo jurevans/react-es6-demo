@@ -13,7 +13,11 @@ console.error = function(e){
 /* We're not testing AJAX calls, so suppress errors */
 console.log = function(e){
     var strErr = 'strErr ';
+<<<<<<< HEAD
     if(e.indexOf(strErr) > -1){
+=======
+    if(typeof e !== 'object' && typeof e !== 'function' && e.indexOf(strErr) > -1){
+>>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f
         // Suppress AJAX strErr Warnings
     }else{
         // *** NOTE: We use console.info to avoid infinite looping
@@ -32,4 +36,15 @@ describe('suite of tests for the platform',function () {
         var checksum = md5(routerSetupConfig.routeTunnel.toString());
         expect(checksum).toBe('d656a594c101d87e724043621e4a0083');
     });
+<<<<<<< HEAD
+=======
+    it('Grand Central Exists', function(){
+        console.log("typeof GrandCentral = " + typeof grandCentral);
+        expect(typeof grandCentral).not.toBe("undefined")
+    });
+    it('FormValidation should exist.', function(){
+        console.log("typeof FormValidation = " + typeof FormValidation);
+        expect(typeof FormValidation).not.toBe("undefined")
+    });
+>>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f
 });

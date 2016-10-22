@@ -1,5 +1,6 @@
 /* Log in to product page */
 
+<<<<<<< HEAD
 rc.loginPageComponent = React.createClass({
     getInitialState: function() {
         // Valid until proven false
@@ -28,6 +29,37 @@ rc.loginPageComponent = React.createClass({
         */
 
         var isFormValid = isEmailValid && isPasswordValid;
+=======
+rc.loginPageComponent = class LoginPageComponent extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            valid : true
+        }
+
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleSubmit (e) {
+        e.preventDefault();
+
+        // For NSM testing
+        let emailAddress = SiteConfig.loginUsername;
+        let password = SiteConfig.loginPassword;
+
+        // Use generic validator since we are only matching a specific email, not a pattern
+        // let isEmailValid = FormValidation.validate(this.refs.email.state.value, emailAddress);
+        let isEmailValid = FormValidation.validateEmail(this.refs.email.state.value, emailAddress);
+
+        // Use generic validator since we are only matching a specific email, not a pattern
+        let isPasswordValid =  FormValidation.validatePassword(this.refs.password.state.value, function(value){
+            return 'test' === value;
+        });
+
+
+        let isFormValid = isEmailValid && isPasswordValid;
+>>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f
 
         grandCentral.trigger('to_inputField_email', { valid: isEmailValid });
         grandCentral.trigger('to_inputField_password', { valid: isPasswordValid });
@@ -37,20 +69,39 @@ rc.loginPageComponent = React.createClass({
         if(isFormValid) {
             this.postForm();
         }
+<<<<<<< HEAD
     },
 
     postForm: function() {
         var data = {
+=======
+    }
+
+    postForm () {
+        let data = {
+>>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f
             email: this.refs.email.state.value,
             password: this.refs.password.state.value
         };
 
         // TODO: Post NSM - actual Ajax call
+<<<<<<< HEAD
         io_lib.verifyLogin(data);
         window.location.href='/#/dashboard';
     },
 
     render: function() {
+=======
+        io_lib.verifyLogin(data, function(response) {
+            console.log(response);
+
+            window.location.href='/#/dashboard';
+        });
+
+    }
+
+    render () {
+>>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f
         console.log(this.constructor.displayName + ' render()');
 
         return (
@@ -64,17 +115,31 @@ rc.loginPageComponent = React.createClass({
 
                         <rc.inputFieldComponent
                             ref="email"
+<<<<<<< HEAD
                             type="email"
                             name="email"
+=======
+                            id="email"
+                            name="email"
+                            type="email"
+>>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f
                             labelText="Email address:"
                             errorClass="forminputerror"
                             labelClass="formlabel"
                             inputClass="forminput emailaddress"
                             maxLength="100"
+<<<<<<< HEAD
+=======
+                            required=""
+>>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f
                             />
 
                         <rc.inputFieldComponent
                             ref="password"
+<<<<<<< HEAD
+=======
+                            id="password"
+>>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f
                             name="password"
                             type="password"
                             labelText="Password:"
@@ -82,6 +147,10 @@ rc.loginPageComponent = React.createClass({
                             labelClass="formlabel"
                             inputClass="forminput password"
                             maxLength="50"
+<<<<<<< HEAD
+=======
+                            required=""
+>>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f
                             />
 
                         <rc.inlineMessageComponent
@@ -116,4 +185,8 @@ rc.loginPageComponent = React.createClass({
             </div>
         );
     }
+<<<<<<< HEAD
 });
+=======
+};
+>>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f

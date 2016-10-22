@@ -235,11 +235,14 @@ body {
 #dashboard .dashHeader {
   font-size: 20px;
   font-weight: 100; }
+<<<<<<< HEAD
 #dashboard ul {
   list-style-type: none;
   margin: 0;
   padding: 0; }
 /*! home/home.scss */
+=======
+>>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f
 /*! login/login.scss */
 #loginpage {
   margin-top: 50px;
@@ -282,7 +285,13 @@ body {
     #loginpage .form .formfieldset {
       position: relative;
       border: 1px solid #999;
+<<<<<<< HEAD
       background-color: #EFEFEF; }
+=======
+      background-color: #EFEFEF;
+      padding: 45px 35px 25px 35px;
+      font-size: 12px; }
+>>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f
     #loginpage .form .formlegend .formlegendspan {
       position: absolute;
       top: 15px;
@@ -326,3 +335,7 @@ body {
     font-weight: bold; }
   #loginpage .errorhide {
     display: none; }
+<<<<<<< HEAD
+=======
+/*! home/home.scss */
+>>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f
