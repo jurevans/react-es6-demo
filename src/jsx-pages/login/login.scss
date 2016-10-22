@@ -1,0 +1,150 @@
+/* login.scss */
+
+#loginpage {
+
+    .testcreds {
+        margin-top: 50px;
+        color: #DDD;
+    }
+
+
+    margin-top: 50px;
+    /**************/
+    /* Structural */
+    /**************/
+
+    @media (max-width: 767px) {
+        .form {
+            width: 100%;
+            max-width: 320px;
+            .formfieldset {
+                font-size: 14px;
+                padding: 45px 15px 25px 15px;
+            }
+        }
+    }
+
+    @media (min-width: 768px) and (max-width: 991px) {
+        .form {
+            width: 100%;
+            max-width: 320px;
+            .formfieldset {
+                font-size: 12px;
+                padding: 45px 35px 25px 35px;
+            }
+        }
+    }
+
+    @media (min-width: 992px) and (max-width: 1199px) {
+        .form {
+            width: 100%;
+            max-width: 320px;
+            .formfieldset {
+                font-size: 12px;
+                padding: 45px 35px 25px 35px;
+            }
+        }
+    }
+
+    @media (min-width: 1200px) {
+        .form {
+            width: 100%;
+            max-width: 320px;
+            .formfieldset {
+                font-size: 12px;
+                padding: 45px 35px 25px 35px;
+            }
+        }
+    }
+
+    /**************/
+    /* Decorative */
+    /**************/
+
+    text-align: center;
+
+    .form {
+        display: inline-block;
+        float: none;
+        text-align: left;
+
+        .formfieldset {
+            position: relative;
+            border: 1px solid #999;
+            background-color: $backgroundGray;
+        }
+
+        .formlegend {
+            .formlegendspan {
+                position: absolute;
+                top: 15px;
+                font-size: 22px;
+            }
+        }
+
+        .formlabel {
+            display: block;
+            color: $labelGray;
+            padding: 4px 0;
+        }
+
+        .forminput {
+            width: 100%;
+            border: 1px solid $inputBorderGray;
+            padding: 5px;
+        }
+
+        .formbutton {
+            color: $buttonForegroundWhite;
+            background: $buttonBackgroundBlue !important;
+            border: 0;
+            width: auto;
+            padding: 6px 12px;
+            font-size: 14px;
+
+            &:disabled {
+                background: $buttonDisabledBackgroundBlue !important;
+                color: $buttonDisabledForegroundWhite;
+            }
+        }
+
+    }
+
+    .forgot {
+        text-align: right;
+
+        & > .forgotlink {
+            display: inline !important;
+            color: #1070b0;
+        }
+
+        .forgotcopy {
+            border: 1px solid $borderGray;
+            padding: 10px;
+            color: $borderGray;
+            text-align: left;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+    }
+
+    .forminputerror {
+        .formlabel {
+            color: $errorRed;
+        }
+
+        .forminput {
+            border: 1px solid $errorRed;
+        }
+    }
+
+    .errorshow {
+        color: $errorRed;
+        font-weight: bold;
+    }
+
+    .errorhide {
+        display: none;
+    }
+
+}

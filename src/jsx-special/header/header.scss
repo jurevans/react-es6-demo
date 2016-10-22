@@ -1,0 +1,52 @@
+#siteheader {
+
+    @media (max-width: 767px) {
+        #accountSection {
+            padding-top: 5px;
+        }
+        .itemDivider { display: none; }
+    }
+    @media (min-width: 768px) and (max-width: 991px) {
+        br { display: none; }
+    }
+    @media (min-width: 992px) and (max-width: 1199px) {
+        br { display: none; }
+    }
+    @media (min-width: 1200px) {
+        br { display: none; }
+    }
+
+    width: 100%;
+    background: #e8e8e8;
+    border: 0;
+    height: 60px;
+    color: #333;
+    font-family: helvetica, arial, sans-serif;
+    margin: 0 0 20px 0;
+    .logo {
+        width: 70%;
+        float: left;
+    }
+    #accountSection {
+        width: 30%;
+        float: right;
+        text-align: right;
+        color: #666;
+        display: none;
+        &.true {
+            display: block;
+        }
+        .itemDivider {
+            border-left: 2px solid gray;
+            width: 2px;
+            height: auto;
+            margin: 0 10px;
+        }
+        .logout {
+            color: $headerBlue;
+            cursor: pointer;
+        }
+    }
+}
+
+
