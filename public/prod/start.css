@@ -90,6 +90,23 @@ body {
     #siteheader #accountSection .logout {
       color: #1E78B4;
       cursor: pointer; }
+/*! loader/loader.scss */
+#loadercontainer #loader {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.8);
+  top: 0;
+  left: 0; }
+#loadercontainer #loader.active {
+  display: block; }
+#loadercontainer .loadingmessage {
+  top: 50%;
+  position: relative; }
+#loadercontainer .spinner {
+  width: auto;
+  margin-top: -400px; }
 /*! mainmodal/mainmodal.scss */
 @media (max-width: 767px) {
   #modalcontainer .modalwrapper {
@@ -154,23 +171,6 @@ body {
   border: 0; }
 #modalcontainer .modalContentsWrapper {
   padding: 20px; }
-/*! loader/loader.scss */
-#loadercontainer #loader {
-  display: none;
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.8);
-  top: 0;
-  left: 0; }
-#loadercontainer #loader.active {
-  display: block; }
-#loadercontainer .loadingmessage {
-  top: 50%;
-  position: relative; }
-#loadercontainer .spinner {
-  width: auto;
-  margin-top: -400px; }
 /*! nav/nav.scss */
 /*! dashboard/childcomponents/dashboardCourse.scss */
 @media (max-width: 767px) {

@@ -194,25 +194,26 @@ var Nux = (function(){
 	}
 })();
 /*! io_lib.js */
- var io_lib = ( function() {
-    var dev = 'https://dev-aws-student.macmillanhighered.com';
-    var qa = 'https://qa-aws-student.macmillanhighered.com';
-    var loadtest = 'https://student.lt.macmillan.cloud';
-    var pr = 'https://dev-aws-student.macmillanhighered.com';
-    var prod = 'https://student.macmillanhighered.com';
+ var io_lib = () => {
+    const dev      = 'https://dev.example.com/';
+    const qa       = 'https://qa.example.com/';
+    const loadtest = 'https://loadtest.example.com/';
+    const pr       = 'https://pr.example.com/';
+    const prod     = 'https://example.com/';
     function verifyLogin(data, callback) {
-        var response = {};
+        let response = {};
         app.status.loggedin = 'true';
         callback.call(this, response);
     }
-    function logOut(){
+    function logOut(callback){
         app.status.loggedin = 'false';
+        callback.call(this);
     }
     return {
         verifyLogin : verifyLogin,
         logOut: logOut
     };
-} )();
+};
 
 /*! htmlpartials.js */
  window.htmlpartials = {
@@ -715,16 +716,18 @@ rc.header = function (_React$Component) {
 	function Header(props) {
 		_classCallCheck(this, Header);
 		var _this = _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).call(this, props));
-		_this.state({
+		_this.state = {
 			loggedin: app.status.loggedin
-		});
+		};
 		return _this;
 	}
 	_createClass(Header, [{
 		key: 'signOut',
 		value: function signOut(e) {
-			io_lib.logOut();
-			window.location.href = '/#/login';
+			e.preventDefault();
+			io_lib.logOut(function () {
+				window.location.href = '/#/login';
+			});
 		}
 	}, {
 		key: 'componentDidMount',
@@ -770,6 +773,52 @@ rc.header = function (_React$Component) {
 	}]);
 	return Header;
 }(React.Component);
+/*! loader/loader.jsx */
+rc.loader = React.createClass({
+    displayName: 'loader',
+    stack: [],
+    getInitialState: function getInitialState() {
+        return {
+            show: false
+        };
+    },
+    componentDidMount: function componentDidMount(currentPage) {
+        var self = this;
+        grandCentral.off('loaderStart').on('loaderStart', function (uniqueString) {
+            if ($.inArray(uniqueString, self.stack) == -1) {
+                console.log('loaderStart(' + uniqueString + ')');
+                self.stack.push(uniqueString);
+                self.setState({ show: true });
+            }
+        });
+        grandCentral.off('loaderEnd').on('loaderEnd', function (uniqueString) {
+            var i = $.inArray(uniqueString, self.stack);
+            if (i > -1) {
+                self.stack.splice(i, 1);
+                console.log('loaderEnd(' + uniqueString + ')');
+            }
+            if (self.stack.length === 0) {
+                self.setState({ show: false });
+            }
+        });
+    },
+    reset: function reset() {
+        this.stack = [];
+        this.setState({ show: false });
+    },
+    render: function render() {
+        var classes = this.state.show ? 'active' : '';
+        return React.createElement(
+            'div',
+            { id: 'loader', className: classes },
+            React.createElement(
+                'div',
+                { className: 'loadingmessage' },
+                React.createElement('img', { className: 'spinner', src: SiteConfig.assetsDirectory + 'images/ui/spinner.gif' })
+            )
+        );
+    }
+});
 /*! mainmodal/mainmodal.jsx */
 rc.mainmodal = React.createClass({
     displayName: 'mainmodal',
@@ -837,52 +886,6 @@ rc.mainmodal = React.createClass({
                         outputArray
                     )
                 )
-            )
-        );
-    }
-});
-/*! loader/loader.jsx */
-rc.loader = React.createClass({
-    displayName: 'loader',
-    stack: [],
-    getInitialState: function getInitialState() {
-        return {
-            show: false
-        };
-    },
-    componentDidMount: function componentDidMount(currentPage) {
-        var self = this;
-        grandCentral.off('loaderStart').on('loaderStart', function (uniqueString) {
-            if ($.inArray(uniqueString, self.stack) == -1) {
-                console.log('loaderStart(' + uniqueString + ')');
-                self.stack.push(uniqueString);
-                self.setState({ show: true });
-            }
-        });
-        grandCentral.off('loaderEnd').on('loaderEnd', function (uniqueString) {
-            var i = $.inArray(uniqueString, self.stack);
-            if (i > -1) {
-                self.stack.splice(i, 1);
-                console.log('loaderEnd(' + uniqueString + ')');
-            }
-            if (self.stack.length === 0) {
-                self.setState({ show: false });
-            }
-        });
-    },
-    reset: function reset() {
-        this.stack = [];
-        this.setState({ show: false });
-    },
-    render: function render() {
-        var classes = this.state.show ? 'active' : '';
-        return React.createElement(
-            'div',
-            { id: 'loader', className: classes },
-            React.createElement(
-                'div',
-                { className: 'loadingmessage' },
-                React.createElement('img', { className: 'spinner', src: SiteConfig.assetsDirectory + 'images/ui/spinner.gif' })
             )
         );
     }

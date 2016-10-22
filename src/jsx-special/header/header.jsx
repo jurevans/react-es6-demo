@@ -2,19 +2,21 @@ rc.header = class Header extends React.Component {
 	constructor (props) {
 		super(props);
 
-		this.state({
+		this.state = {
 			loggedin: app.status.loggedin
-		})
-	}
-	
-
-	signOut (e){
-		// TODO: Post NSM - actual Ajax call
-		io_lib.logOut();
-        window.location.href='/#/login';
+		};
 	}
 
-	componentDidMount (){
+	signOut (e) {
+		e.preventDefault();
+
+		io_lib.logOut(() => {
+			window.location.href='/#/login';
+		});
+
+	}
+
+	componentDidMount () {
 		var self = this;
 
 		grandCentral.off('routeChange').on('routeChange', function(){
@@ -24,7 +26,7 @@ rc.header = class Header extends React.Component {
 		});
 	}
 
-    render (){
+    render () {
         return (
 			<header id="siteheader">
 				<div className="flex container">

@@ -1,23 +1,25 @@
 
-var io_lib = ( function() {
+var io_lib = () => {
 
-    // Paths to Node for dev, qa, and prod.
-    var dev = 'https://dev-aws-student.macmillanhighered.com';
-    var qa = 'https://qa-aws-student.macmillanhighered.com';
-    var loadtest = 'https://student.lt.macmillan.cloud';
-    var pr = 'https://dev-aws-student.macmillanhighered.com';
-    var prod = 'https://student.macmillanhighered.com';
+    /* Environment Paths */
+    const dev      = 'https://dev.example.com/';
+    const qa       = 'https://qa.example.com/';
+    const loadtest = 'https://loadtest.example.com/';
+    const pr       = 'https://pr.example.com/';
+    const prod     = 'https://example.com/';
 
     // Private methods.
     function verifyLogin(data, callback) {
-        var response = {};
+        let response = {};
         app.status.loggedin = 'true';
 
         callback.call(this, response);
     }
 
-    function logOut(){
+    function logOut(callback){
         app.status.loggedin = 'false';
+
+        callback.call(this);
     }
 
     // Methods made public through the revealing pattern.
@@ -26,5 +28,4 @@ var io_lib = ( function() {
         logOut: logOut
     };
 
-
-} )();
+};

@@ -508,16 +508,18 @@ rc.header = function (_React$Component) {
 	function Header(props) {
 		_classCallCheck(this, Header);
 		var _this = _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).call(this, props));
-		_this.state({
+		_this.state = {
 			loggedin: app.status.loggedin
-		});
+		};
 		return _this;
 	}
 	_createClass(Header, [{
 		key: 'signOut',
 		value: function signOut(e) {
-			io_lib.logOut();
-			window.location.href = '/#/login';
+			e.preventDefault();
+			io_lib.logOut(function () {
+				window.location.href = '/#/login';
+			});
 		}
 	}, {
 		key: 'componentDidMount',
@@ -563,6 +565,53 @@ rc.header = function (_React$Component) {
 	}]);
 	return Header;
 }(React.Component);
+'use strict';
+/*! loader/loader.jsx */
+rc.loader = React.createClass({
+    displayName: 'loader',
+    stack: [],
+    getInitialState: function getInitialState() {
+        return {
+            show: false
+        };
+    },
+    componentDidMount: function componentDidMount(currentPage) {
+        var self = this;
+        grandCentral.off('loaderStart').on('loaderStart', function (uniqueString) {
+            if ($.inArray(uniqueString, self.stack) == -1) {
+                console.log('loaderStart(' + uniqueString + ')');
+                self.stack.push(uniqueString);
+                self.setState({ show: true });
+            }
+        });
+        grandCentral.off('loaderEnd').on('loaderEnd', function (uniqueString) {
+            var i = $.inArray(uniqueString, self.stack);
+            if (i > -1) {
+                self.stack.splice(i, 1);
+                console.log('loaderEnd(' + uniqueString + ')');
+            }
+            if (self.stack.length === 0) {
+                self.setState({ show: false });
+            }
+        });
+    },
+    reset: function reset() {
+        this.stack = [];
+        this.setState({ show: false });
+    },
+    render: function render() {
+        var classes = this.state.show ? 'active' : '';
+        return React.createElement(
+            'div',
+            { id: 'loader', className: classes },
+            React.createElement(
+                'div',
+                { className: 'loadingmessage' },
+                React.createElement('img', { className: 'spinner', src: SiteConfig.assetsDirectory + 'images/ui/spinner.gif' })
+            )
+        );
+    }
+});
 'use strict';
 /*! mainmodal/mainmodal.jsx */
 rc.mainmodal = React.createClass({
@@ -631,53 +680,6 @@ rc.mainmodal = React.createClass({
                         outputArray
                     )
                 )
-            )
-        );
-    }
-});
-'use strict';
-/*! loader/loader.jsx */
-rc.loader = React.createClass({
-    displayName: 'loader',
-    stack: [],
-    getInitialState: function getInitialState() {
-        return {
-            show: false
-        };
-    },
-    componentDidMount: function componentDidMount(currentPage) {
-        var self = this;
-        grandCentral.off('loaderStart').on('loaderStart', function (uniqueString) {
-            if ($.inArray(uniqueString, self.stack) == -1) {
-                console.log('loaderStart(' + uniqueString + ')');
-                self.stack.push(uniqueString);
-                self.setState({ show: true });
-            }
-        });
-        grandCentral.off('loaderEnd').on('loaderEnd', function (uniqueString) {
-            var i = $.inArray(uniqueString, self.stack);
-            if (i > -1) {
-                self.stack.splice(i, 1);
-                console.log('loaderEnd(' + uniqueString + ')');
-            }
-            if (self.stack.length === 0) {
-                self.setState({ show: false });
-            }
-        });
-    },
-    reset: function reset() {
-        this.stack = [];
-        this.setState({ show: false });
-    },
-    render: function render() {
-        var classes = this.state.show ? 'active' : '';
-        return React.createElement(
-            'div',
-            { id: 'loader', className: classes },
-            React.createElement(
-                'div',
-                { className: 'loadingmessage' },
-                React.createElement('img', { className: 'spinner', src: SiteConfig.assetsDirectory + 'images/ui/spinner.gif' })
             )
         );
     }
