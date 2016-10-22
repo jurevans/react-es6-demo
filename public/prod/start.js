@@ -705,102 +705,71 @@ rc.inputFieldComponent = function (_React$Component) {
     }]);
     return InputFieldComponent;
 }(React.Component);
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 /*! header/header.jsx */
-rc.header = React.createClass({
-	displayName: 'header',
-	getInitialState: function getInitialState() {
-		return {
+rc.header = function (_React$Component) {
+	_inherits(Header, _React$Component);
+	function Header(props) {
+		_classCallCheck(this, Header);
+		var _this = _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).call(this, props));
+		_this.state({
 			loggedin: app.status.loggedin
-		};
-	},
-	signOut: function signOut(e) {
-		io_lib.logOut();
-		window.location.href = '/#/login';
-	},
-	componentDidMount: function componentDidMount() {
-		var self = this;
-		grandCentral.off('routeChange').on('routeChange', function () {
-			self.setState({ loggedin: app.status.loggedin });
 		});
-	},
-	render: function render() {
-		return React.createElement(
-			'header',
-			{ id: 'siteheader' },
-			React.createElement(
-				'div',
-				{ className: 'flex container' },
-				React.createElement(
-					'a',
-					{ className: 'logo', href: '#' },
-					React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/site/logo.jpg' })
-				),
+		return _this;
+	}
+	_createClass(Header, [{
+		key: 'signOut',
+		value: function signOut(e) {
+			io_lib.logOut();
+			window.location.href = '/#/login';
+		}
+	}, {
+		key: 'componentDidMount',
+		value: function componentDidMount() {
+			var self = this;
+			grandCentral.off('routeChange').on('routeChange', function () {
+				self.setState({ loggedin: app.status.loggedin });
+			});
+		}
+	}, {
+		key: 'render',
+		value: function render() {
+			return React.createElement(
+				'header',
+				{ id: 'siteheader' },
 				React.createElement(
 					'div',
-					{ id: 'accountSection', className: 'account ' + this.state.loggedin },
+					{ className: 'flex container' },
 					React.createElement(
-						'span',
-						{ className: 'username' },
-						'Demo User'
+						'a',
+						{ className: 'logo', href: '#' },
+						React.createElement('img', { src: SiteConfig.assetsDirectory + 'images/site/logo.jpg' })
 					),
-					React.createElement('span', { className: 'itemDivider' }),
-					React.createElement('br', null),
 					React.createElement(
-						'span',
-						{ className: 'logout', onClick: this.signOut },
-						'Sign out'
+						'div',
+						{ id: 'accountSection', className: 'account ' + this.state.loggedin },
+						React.createElement(
+							'span',
+							{ className: 'username' },
+							'Demo User'
+						),
+						React.createElement('span', { className: 'itemDivider' }),
+						React.createElement('br', null),
+						React.createElement(
+							'span',
+							{ className: 'logout', onClick: this.signOut },
+							'Sign out'
+						)
 					)
 				)
-			)
-		);
-	}
-});
-/*! loader/loader.jsx */
-rc.loader = React.createClass({
-    displayName: 'loader',
-    stack: [],
-    getInitialState: function getInitialState() {
-        return {
-            show: false
-        };
-    },
-    componentDidMount: function componentDidMount(currentPage) {
-        var self = this;
-        grandCentral.off('loaderStart').on('loaderStart', function (uniqueString) {
-            if ($.inArray(uniqueString, self.stack) == -1) {
-                console.log('loaderStart(' + uniqueString + ')');
-                self.stack.push(uniqueString);
-                self.setState({ show: true });
-            }
-        });
-        grandCentral.off('loaderEnd').on('loaderEnd', function (uniqueString) {
-            var i = $.inArray(uniqueString, self.stack);
-            if (i > -1) {
-                self.stack.splice(i, 1);
-                console.log('loaderEnd(' + uniqueString + ')');
-            }
-            if (self.stack.length === 0) {
-                self.setState({ show: false });
-            }
-        });
-    },
-    reset: function reset() {
-        this.stack = [];
-        this.setState({ show: false });
-    },
-    render: function render() {
-        var classes = this.state.show ? 'active' : '';
-        return React.createElement(
-            'div',
-            { id: 'loader', className: classes },
-            React.createElement(
-                'div',
-                { className: 'loadingmessage' },
-                React.createElement('img', { className: 'spinner', src: SiteConfig.assetsDirectory + 'images/ui/spinner.gif' })
-            )
-        );
-    }
-});
+			);
+		}
+	}]);
+	return Header;
+}(React.Component);
 /*! mainmodal/mainmodal.jsx */
 rc.mainmodal = React.createClass({
     displayName: 'mainmodal',
@@ -868,6 +837,52 @@ rc.mainmodal = React.createClass({
                         outputArray
                     )
                 )
+            )
+        );
+    }
+});
+/*! loader/loader.jsx */
+rc.loader = React.createClass({
+    displayName: 'loader',
+    stack: [],
+    getInitialState: function getInitialState() {
+        return {
+            show: false
+        };
+    },
+    componentDidMount: function componentDidMount(currentPage) {
+        var self = this;
+        grandCentral.off('loaderStart').on('loaderStart', function (uniqueString) {
+            if ($.inArray(uniqueString, self.stack) == -1) {
+                console.log('loaderStart(' + uniqueString + ')');
+                self.stack.push(uniqueString);
+                self.setState({ show: true });
+            }
+        });
+        grandCentral.off('loaderEnd').on('loaderEnd', function (uniqueString) {
+            var i = $.inArray(uniqueString, self.stack);
+            if (i > -1) {
+                self.stack.splice(i, 1);
+                console.log('loaderEnd(' + uniqueString + ')');
+            }
+            if (self.stack.length === 0) {
+                self.setState({ show: false });
+            }
+        });
+    },
+    reset: function reset() {
+        this.stack = [];
+        this.setState({ show: false });
+    },
+    render: function render() {
+        var classes = this.state.show ? 'active' : '';
+        return React.createElement(
+            'div',
+            { id: 'loader', className: classes },
+            React.createElement(
+                'div',
+                { className: 'loadingmessage' },
+                React.createElement('img', { className: 'spinner', src: SiteConfig.assetsDirectory + 'images/ui/spinner.gif' })
             )
         );
     }

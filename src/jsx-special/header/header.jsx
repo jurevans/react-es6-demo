@@ -1,23 +1,30 @@
-rc.header = React.createClass({
-	getInitialState:function(){
-        return {
-        	loggedin: app.status.loggedin
-        }
-    },
-	signOut:function(e){
+rc.header = class Header extends React.Component {
+	constructor (props) {
+		super(props);
+
+		this.state({
+			loggedin: app.status.loggedin
+		})
+	}
+	
+
+	signOut (e){
 		// TODO: Post NSM - actual Ajax call
 		io_lib.logOut();
         window.location.href='/#/login';
-	},
-	componentDidMount:function(){
+	}
+
+	componentDidMount (){
 		var self = this;
+
 		grandCentral.off('routeChange').on('routeChange', function(){
 			self.setState(
 				{loggedin: app.status.loggedin}
 			);
 		});
-	},
-    render:function(){
+	}
+
+    render (){
         return (
 			<header id="siteheader">
 				<div className="flex container">
@@ -27,9 +34,9 @@ rc.header = React.createClass({
 	            		<span className="itemDivider"></span>
 	            		<br />
 	            		<span className="logout" onClick={this.signOut}>Sign out</span>
-	            	</div> 
+	            	</div>
 	            </div>
             </header>
         );
     }
-});
+};
