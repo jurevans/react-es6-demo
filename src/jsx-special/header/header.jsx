@@ -21,7 +21,7 @@ rc.header = React.createClass({
         return (
 			<header id="siteheader">
 				<div className="flex container">
-	                <a className="logo" href="#"><img src={SiteConfig.assetsDirectory + 'images/site/logo-macmillan-learning.jpg'} /></a>
+	                <a className="logo" href="#"><img src={SiteConfig.assetsDirectory + 'images/site/logo.jpg'} /></a>
 	            	<div id="accountSection" className={'account ' + this.state.loggedin}>
 	            		<span className="username">Demo User</span>
 	            		<span className="itemDivider"></span>
