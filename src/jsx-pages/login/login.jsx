@@ -1,35 +1,5 @@
 /* Log in to product page */
 
-<<<<<<< HEAD
-rc.loginPageComponent = React.createClass({
-    getInitialState: function() {
-        // Valid until proven false
-        return {
-            valid : true
-        };
-    },
-
-    handleSubmit: function(e) {
-        e.preventDefault();
-
-        // For NSM testing
-        var emailAddress = SiteConfig.loginUsername;
-        var password = SiteConfig.loginPassword;
-
-        // Use generic validator since we are only matching a specific email, not a pattern
-        var isEmailValid = FormValidation.validate(this.refs.email.state.value, emailAddress);
-        // var isEmailValid = FormValidation.validateEmail(this.refs.email.state.value, emailAddress);
-
-        // Use generic validator since we are only matching a specific email, not a pattern
-        var isPasswordValid = FormValidation.validate(this.refs.password.state.value, password);
-        /*
-        var isPasswordValid = FormValidation.validatePassword(this.refs.password.state.value, function(value){
-            return password === value;
-        });
-        */
-
-        var isFormValid = isEmailValid && isPasswordValid;
-=======
 rc.loginPageComponent = class LoginPageComponent extends React.Component {
     constructor(props) {
         super(props);
@@ -59,7 +29,6 @@ rc.loginPageComponent = class LoginPageComponent extends React.Component {
 
 
         let isFormValid = isEmailValid && isPasswordValid;
->>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f
 
         grandCentral.trigger('to_inputField_email', { valid: isEmailValid });
         grandCentral.trigger('to_inputField_password', { valid: isPasswordValid });
@@ -69,29 +38,15 @@ rc.loginPageComponent = class LoginPageComponent extends React.Component {
         if(isFormValid) {
             this.postForm();
         }
-<<<<<<< HEAD
-    },
-
-    postForm: function() {
-        var data = {
-=======
     }
 
     postForm () {
         let data = {
->>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f
             email: this.refs.email.state.value,
             password: this.refs.password.state.value
         };
 
         // TODO: Post NSM - actual Ajax call
-<<<<<<< HEAD
-        io_lib.verifyLogin(data);
-        window.location.href='/#/dashboard';
-    },
-
-    render: function() {
-=======
         io_lib.verifyLogin(data, function(response) {
             console.log(response);
 
@@ -101,7 +56,6 @@ rc.loginPageComponent = class LoginPageComponent extends React.Component {
     }
 
     render () {
->>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f
         console.log(this.constructor.displayName + ' render()');
 
         return (
@@ -115,31 +69,20 @@ rc.loginPageComponent = class LoginPageComponent extends React.Component {
 
                         <rc.inputFieldComponent
                             ref="email"
-<<<<<<< HEAD
-                            type="email"
-                            name="email"
-=======
                             id="email"
                             name="email"
                             type="email"
->>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f
                             labelText="Email address:"
                             errorClass="forminputerror"
                             labelClass="formlabel"
                             inputClass="forminput emailaddress"
                             maxLength="100"
-<<<<<<< HEAD
-=======
                             required=""
->>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f
                             />
 
                         <rc.inputFieldComponent
                             ref="password"
-<<<<<<< HEAD
-=======
                             id="password"
->>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f
                             name="password"
                             type="password"
                             labelText="Password:"
@@ -147,10 +90,7 @@ rc.loginPageComponent = class LoginPageComponent extends React.Component {
                             labelClass="formlabel"
                             inputClass="forminput password"
                             maxLength="50"
-<<<<<<< HEAD
-=======
                             required=""
->>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f
                             />
 
                         <rc.inlineMessageComponent
@@ -185,8 +125,4 @@ rc.loginPageComponent = class LoginPageComponent extends React.Component {
             </div>
         );
     }
-<<<<<<< HEAD
-});
-=======
 };
->>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f

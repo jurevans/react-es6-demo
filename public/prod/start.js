@@ -44,11 +44,7 @@ if(k&&j[k]&&(e||j[k].data)||void 0!==d||"string"!=typeof b)return k||(k=i?a[h]=c
  var assetsDirectory = '';
 var DEEPLINK_DIR = DEEPLINK_DIR || '';
 var SiteConfig = {
-<<<<<<< HEAD
-	version: '0.11.1',
-=======
 	version: '0.9.1',
->>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f
     assetsDirectory: assetsDirectory,
     webRoot: DEEPLINK_DIR,
 	loginUsername: 'test.instructor@macmillan.com',
@@ -204,15 +200,10 @@ var Nux = (function(){
     var loadtest = 'https://student.lt.macmillan.cloud';
     var pr = 'https://dev-aws-student.macmillanhighered.com';
     var prod = 'https://student.macmillanhighered.com';
-<<<<<<< HEAD
-    function verifyLogin(data) {
-        app.status.loggedin = 'true';
-=======
     function verifyLogin(data, callback) {
         var response = {};
         app.status.loggedin = 'true';
         callback.call(this, response);
->>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f
     }
     function logOut(){
         app.status.loggedin = 'false';
@@ -279,19 +270,6 @@ rc.dashboardPageComponent = React.createClass({
             { id: 'dashboard', className: 'container' },
             React.createElement(
                 'header',
-<<<<<<< HEAD
-                { id: 'dashhead', className: 'dashHeader', 'aria-label': 'My courses' },
-                'My courses'
-            ),
-            React.createElement(
-                'ul',
-                { 'aria-labelledby': 'dashhead' },
-                mycourses
-            )
-        );
-    }
-});
-=======
                 { className: 'dashHeader' },
                 'My courses'
             ),
@@ -435,7 +413,6 @@ rc.loginPageComponent = function (_React$Component) {
     }]);
     return LoginPageComponent;
 }(React.Component);
->>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f
 /*! home/home.jsx */
 rc.homePageComponent = React.createClass({
   displayName: 'homePageComponent',
@@ -451,121 +428,6 @@ rc.homePageComponent = React.createClass({
     return React.createElement('div', { id: 'homepage' });
   }
 });
-<<<<<<< HEAD
-/*! login/login.jsx */
-rc.loginPageComponent = React.createClass({
-    displayName: 'loginPageComponent',
-    getInitialState: function getInitialState() {
-        return {
-            valid: true
-        };
-    },
-    handleSubmit: function handleSubmit(e) {
-        e.preventDefault();
-        var emailAddress = SiteConfig.loginUsername;
-        var password = SiteConfig.loginPassword;
-        var isEmailValid = FormValidation.validate(this.refs.email.state.value, emailAddress);
-        var isPasswordValid = FormValidation.validate(this.refs.password.state.value, password);
-        var isFormValid = isEmailValid && isPasswordValid;
-        grandCentral.trigger('to_inputField_email', { valid: isEmailValid });
-        grandCentral.trigger('to_inputField_password', { valid: isPasswordValid });
-        grandCentral.trigger('to_button', { enabled: isFormValid });
-        grandCentral.trigger('to_errorMessage', { show: !isFormValid });
-        if (isFormValid) {
-            this.postForm();
-        }
-    },
-    postForm: function postForm() {
-        var data = {
-            email: this.refs.email.state.value,
-            password: this.refs.password.state.value
-        };
-        io_lib.verifyLogin(data);
-        window.location.href = '/#/dashboard';
-    },
-    render: function render() {
-        console.log(this.constructor.displayName + ' render()');
-        return React.createElement(
-            'div',
-            { id: 'loginpage', className: 'container', 'aria-label': 'Sign In' },
-            React.createElement(
-                'form',
-                { onSubmit: this.handleSubmit,
-                    className: 'form', name: 'loginform', action: '#', method: 'post' },
-                React.createElement(
-                    'fieldset',
-                    { name: 'login', className: 'formfieldset' },
-                    React.createElement(
-                        'legend',
-                        { className: 'formlegend' },
-                        React.createElement(
-                            'span',
-                            { className: 'formlegendspan' },
-                            'Sign in'
-                        )
-                    ),
-                    React.createElement(rc.inputFieldComponent, {
-                        ref: 'email',
-                        type: 'email',
-                        name: 'email',
-                        labelText: 'Email address:',
-                        errorClass: 'forminputerror',
-                        labelClass: 'formlabel',
-                        inputClass: 'forminput emailaddress',
-                        maxLength: '100'
-                    }),
-                    React.createElement(rc.inputFieldComponent, {
-                        ref: 'password',
-                        name: 'password',
-                        type: 'password',
-                        labelText: 'Password:',
-                        errorClass: 'forminputerror',
-                        labelClass: 'formlabel',
-                        inputClass: 'forminput password',
-                        maxLength: '50'
-                    }),
-                    React.createElement(rc.inlineMessageComponent, {
-                        ref: 'forgotComponent',
-                        linkText: 'Forgot credentials?',
-                        className: 'forgot',
-                        linkClassName: 'forgotlink',
-                        copyClassName: 'forgotcopy',
-                        copyText: 'To get the current username and password, contact your sales rep.'
-                    }),
-                    React.createElement(rc.errorMessageComponent, {
-                        message: 'Invalid username or password.',
-                        className: 'errormessage',
-                        errorShowClassName: 'errorshow',
-                        errorHideClassName: 'errorhide'
-                    }),
-                    React.createElement(rc.buttonComponent, {
-                        buttonName: 'submit',
-                        buttonText: 'Sign in',
-                        className: 'formbutton',
-                        enabled: this.state.valid,
-                        ref: 'submit'
-                    })
-                )
-            ),
-            React.createElement(
-                'div',
-                { className: 'testcreds' },
-                React.createElement(
-                    'div',
-                    null,
-                    SiteConfig.loginUsername
-                ),
-                React.createElement(
-                    'div',
-                    null,
-                    SiteConfig.loginPassword
-                )
-            )
-        );
-    }
-});
-=======
->>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f
 /*! dashboard/childcomponents/dashboardCourse.jsx */
 rc.dashboardCourseComponent = React.createClass({
     displayName: 'dashboardCourseComponent',
@@ -576,30 +438,18 @@ rc.dashboardCourseComponent = React.createClass({
                 title: '',
                 book: '',
                 product: '',
-<<<<<<< HEAD
-                cover: SiteConfig.assetsDirectory + 'images/site/pikachu.gif'
-=======
                 cover: SiteConfig.assetsDirectory + 'images/site/bookcover.png'
->>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f
             }
         };
     },
     render: function render() {
         return React.createElement(
-<<<<<<< HEAD
-            'li',
-=======
             'div',
->>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f
             { className: 'course flex row' },
             React.createElement(
                 'div',
                 { className: 'bookcover col-xs-4 col-sm-2 col-md-2' },
-<<<<<<< HEAD
-                React.createElement('img', { src: this.props.course.cover ? this.props.course.cover : SiteConfig.assetsDirectory + 'images/site/pikachu.gif' })
-=======
                 React.createElement('img', { src: this.props.course.cover ? this.props.course.cover : SiteConfig.assetsDirectory + 'images/site/bookcover.png' })
->>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f
             ),
             React.createElement(
                 'div',
@@ -634,158 +484,6 @@ rc.dashboardCourseComponent = React.createClass({
         );
     }
 });
-<<<<<<< HEAD
-/*! forms/button.jsx */
-rc.buttonComponent = React.createClass({
-    displayName: 'buttonComponent',
-    getInitialState: function getInitialState() {
-        return {
-            enabled: true
-        };
-    },
-    componentDidMount: function componentDidMount() {
-        var self = this;
-        grandCentral.on('to_button', function (data) {
-            self.setState({
-                enabled: data.enabled
-            });
-        });
-    },
-    handleClick: function handleClick(name, e) {
-        e.preventDefault();
-    },
-    render: function render() {
-        return React.createElement(
-            'p',
-            null,
-            React.createElement(
-                'button',
-                {
-                    name: this.props.buttonName,
-                    className: this.props.className,
-                    disabled: !this.state.enabled },
-                this.props.buttonText
-            )
-        );
-    }
-});
-/*! forms/errormessage.jsx */
-rc.errorMessageComponent = React.createClass({
-    displayName: 'errorMessageComponent',
-    getInitialState: function getInitialState() {
-        return {
-            show: false
-        };
-    },
-    componentDidMount: function componentDidMount() {
-        var self = this;
-        grandCentral.on('to_errorMessage', function (data) {
-            self.setState({
-                show: data.show
-            });
-        });
-    },
-    handleClick: function handleClick(name, e) {
-        e.preventDefault();
-    },
-    render: function render() {
-        var className = !this.state.show ? this.props.errorHideClassName : this.props.errorShowClassName;
-        return React.createElement(
-            'p',
-            { className: className },
-            this.props.message
-        );
-    }
-});
-/*! forms/inlinemessage.jsx */
-rc.inlineMessageComponent = React.createClass({
-    displayName: "inlineMessageComponent",
-    getInitialState: function getInitialState() {
-        return {
-            isClicked: false
-        };
-    },
-    handleClick: function handleClick(e) {
-        e.preventDefault();
-        this.setState({
-            isClicked: true
-        });
-    },
-    render: function render() {
-        var partial = !this.state.isClicked ? React.createElement(
-            "a",
-            { href: "#", className: this.props.linkClassName, onClick: this.handleClick },
-            this.props.linkText
-        ) : React.createElement(
-            "div",
-            { className: this.props.copyClassName },
-            this.props.copyText
-        );
-        return React.createElement(
-            "p",
-            { className: this.props.className },
-            partial
-        );
-    }
-});
-/*! forms/inputfield.jsx */
-rc.inputFieldComponent = React.createClass({
-    displayName: 'inputFieldComponent',
-    getInitialState: function getInitialState() {
-        return {
-            value: '',
-            valid: true
-        };
-    },
-    defaultProps: {
-        name: 'input',
-        className: 'forminput',
-        type: 'text',
-        required: '',
-        value: '',
-        maxLength: 0
-    },
-    componentDidMount: function componentDidMount() {
-        var self = this;
-        grandCentral.on('to_inputField_' + this.props.name, function (data) {
-            self.setState({
-                value: self.state.value,
-                valid: data.valid
-            });
-        });
-    },
-    handleChange: function handleChange(name, e) {
-        var value = e.target.value;
-        this.setState({
-            value: value,
-            valid: typeof this.props.validate !== 'undefined' ? this.props.validate.call(this, value) : true
-        });
-        grandCentral.trigger('to_button', { enabled: true });
-        grandCentral.trigger('to_errorMessage', { show: false });
-    },
-    render: function render() {
-        var errorClass = this.state.valid ? null : this.props.errorClass;
-        return React.createElement(
-            'div',
-            { className: errorClass },
-            React.createElement(
-                'label',
-                { htmlFor: this.props.name, className: this.props.labelClass },
-                this.props.labelText
-            ),
-            React.createElement('input', {
-                id: this.props.name,
-                name: this.props.name,
-                className: this.props.inputClass,
-                type: this.props.type,
-                required: this.props.required,
-                value: this.state.value,
-                maxLength: this.props.maxLength,
-                onChange: this.handleChange.bind(null, this) })
-        );
-    }
-});
-=======
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -831,7 +529,6 @@ rc.inlineMessageComponent = function (_React$Component) {
     }]);
     return inlineMessageComponent;
 }(React.Component);
->>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f
 /*! header/header.jsx */
 rc.header = React.createClass({
 	displayName: 'header',
@@ -882,8 +579,6 @@ rc.header = React.createClass({
 		);
 	}
 });
-<<<<<<< HEAD
-=======
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
@@ -1043,7 +738,6 @@ rc.inputFieldComponent = function (_React$Component) {
     }]);
     return InputFieldComponent;
 }(React.Component);
->>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f
 /*! loader/loader.jsx */
 rc.loader = React.createClass({
     displayName: 'loader',
@@ -1330,12 +1024,6 @@ routerSetupConfig.prePageChange =  function(){
 routerSetupConfig.postPageChange =  function(){
 };
 routerSetupConfig.postRouteChange =  function(){
-<<<<<<< HEAD
-    if(app.status.loggedin !== 'true'){
-        window.location.href='/#/login';
-    }
-=======
->>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f
     grandCentral.trigger('routeChange');
     Nux.sendPageview();
     if (this.status.currentFragString) {

@@ -49,13 +49,8 @@ rc.dashboardPageComponent = React.createClass({
 
         return (
             <div id="dashboard" className="container">
-<<<<<<< HEAD
-                <header id="dashhead" className="dashHeader" aria-label="My courses">My courses</header>
-            	<ul  aria-labelledby="dashhead">{mycourses}</ul>
-=======
                 <header className="dashHeader">My courses</header>
             	{mycourses}
->>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f
             </div>
         );
     }
