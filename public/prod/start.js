@@ -47,9 +47,9 @@ var SiteConfig = {
 	version: '0.9.1',
     assetsDirectory: assetsDirectory,
     webRoot: DEEPLINK_DIR,
-	loginUsername: 'test.instructor@macmillan.com',
-    loginPassword: '2O17_R0cks!',
-    loggedin: 'inactive'
+	loginUsername: 'test@acme.com',
+    loginPassword: 'mypasswordisverysecure',
+    loggedin: false
 };
 
 /*! BBPreload.js */
@@ -83,17 +83,17 @@ var BBPreload = ( function() {
 	};
 } )();
 /*! FormValidation.js */
-var FormValidation = (function() {
+let FormValidation = (() => {
     function validateEmail(value) {
-        var re = /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/;
+        let re = /^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/;
         return re.test(value);
     }
     function validatePhoneNumber(value) {
-        var re = /^(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?$/;
+        let re = /^(?:(?:\+?1\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?$/;
         return re.test(value);
     }
     function validateZipCode(value) {
-        var re = /^(\d{5}-\d{4})|(\d{5})$/g;
+        let re = /^(\d{5}-\d{4})|(\d{5})$/g;
         return re.test(value);
     }
     function validatePassword(value, callback) {
@@ -194,7 +194,7 @@ var Nux = (function(){
 	}
 })();
 /*! io_lib.js */
- var io_lib = () => {
+ let io_lib = (() => {
     const dev      = 'https://dev.example.com/';
     const qa       = 'https://qa.example.com/';
     const loadtest = 'https://loadtest.example.com/';
@@ -213,7 +213,7 @@ var Nux = (function(){
         verifyLogin : verifyLogin,
         logOut: logOut
     };
-};
+})();
 
 /*! htmlpartials.js */
  window.htmlpartials = {

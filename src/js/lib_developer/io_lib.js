@@ -1,5 +1,5 @@
 
-var io_lib = () => {
+let io_lib = (() => {
 
     /* Environment Paths */
     const dev      = 'https://dev.example.com/';
@@ -28,4 +28,4 @@ var io_lib = () => {
         logOut: logOut
     };
 
-};
+})();

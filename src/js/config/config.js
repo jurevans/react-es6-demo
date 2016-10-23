@@ -9,7 +9,7 @@ var SiteConfig = {
     assetsDirectory: assetsDirectory,
     webRoot: DEEPLINK_DIR,
 
-	loginUsername: 'test.instructor@macmillan.com',
-    loginPassword: '2O17_R0cks!',
-    loggedin: 'inactive'
+	loginUsername: 'test@acme.com',
+    loginPassword: 'mypasswordisverysecure',
+    loggedin: false
 };
