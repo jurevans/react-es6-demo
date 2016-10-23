@@ -5,7 +5,6 @@ module.exports = function(config) {
     // './src/js/lib/**/*.js',
     var specFiles = './!(node_modules)/**/*.spec.js',
         platformSpecFile = './platform.spec.js',
-	testFiles = './test/**/*.js',
         filesToTest = [
             './src/js/lib_unittesting/md5.js',
             './src/js/lib_unittesting/mock-ajax.js',
@@ -23,11 +22,10 @@ module.exports = function(config) {
 
         // frameworks to use
         // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-        frameworks: ['jasmine', 'requirejs', 'es6-shim'],
-
+	frameworks: ['jasmine', 'es6-shim'],
 
         // list of files / patterns to load in the browser
-        files: filesToTest,
+        files:   filesToTest,
 
         // list of files to exclude
         exclude: [],
@@ -37,8 +35,7 @@ module.exports = function(config) {
         // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
 	preprocessors: {
 		specFiles : ["babel"],
-		platformSpecFile : ["babel"],
-		"test/**/*.js": ["babel"]
+		platformSpecFile : ["babel"]
 	},
         // test results reporter to use
         // possible values: 'dots', 'progress'
@@ -62,7 +59,6 @@ module.exports = function(config) {
         // start these browsers
         // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
         browsers: ['PhantomJS'],
-	// browsers: ['PhantomJS2'],
 
         // Continuous Integration mode
         // if true, Karma captures browsers, runs the tests and exits
