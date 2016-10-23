@@ -566,53 +566,6 @@ rc.header = function (_React$Component) {
 	return Header;
 }(React.Component);
 'use strict';
-/*! loader/loader.jsx */
-rc.loader = React.createClass({
-    displayName: 'loader',
-    stack: [],
-    getInitialState: function getInitialState() {
-        return {
-            show: false
-        };
-    },
-    componentDidMount: function componentDidMount(currentPage) {
-        var self = this;
-        grandCentral.off('loaderStart').on('loaderStart', function (uniqueString) {
-            if ($.inArray(uniqueString, self.stack) == -1) {
-                console.log('loaderStart(' + uniqueString + ')');
-                self.stack.push(uniqueString);
-                self.setState({ show: true });
-            }
-        });
-        grandCentral.off('loaderEnd').on('loaderEnd', function (uniqueString) {
-            var i = $.inArray(uniqueString, self.stack);
-            if (i > -1) {
-                self.stack.splice(i, 1);
-                console.log('loaderEnd(' + uniqueString + ')');
-            }
-            if (self.stack.length === 0) {
-                self.setState({ show: false });
-            }
-        });
-    },
-    reset: function reset() {
-        this.stack = [];
-        this.setState({ show: false });
-    },
-    render: function render() {
-        var classes = this.state.show ? 'active' : '';
-        return React.createElement(
-            'div',
-            { id: 'loader', className: classes },
-            React.createElement(
-                'div',
-                { className: 'loadingmessage' },
-                React.createElement('img', { className: 'spinner', src: SiteConfig.assetsDirectory + 'images/ui/spinner.gif' })
-            )
-        );
-    }
-});
-'use strict';
 /*! mainmodal/mainmodal.jsx */
 rc.mainmodal = React.createClass({
     displayName: 'mainmodal',
@@ -719,4 +672,51 @@ rc.nav = React.createClass({
 			)
 		);
 	}
+});
+'use strict';
+/*! loader/loader.jsx */
+rc.loader = React.createClass({
+    displayName: 'loader',
+    stack: [],
+    getInitialState: function getInitialState() {
+        return {
+            show: false
+        };
+    },
+    componentDidMount: function componentDidMount(currentPage) {
+        var self = this;
+        grandCentral.off('loaderStart').on('loaderStart', function (uniqueString) {
+            if ($.inArray(uniqueString, self.stack) == -1) {
+                console.log('loaderStart(' + uniqueString + ')');
+                self.stack.push(uniqueString);
+                self.setState({ show: true });
+            }
+        });
+        grandCentral.off('loaderEnd').on('loaderEnd', function (uniqueString) {
+            var i = $.inArray(uniqueString, self.stack);
+            if (i > -1) {
+                self.stack.splice(i, 1);
+                console.log('loaderEnd(' + uniqueString + ')');
+            }
+            if (self.stack.length === 0) {
+                self.setState({ show: false });
+            }
+        });
+    },
+    reset: function reset() {
+        this.stack = [];
+        this.setState({ show: false });
+    },
+    render: function render() {
+        var classes = this.state.show ? 'active' : '';
+        return React.createElement(
+            'div',
+            { id: 'loader', className: classes },
+            React.createElement(
+                'div',
+                { className: 'loadingmessage' },
+                React.createElement('img', { className: 'spinner', src: SiteConfig.assetsDirectory + 'images/ui/spinner.gif' })
+            )
+        );
+    }
 });

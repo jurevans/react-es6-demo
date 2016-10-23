@@ -1,4 +1,4 @@
-describe('Test suite for Login page component', function() {
+describe('Test suite for Login page component', () => {
 	var component, email, password, submit,
         emailInput, passwordInput, submitButton;
 

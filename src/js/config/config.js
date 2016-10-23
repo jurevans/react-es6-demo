@@ -1,7 +1,7 @@
-const assetsDirectory = '';
-const DEEPLINK_DIR = DEEPLINK_DIR || '';
+var assetsDirectory = '';
+var DEEPLINK_DIR = DEEPLINK_DIR || '';
 
-let SiteConfig = {
+var SiteConfig = {
 
 	version: '0.9.1',
 

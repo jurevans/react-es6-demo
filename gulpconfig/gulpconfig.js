@@ -1,4 +1,4 @@
-/* 
+/*
     each grouping is order dependant !!!!
 */
 
@@ -21,20 +21,20 @@ var paths = {
     ],
     thirdParty: [
         './src/js/lib/react.min.js',   // React MUST be first
-        './src/js/lib/react-dom.min.js',   // React MUST be first 
+        './src/js/lib/react-dom.min.js',   // React MUST be first
         './src/js/lib/jquery*.js',
         './src/js/lib/underscore-min.js',
-        './src/js/lib/backbone-min.js',                
+        './src/js/lib/backbone-min.js',
         './src/js/lib/TweenMax.min.js', // include it if its there
     ],
     jsx: [
         './srcbase/js/rc_header_v1.js',
-        './srcbase/js/dc_header_v1.js',       
+        './srcbase/js/dc_header_v1.js',
         './src/jsx-pages/**/*.jsx',
         './src/jsx-special/**/*.jsx'
     ],
     js: [
-        './srcbase/js/prefix*.js',                    
+        './srcbase/js/prefix*.js',
         './src/js/config/config.js',
         './src/js/config/*.js',
         './src/js/lib_developer/**/*.js',
@@ -45,7 +45,7 @@ var paths = {
         '!./src/jsx-pages/**/*.spec.js',   //exclude unit test
         './src/jsx-special/**/*.js',  // looks for dev's logic libs here as well
         '!./src/jsx-special/**/*.spec.js', //exclude unit tests
-        './srcbase/jsxcompiled/jsxcompiled.js',            
+        './srcbase/jsxcompiled/jsxcompiled.js',
         './srcbase/js/grandcentral.js',
         './srcbase/js/router_base*.js',
         './src/js/router/router_developer.js',

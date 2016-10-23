@@ -38,16 +38,21 @@
     "gulp-strip-css-comments": "^1.2.0",
     "gulp-util": "^3.0.7",
     "jasmine-core": "^2.4.1",
+    "jasmine-es6": "^0.4.0",
     "karma": "^0.13.19",
+    "karma-babel-preprocessor": "^6.0.1",
+    "karma-es6-shim": "^1.0.0",
     "karma-jasmine": "^0.3.7",
     "karma-phantomjs-launcher": "^1.0.0",
+    "karma-phantomjs2-launcher": "^0.5.0",
+    "karma-requirejs": "^1.1.0",
     "phantomjs-prebuilt": "^2.1.3",
     "react": "^15.0.2",
     "react-addons-test-utils": "^15.0.2",
     "run-sequence": "^1.1.5"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "gulp test"
   },
   "author": "PrimeLens",
   "license": ""

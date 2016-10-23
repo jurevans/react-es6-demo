@@ -12,7 +12,7 @@
 // http://stackoverflow.com/questions/33018779/using-gulp-without-global-gulp-edit-and-without-linking-to-the-bin-js-file
 // http://stackoverflow.com/questions/22115400/why-do-we-need-to-install-gulp-globally-and-locally
 
-// this gulp is set up to NOT use gulp serve. We want to use the express server provided instead as 
+// this gulp is set up to NOT use gulp serve. We want to use the express server provided instead as
 // there will be proxy endpoints.
 // so in effect gulp, is no different to grunt in the task it performs here
 
@@ -38,11 +38,11 @@ var autoprefixer = require('gulp-autoprefixer');
 var paths = require('./gulpconfig/gulpconfig.js');
 
 
-gulp.task('default', function(){   
+gulp.task('default', function(){
     console.log('to use');
     console.log('npm run build');
     console.log('or');
-    console.log('npm run buildwatch');			  
+    console.log('npm run buildwatch');
 });
 
 // build
@@ -50,7 +50,7 @@ gulp.task('build', function(done){
     runSequence(['1:partials', '2:jsx', '3:cssBundle'], ['4:jsBundle'], done);
 });
 
-gulp.task('1:partials', function(){   
+gulp.task('1:partials', function(){
     return gulp.src(paths.partials)
     	.pipe(fc2json('htmlpartials.js', {extname:false, flat:true}))   // add  , {extname:false})) if they accept my pull request
     	.pipe(insert.prepend('window.htmlpartials = '))
@@ -58,7 +58,7 @@ gulp.task('1:partials', function(){
     	.pipe(gulp.dest('./srcbase/htmlcompiled'));
 });
 
-gulp.task('2:jsx', function(){   
+gulp.task('2:jsx', function(){
     return gulp.src(paths.jsx)
 		// insert header comment showing filename and tag it so its not deleted
 		.pipe(insert.transform(function(contents, file) {
@@ -86,13 +86,13 @@ gulp.task('2:jsx', function(){
         }))
         .pipe(plumber.stop())
     	// remove comments, cannot strip comments from jsx file as it crashes
-        .pipe(strip({ safe : true }))		
+        .pipe(strip({ safe : true }))
         .pipe(removeEmptyLines())
         .pipe(concat('jsxcompiled.js'))
-        .pipe(gulp.dest('./srcbase/jsxcompiled'));	
+        .pipe(gulp.dest('./srcbase/jsxcompiled'));
 });
 
-gulp.task('3:cssBundle', function(){   
+gulp.task('3:cssBundle', function(){
     return gulp.src(paths.sass)
         .pipe(plumber({
           errorHandler: function(error) {
@@ -124,13 +124,16 @@ gulp.task('3:cssBundle', function(){
         .pipe(removeEmptyLines())
         .pipe(addsrc.prepend('./src/css/bootstrap.min.css'))
         .pipe(concat('start.css'))
-        .pipe(gulp.dest('./public/prod'));           
+        .pipe(gulp.dest('./public/prod'));
 });
 
-gulp.task('4:jsBundle', function(){   
+gulp.task('4:jsBundle', function(){
     return gulp.src(paths.js)
         // Remove 'use strict';
         .pipe(replace(/('|")use strict\1;/g, ''))
+        .pipe(babel({
+            presets: ['es2015']
+        }))
         // insert header comment showing filename and tag it so its not deleted
         .pipe(insert.transform(function(contents, file) {
             var filename = file.path.replace(file.base,'');
@@ -142,7 +145,7 @@ gulp.task('4:jsBundle', function(){
         .pipe(removeEmptyLines())
         .pipe(addsrc.prepend(paths.thirdParty))
         .pipe(concat('start.js'))
-        .pipe(gulp.dest('./public/prod')) ;   
+        .pipe(gulp.dest('./public/prod')) ;
 });
 
 gulp.task('test', function(done) {
