@@ -1,11 +1,8 @@
 **/keys.js
 ./aws/keys.js
 .idea
-<<<<<<< HEAD
 .swp
 *.swp
-=======
->>>>>>> f227e3f997acfba8b6e346bdc4a5053f73446d0f
 .DS_Store
 *.DS_Store
 **/.DS_Store
